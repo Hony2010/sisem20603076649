@@ -1,0 +1,82 @@
+[
+  {"id": "ublVersionIdSwf", "tipo": "0", "value": "2.0"},
+  {"id": "CustomizationIdSwf", "tipo": "0", "value": "1.0"},
+
+  {"id": "CustomizationIdSwf", "tipo": "0", "value": "1.0"},
+  {"id": "ublVersionIdSwf", "tipo": "0", "value": "2.0"},
+  {"id": "nroCdpSwf", "tipo": "1", "value": "Documento"},
+  {"id": "fechaEmision", "tipo": "1", "value": "FechaEmision"},
+  {"id": "fechaVencimiento", "tipo": "1", "value": "FechaVencimiento"},
+  {"id": "moneda", "tipo": "1", "value": "CodigoMoneda"},
+  {"id": "nroRucEmisorSwf", "tipo": "1", "value": "CodigoEmpresa"},
+  {"id": "identificadorFacturadorSwf", "tipo": "0", "value": "Elaborado por SISEM PERU 1.0.0"},
+  {"id": "codigoFacturadorSwf", "tipo": "0", "value": "471156"},
+  {"id": "nombreComercialSwf", "tipo": "1", "value": "NombreComercial"},
+  {"id": "razonSocialSwf", "tipo": "1", "value": "RazonSocialEmisor"},
+  {"id": "identificadorFirmaSwf", "tipo": "0", "value": "SIGN"},
+  {"id": "tipDocuEmisorSwf", "tipo": "0", "value": "6"},
+  {"id": "ubigeoDomFiscalSwf", "tipo": "1", "value": "Ubigeo"},
+  {"id": "direccionDomFiscalSwf", "tipo": "1", "value": "DomicilioFiscal"},
+  {"id": "paisDomFiscalSwf", "tipo": "1", "value": "CodigoPaisA3"},
+
+  {"id": "nroDocumento", "tipo": "1", "value": "NumeroDocumentoIdentidad"},
+  {"id": "tipoDocumento", "tipo": "1", "value": "CodigoDocumentoIdentidad"},
+  {"id": "razonSocialUsuario", "tipo": "1", "value": "RazonSocialCliente"},
+  {"id": "direccionUsuario", "tipo": "1", "value": "Direccion"},
+
+  {"id": "sumaIgv", "tipo": "1", "value": "IGV"},
+  {"id": "idIgv", "tipo": "0", "value": "1000"},
+  {"id": "codIgv", "tipo": "0", "value": "IGV"},
+  {"id": "codExtIgv", "tipo": "0", "value": "VAT"},
+
+  {"id": "sumaIsc", "tipo": "1", "value": "ISC"},
+  {"id": "idIsc", "tipo": "0", "value": "2000"},
+  {"id": "codIsc", "tipo": "0", "value": "ISC"},
+  {"id": "codExtIsc", "tipo": "0", "value": "EXC"},
+
+  {"id": "sumaOtros", "tipo": "1", "value": "OtroTributo"},
+  {"id": "idOtr", "tipo": "0", "value": "9999"},
+  {"id": "codOtr", "tipo": "0", "value": "OTROS"},
+  {"id": "codExtOtr", "tipo": "0", "value": "OTH"},
+
+  {"id": "descuentoGlobal", "tipo": "1", "value": "DescuentoGlobal"},
+  {"id": "sumaOtrosCargos", "tipo": "1", "value": "OtroCargo"},
+  {"id": "sumaImporteVenta", "tipo": "1", "value": "Total"},
+  {"id": "tipoCodigoMonedaSwf", "tipo": "1", "value": "CodigoTipoPrecio"},
+
+  {"id": "codigoMontoDescuentosSwf", "tipo": "0", "value": "2005"},
+  {"id": "totalDescuento", "tipo": "1", "value": "DescuentoTotalItem"},
+  {"id": "codigoMontoOperGravadasSwf", "tipo": "0", "value": "1001"},
+  {"id": "montoOperGravadas", "tipo": "1", "value": "ValorVentaGravado"},
+  {"id": "codigoMontoOperInafectasSwf", "tipo": "0", "value": "1002"},
+  {"id": "montoOperInafectas", "tipo": "1", "value": "ValorVentaInafecto"},
+  {"id": "codigoMontoOperExoneradasSwf", "tipo": "0", "value": "1003"},
+  {"id": "montoOperExoneradas", "tipo": "1", "value": "ValorVentaNoGravado"},
+  {"id": "tipCdpSwf", "tipo": "0", "value": "01"}
+
+  {"id": "listaDetalle", "tipo": "3", "value": "DetallesComprobanteVenta", "datos":
+    [
+      {"id": "linea", "tipo": "1", "value": "NumeroItem"},
+
+      {"id": "unidadMedida", "tipo": "1", "value": "CodigoUnidadMedida"},
+      {"id": "cantItem", "tipo": "1", "value": "Cantidad"},
+      {"id": "codiProducto", "tipo": "1", "value": "CodigoMercaderia"},
+      {"id": "codiSunat", "tipo": "1", "value": "CodigoMercaderia"},
+      {"id": "desItem", "tipo": "1", "value": "NombreProducto"},
+      {"id": "valorUnitario", "tipo": "1", "value": "ValorUnitario"},
+      {"id": "descuentoItem", "tipo": "1", "value": "DescuentoItem"},
+      {"id": "montoIgvItem", "tipo": "1", "value": "IGVItem"},
+      {"id": "afectaIgvItem", "tipo": "1", "value": "CodigoTipoAfectacionIGV"},
+      {"id": "montoIscItem", "tipo": "1", "value": "ISCItem"},
+      {"id": "monto", "tipo": "0", "value": "0"},
+      {"id": "tipoSistemaIsc", "tipo": "1", "value": "CodigoTipoSistemaISC"},
+      {"id": "precioVentaUnitarioItem", "tipo": "1", "value": "PrecioUnitario"},
+      {"id": "valorVentaItem", "tipo": "1", "value": "SubTotal"},
+      {"id": "lineaSwf", "tipo": "1", "value": "NumeroItem"},
+      {"id": "tipoCodiMoneGratiSwf", "tipo": "3", "value": "CodigoTipoPrecio"}
+    ]
+  },
+
+  {"id": "listaRelacionado", "tipo": "3", "value": ""},
+  {"id": "listaLeyendas", "tipo": "3", "value": ""}
+]

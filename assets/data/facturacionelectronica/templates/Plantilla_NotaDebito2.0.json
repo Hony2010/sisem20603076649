@@ -1,0 +1,77 @@
+[
+	{"id": "direccionCliente", "tipo": "0", "value": "Direccion"},
+	{"id": "codigoPaisCliente", "tipo": "0", "value": ""},
+	{"id": "nroDocuIdenti", "tipo": "1", "value": "NumeroDocumentoIdentidad"},
+	{"id": "tipoDocuIdenti", "tipo": "1", "value": "CodigoDocumentoIdentidad"},
+	{"id": "razonSocialUsuario", "tipo": "1", "value": "RazonSocialCliente"},
+	{"id": "codigoUbigeoCliente", "tipo": "0", "value": ""},
+	{"id": "moneda", "tipo": "1", "value": "CodigoMoneda"},
+	{"id": "nroCdpSwf", "tipo": "1", "value": "Documento"},
+	{"id": "fechaEmision", "tipo": "1", "value": "FechaEmision"},
+	{"id": "codigoMotivo", "tipo": "1", "value": "CodigoMotivoNotaDebito"},
+	{"id": "descripcionMotivo", "tipo": "1", "value": "NombreMotivoNotaDebito"},
+	{"id": "sumaImporteVenta", "tipo": "1", "value": "Total"},
+	{"id": "tipDocuEmisorSwf", "tipo": "0", "value": "6"},
+	{"id": "nroRucEmisorSwf", "tipo": "1", "value": "CodigoEmpresa"},
+	{"id": "paisDomFiscalSwf", "tipo": "1", "value": "CodigoPaisA3"},
+	{"id": "direccionDomFiscalSwf", "tipo": "1", "value": "DomicilioFiscal"},
+	{"id": "nombreComercialSwf", "tipo": "1", "value": "NombreComercial"},
+	{"id": "razonSocialSwf", "tipo": "1", "value": "RazonSocialEmisor"},
+	{"id": "ubigeoDomFiscalSwf", "tipo": "1", "value": "Ubigeo"},
+	{"id": "CustomizationIdSwf", "tipo": "0", "value": "1.0"},
+	{"id": "ublVersionIdSwf", "tipo": "0", "value": "2.0"},
+	{"id": "identificadorFirmaSwf", "tipo": "0", "value": "SIGN"},
+	{"id": "nroDocuModifica", "tipo": "1", "value": "DocumentoReferencia"},
+	{"id": "tipoDocuModifica", "tipo": "1", "value": "CodigoTipoDocumentoReferencia"},
+
+	{"id": "idIgv", "tipo": "0", "value": "1000"},
+	{"id": "codIgv", "tipo": "0", "value": "IGV"},
+	{"id": "sumaIgv", "tipo": "1", "value": "IGV"},
+	{"id": "codExtIgv", "tipo": "0", "value": "VAT"},
+	{"id": "idIsc", "tipo": "0", "value": "2000"},
+	{"id": "codExtIsc", "tipo": "0", "value": "EXC"},
+	{"id": "codIsc", "tipo": "0", "value": "ISC"},
+	{"id": "sumaIsc", "tipo": "1", "value": "ISC"},
+	{"id": "codigoMontoOperExoneradasSwf", "tipo": "0", "value": "1003"},
+	{"id": "montoOperExoneradas", "tipo": "1", "value": "ValorVentaNoGravado"},
+	{"id": "totalVentaOperGratuita", "tipo": "0", "value": "0"},
+	{"id": "codigoGratuitoSwf", "tipo": "0", "value": "1004"},
+	{"id": "codigoMontoOperGravadasSwf", "tipo": "0", "value": "1001"},
+	{"id": "montoOperGravadas", "tipo": "1", "value": "ValorVentaGravado"},
+	{"id": "montoOperInafectas", "tipo": "1", "value": "ValorVentaInafecto"},
+	{"id": "codigoMontoOperInafectasSwf", "tipo": "0", "value": "1002"},
+	{"id": "idOtr", "tipo": "0", "value": "9999"},
+	{"id": "codExtOtr", "tipo": "0", "value": "OTH"},
+	{"id": "codOtr", "tipo": "0", "value": "OTROS"},
+	{"id": "sumaOtros", "tipo": "1", "value": "OtroTributo"},
+	{"id": "sumaOtrosCargos", "tipo": "1", "value": "OtroCargo"},
+
+	{"id": "listaDetalle", "tipo": "3", "value": "DetallesComprobanteVenta", "datos":
+		[
+			{"id": "lineaSwf", "tipo": "1", "value": "NumeroItem"},
+			{"id": "unidadMedida", "tipo": "1", "value": "CodigoUnidadMedida"},
+			{"id": "afectaIgvItem", "tipo": "1", "value": "CodigoTipoAfectacionIGV"},
+			{"id": "tipoSistemaIsc", "tipo": "1", "value": "CodigoTipoSistemaISC"},
+			{"id": "desItem", "tipo": "1", "value": "NombreProducto"},
+			{"id": "codiProducto", "tipo": "1", "value": "CodigoMercaderia"},
+			{"id": "codiSunat", "tipo": "1", "value": "CodigoMercaderia"},
+			{"id": "cantItem", "tipo": "1", "value": "Cantidad"},
+			{"id": "valorVentaItem", "tipo": "1", "value": "SubTotal"},
+			{"id": "precioVentaUnitarioItem", "tipo": "1", "value": "PrecioUnitario"},
+			{"id": "montoIgvItem", "tipo": "1", "value": "IGVItem"},
+			{"id": "montoIscItem", "tipo": "1", "value": "ISCItem"},
+			{"id": "valorUnitario", "tipo": "1", "value": "ValorUnitario"},
+			{"id": "monto", "tipo": "0", "value": "0"},
+			{"id": "tipoCodigoMonedaSwf", "tipo": "1", "value": "CodigoTipoPrecio"}
+		]
+	},
+
+	{"id": "listaLeyendas", "tipo": "3", "value": "DetalleLeyenda", "datos":
+		[
+			{"id": "codigo", "tipo": "0", "value": "1000"},
+			{"id": "descripcion", "tipo": "1", "value": "MontoLetra"}
+		]
+	},
+
+	{"id": "listaRelacionado", "tipo": "3", "value": ""}
+]

@@ -1,0 +1,18 @@
+{
+  "codRegiPercepcion"         : "",
+  "baseImponiblePercepcion"   : "0",
+  "montoPercepcion"           : "0",
+  "montoTotalSumPercepcion"   : "0",
+  "totalVentaOperGratuita"    : "0",
+  "totalAnticipos"            : "0",
+  "codigoPaisCliente"         : "",
+  "codigoUbigeoCliente"       : "",
+  "direccionCliente"          : "",
+  "codigoPaisEntrega"         : "",
+  "codigoUbigeoEntrega"       : "",
+  "direccionCompletaEntrega"  : "",
+  "fechaVencimiento"          : "",
+  "codigoPercepSwf"           : "2001",
+  "codigoGratuitoSwf"         : "1004",
+  "codigoMonedaSolesSwf"      : "PEN"
+}

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteDeCliente" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b9951250-3ba9-4397-87ec-6943e9ea2e20">
+	<property name="ireport.zoom" value="1.6105100000000023"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.wrap.text" value="false"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+	<queryString>
+		<![CDATA[select familiaproducto.NombreFamiliaProducto, subfamiliaproducto.NombreSubFamiliaProducto,
+			empresa.NombreComercial, empresa.CodigoEmpresa from familiaproducto
+	inner join subfamiliaproducto on subfamiliaproducto.IdFamiliaProducto = familiaproducto.IdFamiliaProducto
+	cross join empresa
+	where familiaproducto.IndicadorEstado = 'A' AND subfamiliaproducto.IndicadorEstado = 'A'
+	order by familiaproducto.NombreFamiliaProducto ASC]]>
+	</queryString>
+	<field name="NombreFamiliaProducto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NombreSubFamiliaProducto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NombreComercial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CodigoEmpresa" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="95" splitType="Stretch">
+			<textField>
+				<reportElement x="2" y="0" width="260" height="15" uuid="e55d4f67-02a9-409e-a835-c64468a5df40"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NombreComercial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2" y="16" width="260" height="15" uuid="c3bbd0f5-28c2-4736-9e45-6d2c23ad426c"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["RUC "+$F{CodigoEmpresa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="48" width="550" height="15" uuid="4b5dc76e-8afc-4c35-b802-4e1a2b0495a1"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="11" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[LISTADO DE FAMILIAS Y SUBFAMILIAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="32" width="260" height="15" uuid="d34d412a-d6db-45d9-b7eb-e4e5215eb008"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="262" y="0" width="290" height="15" uuid="37a82838-e170-4fda-9671-137c22e97c3d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="262" y="80" width="290" height="15" forecolor="#FFFFFF" backcolor="#000033" uuid="7a16acef-53b1-4e41-b0a1-5159ce34f91c"/>
+				<box>
+					<topPen lineWidth="0.75" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.75" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.75" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.75" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true" isUnderline="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Subfamilia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="64" width="260" height="15" uuid="f2416b67-e947-4f1a-9727-a420688d7ae8"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2" y="80" width="260" height="15" forecolor="#FFFFFF" backcolor="#000033" uuid="08797895-f18d-4b63-a047-22930c2abb09"/>
+				<box>
+					<topPen lineWidth="0.75" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.75" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.75" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.75" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Familia]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="2" y="0" width="260" height="15" uuid="800755a9-a32f-4eca-a98f-00e16b8503a9"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NombreFamiliaProducto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="262" y="0" width="290" height="15" uuid="b55e1bce-e448-4b38-96ef-4a4c2cffd5e1"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NombreSubFamiliaProducto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="35"/>
+	</summary>
+</jasperReport>

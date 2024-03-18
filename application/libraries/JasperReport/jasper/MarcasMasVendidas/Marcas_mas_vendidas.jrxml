@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Tipos_productos_más_vendidos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b9951250-3ba9-4397-87ec-6943e9ea2e20">
+	<property name="ireport.zoom" value="1.331000000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.wrap.text" value="false"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+	<parameter name="FechaInicial" class="java.lang.String"/>
+	<parameter name="FechaFinal" class="java.lang.String"/>
+	<parameter name="CantidadFila" class="java.lang.Integer">
+		<parameterDescription><![CDATA[Cantidad de Familias que apeceran]]></parameterDescription>
+		<defaultValueExpression><![CDATA[3]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT MA.NombreMarca, sum(DCV.ValorVentaItem) as ValorVenta, EMP.CodigoEmpresa,
+ EMP.RazonSocial as NombreEmpresa, CV.FechaEmision
+
+FROM DetalleComprobanteVenta as DCV
+inner join Mercaderia M ON M.IdProducto = DCV.IdProducto
+inner join ComprobanteVenta CV on CV.IdComprobanteVenta = DCV.IdComprobanteVenta
+inner join Producto PRO on PRO.IdProducto = M.IdProducto
+inner join Modelo MO ON MO.IdModelo = M.IdModelo
+inner join Marca MA ON MA.IdMarca = MO.IdMarca
+cross join Empresa EMP
+
+WHERE (CV.FechaEmision BETWEEN $P{FechaInicial} AND $P{FechaFinal})
+GROUP BY NombreMarca
+ORDER BY ValorVenta DESC
+LIMIT $P{CantidadFila}]]>
+	</queryString>
+	<field name="NombreMarca" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ValorVenta" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[Para Lista Precio]]></fieldDescription>
+	</field>
+	<field name="CodigoEmpresa" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NombreEmpresa" class="java.lang.String"/>
+	<field name="FechaEmision" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="ValorVenta_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{ValorVenta}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="130" splitType="Stretch">
+			<textField>
+				<reportElement x="33" y="0" width="327" height="16" uuid="e55d4f67-02a9-409e-a835-c64468a5df40"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NombreEmpresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="33" y="16" width="327" height="16" uuid="c3bbd0f5-28c2-4736-9e45-6d2c23ad426c"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["RUC "+$F{CodigoEmpresa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="33" y="48" width="438" height="16" uuid="4b5dc76e-8afc-4c35-b802-4e1a2b0495a1"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[MARCAS DE PRODUCTOS MÁS VENDIDOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="33" y="32" width="438" height="16" uuid="d34d412a-d6db-45d9-b7eb-e4e5215eb008"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="33" y="80" width="438" height="16" uuid="453c0582-751c-436c-84a4-e2233ce06758"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="33" y="64" width="438" height="16" uuid="e16746a3-a26f-4285-9aed-13f400c49d5a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Del "+$P{FechaInicial}+" Al "+$P{FechaFinal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="33" height="16" uuid="b23850ae-8e08-4004-b395-e84ec2e4fd10"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="360" y="96" width="111" height="17" forecolor="#FFFFFF" backcolor="#000033" uuid="5ea2c44e-b1bc-480f-9569-47be74964269"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75" lineColor="#000033"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true" isUnderline="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Valor Venta (S/)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="360" y="113" width="111" height="17" forecolor="#FFFFFF" backcolor="#000033" uuid="7d76a550-ce34-4e38-8eb8-524d122929d3"/>
+				<box leftPadding="0">
+					<topPen lineWidth="0.0" lineColor="#000033"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true" isUnderline="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[(No incluye IGV)]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="360" y="0" width="111" height="16" uuid="7c123334-751c-4dd7-a1c3-e7d5d4acb86c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="33" y="96" width="62" height="34" forecolor="#FFFFFF" backcolor="#000033" uuid="9b789530-befc-4a61-a6e7-9cd707a55139"/>
+				<box leftPadding="0">
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true" isUnderline="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[NRO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="95" y="96" width="265" height="34" forecolor="#FFFFFF" backcolor="#000033" uuid="9a8da65e-6f2a-4ba7-9689-8dd2fb4ff157"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75" lineColor="#000033"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true" isUnderline="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[MARCA DE PRODUCTO]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="95" y="0" width="265" height="16" uuid="00d919d9-d1cf-4e88-8b69-56b1b29cb23f"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Bottom">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NombreMarca}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="360" y="0" width="111" height="16" uuid="5ede5c74-3942-4ddf-b768-21ec1fd57ef1"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ValorVenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="33" y="0" width="62" height="16" uuid="c31d2794-3763-456d-8163-d6a2960e50b6"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement x="95" y="16" width="265" height="20" uuid="c08ad750-4fc5-4878-b9e9-6bb6eb0e0a16"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="360" y="16" width="111" height="20" uuid="343583e0-9b63-4fba-9ff2-631020e9da1d"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{ValorVenta_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="95" y="0" width="265" height="16" uuid="bd6302d6-4a20-4444-b806-ed97afa2a473"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

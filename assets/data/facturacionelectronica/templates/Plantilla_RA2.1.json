@@ -1,0 +1,25 @@
+[
+  {"id": "ublVersionIdSwf", "tipo": "0", "value": "2.0"},
+  {"id": "CustomizationIdSwf", "tipo": "0", "value": "1.0"},
+
+  {"id": "nombreComercialSwf", "tipo": "1", "value": "NombreComercial"},
+  {"id": "razonSocialSwf", "tipo": "1", "value": "RazonSocial"},
+  {"id": "nroRucEmisorSwf", "tipo": "1", "value": "CodigoEmpresa"},
+  {"id": "tipDocuEmisorSwf", "tipo": "0", "value": "6"},
+  {"id": "fechaDocumentoBaja", "tipo": "1", "value": "FechaEmisionDocumento"},
+  {"id": "fechaComunicacioBaja", "tipo": "1", "value": "FechaComunicacionBaja"},
+
+  {"id": "idComunicacion", "tipo": "1", "value": "CodigoComunicacion"},
+
+  {"id": "identificadorFirmaSwf", "tipo": "0", "value": "#Sign"},
+
+  {"id": "listaResumen", "tipo": "3", "value": "DetallesComunicacionBaja", "datos":
+    [
+      {"id": "tipoDocumentoBaja", "tipo": "1", "value": "CodigoTipoDocumento"},
+      {"id": "serieDocumentoBaja", "tipo": "1", "value": "SerieDocumento"},
+      {"id": "nroDocumentoBaja", "tipo": "1", "value": "NumeroDocumento"},
+      {"id": "motivoBajaDocumento", "tipo": "1", "value": "MotivoBaja"},
+      {"id": "linea", "tipo": "1", "value": "NumeroItem"}
+    ]
+  }
+]

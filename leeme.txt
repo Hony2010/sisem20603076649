@@ -1,0 +1,7 @@
+en los jaspers dicen (EJEMPLO) son los jaspers de la misma empresa 
+pero que tendras que modificar la consulta , 
+Que ya no jale de NombreProducto de tabla Producto sino
+de NombreProducto de la Tabla DetalleComprobanteVenta o
+DetalleGuiaRemisionRemitente.
+Tambien que los jaspers que jalan direccion de tabla persona
+jalen de tabla comproanteventa

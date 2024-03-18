@@ -1,0 +1,23 @@
+[
+  { "IdCampo": 1, "Id":"CodigoMercaderia", "Descripcion": "Codigo", "Clase": "DetalleNotaDebitoCompra_Codigo", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 2, "Id":"NombreProducto", "Descripcion": "Descripcion", "Clase": "DetalleNotaDebitoCompra_Descripcion", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 3, "Id":"Cantidad", "Descripcion": "Cantidad", "Clase": "DetalleNotaDebitoCompra_Cantidad", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 4, "Id":"CostoUnitario", "Descripcion": "CostoUnitario", "Clase": "DetalleNotaDebitoCompra_CostoUnitario", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 5, "Id":"Descuento", "Descripcion": "Descuento", "Clase": "DetalleNotaDebitoCompra_Descuento", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 6, "Id":"SubTotal", "Descripcion": "Importe", "Clase": "DetalleNotaDebitoCompra_Importe", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 7, "Id":"Gravada", "Descripcion": "Gravada", "Clase": "NotaDebitoCompra_Gravada", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 8, "Id":"NoGravada", "Descripcion": "NoGravada", "Clase": "NotaDebitoCompra_NoGravada", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 9, "Id":"DescuentoGlobal", "Descripcion": "DescuentoGlobal", "Clase": "NotaDebitoCompra_DescuentoGlobal", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 10, "Id":"IGV", "Descripcion": "IGV", "Clase": "NotaDebitoCompra_IGV", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 11, "Id":"Total", "Descripcion": "Total", "Clase": "NotaDebitoCompra_Total", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 12, "Id":"Concepto", "Descripcion": "Concepto", "Clase": "NotaDebitoCompra_Concepto", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 13, "Id":"Porcentaje", "Descripcion": "Porcentaje", "Clase": "NotaDebitoCompra_Porcentaje", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 14, "Id":"Importe", "Descripcion": "Importe", "Clase": "NotaDebitoCompra_Importe", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 15, "Id":"", "Descripcion": "Botton Agregado-Eliminado", "Clase": "DetalleNotaDebitoCompra_AgregarEliminar", "Tipo": 1, "_Tipo": "button" },
+  { "IdCampo": 16, "Id":"DescuentoUnitario", "Descripcion": "DescuentoUnitario", "Clase": "DetalleNotaDebitoCompra_DescuentoUnitario", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 17, "Id":"ValorVentaItem", "Descripcion": "ValorVentaItem", "Clase": "DetalleNotaDebitoCompra_ValorVentaItem", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 18, "Id":"AfectoIGV", "Descripcion": "AfectoIGV", "Clase": "DetalleNotaDebitoCompra_AfectoIGV", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 19, "Id":"AfectoISC", "Descripcion": "AfectoISC", "Clase": "DetalleNotaDebitoCompra_AfectoISC", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 20, "Id":"ISC", "Descripcion": "ISC", "Clase": "NotaDebitoCompra_ISC", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 21, "Id":"AjusteValor", "Descripcion": "AjusteValor", "Clase": "DetalleNotaDebitoCompra_AjusteValor", "Tipo": 0, "_Tipo": "input" }
+]

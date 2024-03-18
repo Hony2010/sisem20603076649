@@ -1,0 +1,23 @@
+[
+	{"id":"Menu", "tipo": "3", "value":  "Modulos", "datos":
+		[
+			{"id":"id_ul", "tipo": "1", "value":  "IdModulo"},
+			{"id":"URL", "tipo": "1", "value":  "UrlModulo"},
+			{"id":"Nombre", "tipo": "1", "value": "ItemModulo"},
+			{"id":"name", "tipo": "1", "value":  "NameModulo"},
+			{"id":"key", "tipo": "1", "value":  "AtajoModulo"},
+
+			{"id":"Data", "tipo": "3", "value":  "Opciones", "datos":
+				[
+					{"id":"SubItem", "tipo": "1", "value":  "NombreItemOpcion"},
+					{"id":"icono", "tipo": "1", "value":  "IconoOpcion"},
+					{"id":"href", "tipo": "1", "value": "UrlOpcion"},
+					{"id":"name", "tipo": "1", "value": "NameOpcion"},
+					{"id":"title", "tipo": "1", "value": "TitleOpcion"},
+					{"id":"id", "tipo": "0", "value": ""},
+					{"id":"key", "tipo": "1", "value": "TeclaAtajoOpcion"}
+				]
+			}
+		]
+	}
+]

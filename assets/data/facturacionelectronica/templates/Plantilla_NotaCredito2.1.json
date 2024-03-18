@@ -1,0 +1,139 @@
+[
+	{"id":"ublVersionIdSwf", "tipo": "0", "value": "2.1"},
+	{"id":"CustomizationIdSwf", "tipo": "0", "value": "2.0"},
+
+	{"id": "fecEmision", "tipo": "1", "value": "FechaEmision"},
+	{"id": "codLocalEmisor", "tipo": "1", "value": "CodigoSede"},
+	{"id": "tipDocUsuario", "tipo": "1", "value": "CodigoDocumentoIdentidad"},
+	{"id": "numDocUsuario", "tipo": "1", "value": "NumeroDocumentoIdentidad"},
+	{"id": "rznSocialUsuario", "tipo": "1", "value": "RazonSocialCliente"},
+	{"id": "moneda", "tipo": "1", "value": "CodigoMoneda"},
+
+	{"id": "numDocAfectado", "tipo": "1", "value": "DocumentoReferencia"},
+	{"id": "codMotivo", "tipo": "1", "value": "CodigoMotivoNotaCredito"},
+	{"id": "desMotivo", "tipo": "1", "value": "NombreMotivoNotaCredito"},
+
+	{"id": "nroCdpSwf", "tipo": "1", "value": "Documento"},
+	{"id": "nroRucEmisorSwf", "tipo": "1", "value": "CodigoEmpresa"},
+	{"id": "tipDocuEmisorSwf", "tipo": "0", "value": "6"},
+	{"id": "nombreComercialSwf", "tipo": "1", "value": "NombreComercial"},
+	{"id": "razonSocialSwf", "tipo": "1", "value": "RazonSocialEmisor"},
+	{"id": "ubigeoDomFiscalSwf", "tipo": "1", "value": "Ubigeo"},
+	{"id": "direccionDomFiscalSwf", "tipo": "1", "value": "DomicilioFiscal"},
+	{"id": "paisDomFiscalSwf", "tipo": "1", "value": "CodigoPaisA2"},
+
+	{"id":"identificadorFirmaSwf", "tipo": "0", "value": "#Sign"},
+
+	{"id":"sumTotTributos", "tipo": "1", "value": "IGV"},
+	{"id":"sumDescTotal", "tipo": "1", "value": "DescuentoTotalItem"},
+	{"id":"sumOtrosCargos", "tipo": "1", "value": "OtroCargo"},
+	{"id":"sumImpVenta", "tipo": "1", "value": "Total"},
+	{"id":"sumPrecioVenta", "tipo": "1", "value": "Total"},	
+	{"id":"FormaPagoSUNAT", "tipo": "1", "value": "NombreFormaPagoSUNAT"},
+	{"id":"TotalMontoBaseImponible", "tipo": "1", "value": "TotalMontoBaseImponible"},
+	{"id":"ctaBancoNacionDetraccion", "tipo": "1", "value": "NumeroDetraccionBancoNacion"},
+	{"id":"codBienDetraccion", "tipo": "1", "value": "CodigoBienProductoDetraccionSUNAT"},
+	{"id":"porDetraccion", "tipo": "1", "value": "PorcentajeDetraccion"},
+	{"id":"mtoDetraccion", "tipo": "1", "value": "MontoDetraccion"},	
+	{"id":"MontoNetoPendientePagoCredito", "tipo": "1", "value": "MontoNetoPendientePagoCredito"},	
+	
+
+	{"id": "listaReferencia", "tipo": "3", "value": "DocumentosReferencia", "datos":
+		[
+			{"id": "numDocAfectado", "tipo": "1", "value": "DocumentoReferencia"},
+			{"id": "tipDocAfectado", "tipo": "1", "value": "CodigoTipoDocumento"},
+			{"id": "fecDocAfectado", "tipo": "1", "value": "FechaEmisionReferencia"}
+		]
+	},
+
+	{"id": "listaDetalle", "tipo": "3", "value": "DetallesComprobanteVenta", "datos":
+		[
+			{"id": "unidadMedida", "tipo": "1", "value": "CodigoUnidadMedida"},
+			{"id": "ctdUnidadItem", "tipo": "1", "value": "Cantidad"},
+			{"id": "codProducto", "tipo": "1", "value": "CodigoMercaderia"},
+
+			{"id": "desItem", "tipo": "1", "value": "NombreProducto"},
+			{"id": "mtoValorUnitario", "tipo": "1", "value": "ValorUnitarioNC"},
+			{"id": "sumTotTributosItem", "tipo": "1", "value": "SumaTributo"},
+
+			{"id":"codTriIGV", "tipo": "1", "value":  "CodigoTipoTributo"},
+			{"id":"mtoIgvItem", "tipo": "1", "value":  "IGVItemNC"},
+			{"id":"mtoBaseIgvItem", "tipo": "1", "value":  "ValorVentaItemNC"},
+			{"id":"nomTributoIgvItem", "tipo": "1", "value":  "NombreTributo"},
+			{"id":"codTipTributoIgvItem", "tipo": "1", "value":  "CodigoInternacional"},
+			{"id":"tipAfeIGV", "tipo": "1", "value":  "CodigoTipoAfectacionIGV"},
+			{"id":"porIgvItem", "tipo": "1", "value":  "PorcentajeIGV"},
+
+			{"id":"codTriISC", "tipo": "0", "value":  "2000"},
+			{"id":"mtoIscItem", "tipo": "1", "value":  "ISCItem"},
+			{"id":"mtoBaseIscItem", "tipo": "0", "value":  "0.00"},
+			{"id":"nomTributoIscItem", "tipo": "0", "value":  "ISC"},
+			{"id":"codTipTributoIscItem", "tipo": "0", "value":  "EXC"},
+			{"id":"tipSisISC", "tipo": "1", "value":  "CodigoTipoSistemaISC"},
+			{"id":"porIscItem", "tipo": "1", "value":  "TasaISC"},
+
+			{"id":"codTriOTRO", "tipo": "0", "value":  "9999"},
+			{"id":"mtoOtroItem", "tipo": "0", "value":  "0.00"},
+			{"id":"mtoBaseOtroItem", "tipo": "0", "value":  "0.00"},
+			{"id":"nomTributoOtroItem", "tipo": "0", "value":  "OTROS"},
+			{"id":"codTipTributoOtroItem", "tipo": "0", "value":  "OTH"},
+			{"id":"porOtroItem", "tipo": "0", "value":  "0.00"},
+
+			{"id":"codTriICBPER", "tipo": "0", "value":  "7152"},
+			{"id":"mtoICBPERItem", "tipo": "1", "value":  "SumatoriaICBP"},
+			{"id":"mtoBaseICBPERItem", "tipo": "0", "value":  "0.00"},
+			{"id":"nomTributoICBPERItem", "tipo": "0", "value":  "ICBPER"},
+			{"id":"codTipTributoICBPERItem", "tipo": "0", "value":  "OTH"},
+			{"id":"porICBPERItem", "tipo": "0", "value":  "0.00"},
+			{"id":"factorICBPERItem", "tipo": "1", "value":  "FactorICBP"},
+
+			{"id":"mtoPrecioVentaUnitario", "tipo": "1", "value":  "PrecioUnitarioNC"},
+			{"id":"mtoValorVentaItem", "tipo": "1", "value":  "ValorVentaItemNC"},
+			{"id":"mtoValorReferencialUnitario", "tipo": "1", "value":  "ValorReferencial"},
+			{"id":"mtoBaseIgvItemReferencial", "tipo": "1", "value":  "ValorReferencialItem"},
+			{"id":"mtoIgvItemReferencial", "tipo": "1", "value":  "IGVReferencialItem"},
+			{"id":"indicadorOperacionGratuita", "tipo": "1", "value":  "EstadoOperacionGratuita"},
+			{"id": "lineaSwf", "tipo": "1", "value": "NumeroItem"}
+		]
+	},
+
+	{"id": "listaLeyendas", "tipo": "3", "value": "DetalleLeyenda", "datos":
+		[
+			{"id": "codigo", "tipo": "0", "value": "1000"},
+			{"id": "descripcion", "tipo": "1", "value": "MontoLetra"}
+		]
+	},
+
+
+	{"id":"listaTributos", "tipo": "3", "value":  "DetalleTributo", "datos":
+		[
+			{"id":"ideTributo", "tipo": "1", "value":  "CodigoTributo"},
+			{"id":"nomTributo", "tipo": "1", "value":  "NombreTributo"},
+			{"id":"codTipTributo", "tipo": "1", "value":  "CodigoTipoTributo"},
+			{"id":"mtoBaseImponible", "tipo": "1", "value":  "MontoBaseImponible"},
+			{"id":"mtoTributo", "tipo": "1", "value":  "MontoTributo"}
+		]
+	},
+
+	{"id":"listaVariablesGlobales", "tipo": "3", "value": "DetalleVariablesGlobales","datos" :
+		[			
+			{"id":"tipVariableGlobal", "tipo": "1" , "value":"TipoVariableGlobal"},
+			{"id":"codTipoVariableGlobal", "tipo": "1" , "value":"CodigoTipoVariableGlobal"},
+			{"id":"porVariableGlobal", "tipo": "1" , "value":"PorcentajeVariableGlobal"},
+			{"id":"monMontoVariableGlobal", "tipo": "1" , "value":"MonedaVariableGlobal"},
+			{"id":"mtoVariableGlobal", "tipo": "1" , "value":"MontoVariableGlobal"},
+			{"id":"monBaseImponibleVariableGlobal", "tipo": "1" , "value":"MonedaBaseImponibleVariableGlobal"},
+			{"id":"mtoBaseImpVariableGlobal", "tipo": "1" , "value":"MontoBaseImponibleVariableGlobal"}			
+		]
+	},
+	{"id":"listaRelacionado", "tipo": "3", "value":  ""},
+	{"id":"listaAdicionalDetalle", "tipo": "3", "value":  ""},
+
+	{"id":"listaCuotasPago", "tipo": "3", "value": "DetalleCuotasPago","datos" :
+		[			
+			{"id":"IdentificadorCuota", "tipo": "1" , "value":"IdentificadorCuota"},
+			{"id":"FechaPagoCuota", "tipo": "1" , "value":"FechaPagoCuotaSUNAT"},
+			{"id":"MontoCuota", "tipo": "1" , "value":"MontoCuota"}
+		]
+	}
+]

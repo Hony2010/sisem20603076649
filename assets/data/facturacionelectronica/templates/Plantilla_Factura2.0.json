@@ -1,0 +1,77 @@
+[
+	{"id":"nroDocumento", "tipo": "1", "value":  "NumeroDocumentoIdentidad"},
+	{"id":"tipoDocumento", "tipo": "1", "value":  "CodigoDocumentoIdentidad"},
+	{"id":"direccionCliente", "tipo": "0", "value": "Direccion"},
+	{"id":"razonSocialUsuario", "tipo": "1", "value":  "RazonSocialCliente"},
+	{"id":"nroCdpSwf", "tipo": "1", "value":  "Documento"},
+	{"id":"fechaEmision", "tipo": "1", "value":  "FechaEmision"},
+	{"id":"fechaVencimiento", "tipo": "1", "value":  "FechaVencimiento"},
+	{"id":"tipCdpSwf", "tipo": "0", "value":  "01"},
+	{"id":"moneda", "tipo": "1", "value":  "CodigoMoneda"},
+	{"id":"codigoMontoDescuentosSwf", "tipo": "0", "value":  "2005"},
+	{"id":"totalDescuento", "tipo": "1", "value":  "DescuentoTotalItem"},
+	{"id":"descuentoGlobal", "tipo": "1", "value":  "DescuentoGlobal"},
+	{"id":"sumaImporteVenta", "tipo": "1", "value":  "Total"},
+	{"id":"nroRucEmisorSwf", "tipo": "1", "value":  "CodigoEmpresa"},
+	{"id":"nombreComercialSwf", "tipo": "1", "value":  "NombreComercial"},
+	{"id":"tipDocuEmisorSwf", "tipo": "0", "value":  "6"},
+	{"id":"razonSocialSwf", "tipo": "1", "value":  "RazonSocialEmisor"},
+	{"id":"ubigeoDomFiscalSwf", "tipo": "1", "value":  "Ubigeo"},
+	{"id":"direccionDomFiscalSwf", "tipo": "1", "value":  "DomicilioFiscal"},
+	{"id":"paisDomFiscalSwf", "tipo": "1", "value":  "CodigoPaisA3"},
+	{"id":"ublVersionIdSwf", "tipo": "0", "value": "2.0"},
+	{"id":"CustomizationIdSwf", "tipo": "0", "value": "1.0"},
+	{"id":"identificadorFirmaSwf", "tipo": "0", "value": "NombreFirma"},
+	{"id":"codigoMontoOperGravadasSwf", "tipo": "0", "value": "1001"},
+	{"id":"montoOperGravadas", "tipo": "1", "value": "ValorVentaGravado"},
+	{"id":"codigoMontoOperInafectasSwf", "tipo": "0", "value": "1002"},
+	{"id":"montoOperInafectas", "tipo": "1", "value":  "ValorVentaInafecto"},
+	{"id":"codigoMontoOperExoneradasSwf", "tipo": "0", "value": "1003"},
+	{"id":"montoOperExoneradas", "tipo": "1", "value": "ValorVentaNoGravado"},
+	{"id":"idIsc", "tipo": "0", "value":  "2000"},
+	{"id":"codIsc", "tipo": "0", "value":  "ISC"},
+	{"id":"codExtIsc", "tipo": "0", "value":  "EXC"},
+	{"id":"sumaIsc", "tipo": "1", "value":  "ISC"},
+	{"id":"idIgv", "tipo": "0", "value":  "1000"},
+	{"id":"codIgv", "tipo": "0", "value":  "IGV"},
+	{"id":"codExtIgv", "tipo": "0", "value":  "VAT"},
+	{"id":"sumaIgv", "tipo": "1", "value":  "IGV"},
+	{"id":"idOtr", "tipo": "0", "value":  "9999"},
+	{"id":"codOtr", "tipo": "0", "value":  "OTROS"},
+	{"id":"codExtOtr", "tipo": "0", "value":  "OTH"},
+	{"id":"sumaOtros", "tipo": "1", "value":  "OtroTributo"},
+	{"id":"sumaOtrosCargos", "tipo": "1", "value":  "OtroCargo"},
+
+	{"id":"listaDetalle", "tipo": "3", "value":  "DetallesComprobanteVenta", "datos":
+	[
+	{"id":"afectaIgvItem", "tipo": "1", "value":  "CodigoTipoAfectacionIGV"},
+	{"id":"cantItem", "tipo": "1", "value":  "Cantidad"},
+	{"id":"codiProducto", "tipo": "1", "value":  "CodigoMercaderia"},
+	{"id":"codiSunat", "tipo": "1", "value":  "CodigoMercaderia"},
+	{"id":"descuentoItem", "tipo": "1", "value":  "DescuentoItem"},
+	{"id":"desItem", "tipo": "1", "value":  "NombreProducto"},
+	{"id":"lineaSwf", "tipo": "1", "value":  "NumeroItem"},
+	{"id":"montoIgvItem", "tipo": "1", "value":  "IGVItem"},
+	{"id":"montoIscItem", "tipo": "1", "value":  "ISCItem"},
+	{"id":"precioVentaUnitarioItem", "tipo": "1", "value":  "PrecioUnitario"},
+	{"id":"tipoCodigoMonedaSwf", "tipo": "1", "value":  "CodigoTipoPrecio"},
+	{"id":"tipoSistemaIsc", "tipo": "1", "value":  "CodigoTipoSistemaISC"},
+	{"id":"unidadMedida", "tipo": "1", "value":  "CodigoUnidadMedida"},
+	{"id":"valorUnitario", "tipo": "1", "value":  "ValorUnitario"},
+	{"id":"valorVentaItem", "tipo": "1", "value":  "SubTotal"},
+
+	{"id":"monto", "tipo": "1", "value": "ValorReferencial"},
+	{"id":"tipoCodiMoneGratiSwf", "tipo": "1", "value": "CodigoTipoPrecio"}
+	]
+	},
+
+	{"id":"listaLeyendas", "tipo": "3", "value":  "DetalleLeyenda", "datos":
+	[
+	{"id":"codigo", "tipo": "0", "value":  "1000"},
+	{"id":"descripcion", "tipo": "1", "value": "MontoLetra"}
+	]
+	},
+
+	{"id":"listaRelacionado", "tipo": "3", "value":  ""}
+
+]

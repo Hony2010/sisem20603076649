@@ -1,0 +1,59 @@
+[
+  [
+    {"name": "Descripcion", "value": "Familia Producto", "tipo": 0},
+    {"name": "Opcion", "value": "1", "tipo": 0},
+    {"name": "NombrePlantillaCabecera", "value": "CabeceraImportacionFamiliaProducto", "tipo": 0},
+    {"name": "NombrePlantillaDetalle", "value": "DetallesImportacionFamiliaProducto", "tipo": 0},
+    {"name": "Estructura", "value": "FamiliaProducto", "tipo": 1},
+    {"name": "PlantillaDescarga", "value": "assets/Plantillas/ImportacionMasiva/FamiliaProducto.xlsx", "tipo": 0}
+  ],
+  [
+    {"name": "Descripcion", "value": "Sub Familia Producto", "tipo": 0},
+    {"name": "Opcion", "value": "2", "tipo": 0},
+    {"name": "NombrePlantillaCabecera", "value": "CabeceraImportacionSubFamiliaProducto", "tipo": 0},
+    {"name": "NombrePlantillaDetalle", "value": "DetallesImportacionSubFamiliaProducto", "tipo": 0},
+    {"name": "Estructura", "value": "SubFamiliaProducto", "tipo": 1},
+    {"name": "PlantillaDescarga", "value": "assets/Plantillas/ImportacionMasiva/SubFamiliaProducto.xlsx", "tipo": 0}
+  ],
+  [
+    {"name": "Descripcion", "value": "Marca", "tipo": 0},
+    {"name": "Opcion", "value": "3", "tipo": 0},
+    {"name": "NombrePlantillaCabecera", "value": "CabeceraImportacionMarca", "tipo": 0},
+    {"name": "NombrePlantillaDetalle", "value": "DetallesImportacionMarca", "tipo": 0},
+    {"name": "Estructura", "value": "Marca", "tipo": 1},
+    {"name": "PlantillaDescarga", "value": "assets/Plantillas/ImportacionMasiva/Marca.xlsx", "tipo": 0}
+  ],
+  [
+    {"name": "Descripcion", "value": "Modelo", "tipo": 0},
+    {"name": "Opcion", "value": "4", "tipo": 0},
+    {"name": "NombrePlantillaCabecera", "value": "CabeceraImportacionModelo", "tipo": 0},
+    {"name": "NombrePlantillaDetalle", "value": "DetallesImportacionModelo", "tipo": 0},
+    {"name": "Estructura", "value": "Modelo", "tipo": 1},
+    {"name": "PlantillaDescarga", "value": "assets/Plantillas/ImportacionMasiva/Modelo.xlsx", "tipo": 0}
+  ],
+  [
+    {"name": "Descripcion", "value": "Cliente", "tipo": 0},
+    {"name": "Opcion", "value": "5", "tipo": 0},
+    {"name": "NombrePlantillaCabecera", "value": "CabeceraImportacionCliente", "tipo": 0},
+    {"name": "NombrePlantillaDetalle", "value": "DetallesImportacionCliente", "tipo": 0},
+    {"name": "Estructura", "value": "Cliente", "tipo": 1},
+    {"name": "PlantillaDescarga", "value": "assets/Plantillas/ImportacionMasiva/Cliente.xlsx", "tipo": 0}
+  ],
+  [
+    {"name": "Descripcion", "value": "Proveedor", "tipo": 0},
+    {"name": "Opcion", "value": "6", "tipo": 0},
+    {"name": "NombrePlantillaCabecera", "value": "CabeceraImportacionProveedor", "tipo": 0},
+    {"name": "NombrePlantillaDetalle", "value": "DetallesImportacionProveedor", "tipo": 0},
+    {"name": "Estructura", "value": "Proveedor", "tipo": 1},
+    {"name": "PlantillaDescarga", "value": "assets/Plantillas/ImportacionMasiva/Proveedor.xlsx", "tipo": 0}
+  ],
+  [
+    {"name": "Descripcion", "value": "Mercaderia", "tipo": 0},
+    {"name": "Opcion", "value": "7", "tipo": 0},
+    {"name": "NombrePlantillaCabecera", "value": "CabeceraImportacionMercaderia", "tipo": 0},
+    {"name": "NombrePlantillaDetalle", "value": "DetallesImportacionMercaderia", "tipo": 0},
+    {"name": "Estructura", "value": "Mercaderia", "tipo": 1},
+    {"name": "PlantillaDescarga", "value": "assets/Plantillas/ImportacionMasiva/Mercaderia.xlsx", "tipo": 0}
+
+  ]
+]

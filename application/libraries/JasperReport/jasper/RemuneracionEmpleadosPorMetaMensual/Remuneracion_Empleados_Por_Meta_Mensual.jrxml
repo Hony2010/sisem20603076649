@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RemuneracionEmpleado" language="groovy" pageWidth="1200" pageHeight="790" whenNoDataType="AllSectionsNoDetail" columnWidth="1160" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="22e02490-3f94-45d2-a721-43da79e09b60">
+	<property name="ireport.zoom" value="1.1000000000000068"/>
+	<property name="ireport.x" value="474"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.wrap.text" value="false"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+	<style name="RojoNumeroNegativo">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{ValorVentaTotal}-$F{CostoTotal}<0.00]]></conditionExpression>
+			<style mode="Transparent" forecolor="#FF0000" backcolor="#FFFFFF" fill="Solid">
+				<pen lineColor="#FF0000"/>
+			</style>
+		</conditionalStyle>
+	</style>
+	<style name="RojoNegativoTotal" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{ValorVentaTotal_1}-$V{CostoTotal_1}<0.00]]></conditionExpression>
+			<style forecolor="#FF0000"/>
+		</conditionalStyle>
+	</style>
+	<style name="style1"/>
+	<parameter name="Mes" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Anio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Vendedor" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+P.IdPersona,
+P.RazonSocial,
+Emp.FechaIngreso,
+ifnull(Emp.Sueldo,0) as Sueldo,
+E.CodigoEmpresa,
+E.RazonSocial as NombreEmpresa,
+ifnull(V.VentaMensual,0) as VentaMensual,
+V.PorcentajeVentaCumplido,
+PE.Mes,
+PE.Año as Anio,
+V.MetaVentaMensual,
+ifnull(V.Ventas1eraQuincena,0) as Ventas1eraQuincena,
+ifnull(V.Bonificacion50,0) as Bonificacion50,
+ifnull(V.Ventas2daQuincena,0) as Ventas2daQuincena,
+ifnull(V.Bonificacion100,0) as Bonificacion100,
+ifnull(C.MontoTotalComisionVentaProducto,0) as MontoTotalComisionVentaProducto,
+ifnull(Emp.Sueldo,0) + ifnull(V.Bonificacion50,0)  +  ifnull(V.Bonificacion100,0)  + ifnull(C.MontoTotalComisionVentaProducto,0)  as TotalPago
+from Persona as P
+left join Empleado Emp on Emp.IdPersona= P.IdPersona
+left join (
+	select
+	U.IdPersona,
+	U.IdUsuario,
+	CV.AliasUsuarioVenta,
+	sum(CV.Total) as VentaMensual,
+	(CASE WHEN round(sum(CV.Total)/MVV.MetaVentaMensual,4) > 1 THEN 1 ELSE round(sum(CV.Total)/MVV.MetaVentaMensual,4) END) as PorcentajeVentaCumplido,
+	PE.Mes as Mes,
+	PE.Año as Anio,
+	MVV.MetaVentaMensual,
+	SUM(CASE
+		WHEN CV.FechaEmision
+			BETWEEN CONCAT(PE.Año,'-',PE.NumeroMes,'-','01') AND CONCAT(PE.Año,'-',PE.NumeroMes,'-','15')
+				THEN CV.Total ELSE  0 END ) AS Ventas1eraQuincena,
+	IF(Sum(CASE
+		WHEN CV.FechaEmision
+			BETWEEN CONCAT(PE.Año,'-',PE.NumeroMes,'-','01') AND CONCAT(PE.Año,'-',PE.NumeroMes,'-','15')
+				THEN CV.Total ELSE  0 END)>0.50 * MVV.MetaVentaMensual,MVV.BonificacionMetaCincuenta,0) AS Bonificacion50,
+	SUM(CASE
+		WHEN CV.FechaEmision
+			BETWEEN CONCAT(PE.Año,'-',PE.NumeroMes,'-','16') AND CONCAT(PE.Año,'-',PE.NumeroMes,'-','31')
+				THEN CV.Total ELSE  0 END ) AS Ventas2daQuincena,
+	IF(Sum(CASE
+		WHEN CV.FechaEmision
+			BETWEEN CONCAT(PE.Año,'-',PE.NumeroMes,'-','16') AND CONCAT(PE.Año,'-',PE.NumeroMes,'-','31')
+				THEN CV.Total ELSE  0 END)>0.50 * MVV.MetaVentaMensual,MVV.BonificacionMetaCien,0) AS Bonificacion100
+	from ComprobanteVenta as CV
+	inner join Usuario U on U.AliasUsuarioVenta=CV.AliasUsuarioVenta
+	inner join (select idperiodo,mes,numeromes,año from periodo group by mes,numeromes,año) as PE on PE.numeromes=date_format(CV.FechaEmision,'%m') and PE.año=date_format(CV.FechaEmision,'%Y')
+	left join MetaVentaVendedor as MVV on MVV.IdPersona=U.IdPersona and MVV.IndicadorEstado='A'
+	where cv.IndicadorEstado='A'
+	and PE.NumeroMes =  $P{Mes}
+	and PE.Año =  $P{Anio}
+	group by U.IdPersona,CV.AliasUsuarioVenta
+) as V
+on P.IdPersona=V.IdPersona
+left join (
+	select U.IdPersona,SUM(cvpv.MontoComisionVentaProducto) as MontoTotalComisionVentaProducto
+	from ComisionVentaProductoVendedor cvpv
+	inner join Usuario U on cvpv.IdUsuarioVendedor=U.IdUsuario
+	inner join periodo PE on PE.IdPeriodo=cvpv.IdPeriodo
+	where PE.NumeroMes =  $P{Mes}
+	and PE.Año =  $P{Anio}
+	and cvpv.IndicadorEstado='A'
+	group by U.IdPersona
+) as C
+on P.IdPersona=C.IdPersona
+cross join empresa E
+cross join periodo PE
+where  Emp.IdPersona like $P{Vendedor}
+and PE.NumeroMes = $P{Mes}
+and PE.Año = $P{Anio}
+and Emp.IndicadorEstado='A'
+order by P.RazonSocial]]>
+	</queryString>
+	<field name="IdPersona" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RazonSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FechaIngreso" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Sueldo" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MetaVentaMensual" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="VentaMensual" class="java.math.BigDecimal"/>
+	<field name="PorcentajeVentaCumplido" class="java.math.BigDecimal"/>
+	<field name="Mes" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Anio" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Ventas1eraQuincena" class="java.math.BigDecimal"/>
+	<field name="Bonificacion50" class="java.math.BigDecimal"/>
+	<field name="Ventas2daQuincena" class="java.math.BigDecimal"/>
+	<field name="Bonificacion100" class="java.math.BigDecimal"/>
+	<field name="CodigoEmpresa" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NombreEmpresa" class="java.lang.String"/>
+	<field name="MontoTotalComisionVentaProducto" class="java.lang.String"/>
+	<field name="TotalPago" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="90" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="45" width="1031" height="15" uuid="d60ffd75-231e-4505-bd5a-320d06be4443"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="10" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[REMUNERACIONES DE EMPLEADOS POR META MENSUAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="75" width="38" height="15" uuid="2f279a97-5e50-40f5-a383-8b9ff73b2799"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a" isBlankWhenNull="true">
+				<reportElement x="1069" y="0" width="85" height="15" uuid="1fe68f00-b97e-419c-9acb-cb5a601f3324"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="30" width="38" height="15" uuid="b430e0eb-cb13-422b-badf-4a23ea63eacf"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="15" width="421" height="15" uuid="147bf5dd-a498-4dca-9ddb-2c29ebff24f5"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["RUC "+$F{CodigoEmpresa}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="421" height="15" uuid="06a45cf0-17f2-4267-ae46-5e640218dcf2"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NombreEmpresa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="0" y="60" width="1031" height="15" uuid="dd70b5b9-7ebb-4286-a931-32112c17f480"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Mes}+"-"+$P{Anio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="30">
+			<staticText>
+				<reportElement mode="Opaque" x="38" y="0" width="238" height="30" backcolor="#F0F0F0" uuid="74c25029-9f5c-4a83-a39f-ac8e32a161a1"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Empleado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="38" height="30" backcolor="#F0F0F0" uuid="518c6da9-b5fd-4e52-9b21-2cc23e3b3a3e"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="276" y="0" width="70" height="30" backcolor="#F0F0F0" uuid="ec5facf7-d680-4b1f-8238-1c4a9f78b264"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Ing.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="646" y="15" width="75" height="15" backcolor="#F0F0F0" uuid="73d7f644-946e-438e-b57b-4f16aad8e48c"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ventas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="646" y="0" width="150" height="15" backcolor="#F0F0F0" uuid="5775e443-c5b9-4925-8af5-86520247ebb8"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1era Quincena]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="346" y="0" width="75" height="30" backcolor="#F0F0F0" uuid="a54383e1-64fd-491b-89b2-a56df8b6416d"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sueldo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="721" y="15" width="75" height="15" backcolor="#F0F0F0" uuid="311ed45d-a8bb-4ffe-9b44-da0030736e02"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bonif. 50%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="796" y="0" width="150" height="15" backcolor="#F0F0F0" uuid="f01358c3-1c4e-4d82-8eba-ee27187e85a5"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[2da Quincena]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="796" y="15" width="75" height="15" backcolor="#F0F0F0" uuid="f08553ac-893d-4167-b23a-aa06a519e501"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ventas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="871" y="15" width="75" height="15" backcolor="#F0F0F0" uuid="07c0b3ac-9c49-4627-8940-7d82c9436971"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bonif. 100%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1069" y="0" width="85" height="30" backcolor="#F0F0F0" uuid="f4686a72-73ca-41d2-bff6-5bd1ee4b0b49"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="421" y="0" width="75" height="30" backcolor="#F0F0F0" uuid="aa90ddf0-c8ed-4ecc-99cc-c5fe23cc99df"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Venta Meta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="496" y="0" width="75" height="30" backcolor="#F0F0F0" uuid="c099874f-405d-42d2-8171-0e7401507576"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Venta Real]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="571" y="0" width="75" height="30" backcolor="#F0F0F0" uuid="f87c7ab2-c06e-4de7-92e2-de902af089b9"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Porc.(%)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="946" y="0" width="123" height="30" backcolor="#F0F0F0" uuid="a79ce9fc-9c23-4452-bc72-9c36db2d7705"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Comisión por Venta Productos]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="38" y="0" width="238" height="15" uuid="f0f964e6-d497-4e8e-9af4-d099e8323688"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{RazonSocial}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="276" y="0" width="70" height="15" uuid="7e65cb73-d1c2-4bae-8b93-c392acf2bcb9"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{FechaIngreso}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="346" y="0" width="75" height="15" uuid="9b3b61de-d593-4607-9abc-54628d1f14ca"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Sueldo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="421" y="0" width="75" height="15" uuid="0c1224f8-6920-4f1f-a815-b41601f5c231"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{MetaVentaMensual}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="496" y="0" width="75" height="15" uuid="817c1fbf-7626-4e8a-b917-5106522e7656"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{VentaMensual}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %" isBlankWhenNull="true">
+				<reportElement x="571" y="0" width="75" height="15" uuid="0fc19796-8e6a-402d-8dba-8abb47fa603d"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{PorcentajeVentaCumplido}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="646" y="0" width="75" height="15" uuid="3d269d98-8dcc-4914-a50f-2860a6c632df"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{Ventas1eraQuincena}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="721" y="0" width="75" height="15" uuid="495a2b15-5007-4b87-a1e7-8808460c22d0"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Bonificacion50}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="796" y="0" width="75" height="15" uuid="83504371-b611-4ff0-b061-3800f2e5eebe"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{Ventas2daQuincena}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="871" y="0" width="75" height="15" uuid="f9e29e4f-9933-497b-a3ed-131213242017"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Bonificacion100}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="1069" y="0" width="85" height="15" uuid="04cc9c7e-6bd3-4e4b-8590-64f3673f6622"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TotalPago}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="38" height="15" uuid="9a366815-5e60-4894-9d81-d12d09fb16fc"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$V{COLUMN_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="946" y="0" width="123" height="15" uuid="e49497c5-3770-4b66-abbb-510aa3f52b67"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MontoTotalComisionVentaProducto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="15" splitType="Stretch"/>
+	</summary>
+</jasperReport>

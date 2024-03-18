@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SaldoProveedor" language="groovy" pageWidth="1133" pageHeight="842" columnWidth="1093" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="e9a1a659-9fd2-402f-8ee4-071f35d5221d">
+	<property name="ireport.zoom" value="1.3310000000000264"/>
+	<property name="ireport.x" value="58"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.wrap.text" value="false"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+	<style name="RojoNegativo">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{Total}-$F{MontoACuenta}<0.00]]></conditionExpression>
+			<style forecolor="#DF0101">
+				<pen lineColor="#000000"/>
+			</style>
+		</conditionalStyle>
+	</style>
+	<style name="TotalRojoNegativo">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{Total_1}-$V{MontoACuenta_1}<0.00]]></conditionExpression>
+			<style forecolor="#DF0101">
+				<pen lineColor="#000000"/>
+			</style>
+		</conditionalStyle>
+	</style>
+	<style name="RojoNegativoD">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{TotalD}-$F{MontoACuentaD}<0.00]]></conditionExpression>
+			<style forecolor="#FF0000">
+				<pen lineColor="#000000"/>
+			</style>
+		</conditionalStyle>
+	</style>
+	<style name="TotalRojoNegativoD">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{TotalD_1}-$V{MontoACuentaD_1}<0.00]]></conditionExpression>
+			<style forecolor="#FF0000">
+				<pen lineColor="#000000"/>
+			</style>
+		</conditionalStyle>
+	</style>
+	<parameter name="FechaInicial" class="java.lang.String"/>
+	<parameter name="FechaFinal" class="java.lang.String"/>
+	<parameter name="IdPersona" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[Select CC.IdComprobanteCompra, CC.FechaEmision,Concat(TD.NombreAbreviado, ' ', CC.SerieDocumento, '-', CC.NumeroDocumento)As Documento,
+		Per.RazonSocial, Per.NumeroDocumentoIdentidad,MND.NombreMoneda,
+		if(MND.CodigoMoneda = 'USD' and TD.CodigoTipoDocumento='07',-1*CC.Total,(Case When MND.CodigoMoneda = 'USD' then CC.Total End)) As TotalD,
+		if(MND.CodigoMoneda = 'USD' and TD.CodigoTipoDocumento='07',-1*CC.MontoACuenta,(Case When MND.CodigoMoneda = 'USD' then CC.MontoACuenta End)) As MontoACuentaD,
+
+		(if(MND.CodigoMoneda = 'USD' and TD.CodigoTipoDocumento='07',-1*CC.Total,(Case When MND.CodigoMoneda = 'USD' then CC.Total End))-
+		if(MND.CodigoMoneda = 'USD' and TD.CodigoTipoDocumento='07',-1*CC.MontoACuenta,(Case When MND.CodigoMoneda = 'USD' then CC.MontoACuenta End))) as SaldoPendienteD,
+		CC.ValorTipoCambio,
+		if(MND.CodigoMoneda = 'USD' and TD.CodigoTipoDocumento='07',-1*CC.ValorTipoCambio*CC.Total, if(TD.CodigoTipoDocumento='07',-1*Total,
+		(Case When MND.CodigoMoneda = 'USD' then CC.ValorTipoCambio * CC.Total else CC.Total End))) As Total,
+		if(MND.CodigoMoneda = 'USD' and TD.CodigoTipoDocumento='07',-1*CC.ValorTipoCambio*CC.MontoACuenta, if(TD.CodigoTipoDocumento='07',-1*MontoACuenta,
+		(Case When MND.CodigoMoneda = 'USD' then CC.ValorTipoCambio * CC.MontoACuenta else CC.MontoACuenta End))) As MontoACuenta,
+
+		(if(MND.CodigoMoneda = 'USD' and TD.CodigoTipoDocumento='07',-1*CC.ValorTipoCambio*CC.Total, if(TD.CodigoTipoDocumento='07',-1*Total,
+		(Case When MND.CodigoMoneda = 'USD' then CC.ValorTipoCambio * CC.Total else CC.Total End)))-
+		if(MND.CodigoMoneda = 'USD' and TD.CodigoTipoDocumento='07',-1*CC.ValorTipoCambio*CC.MontoACuenta, if(TD.CodigoTipoDocumento='07',-1*MontoACuenta,
+		(Case When MND.CodigoMoneda = 'USD' then CC.ValorTipoCambio * CC.MontoACuenta else CC.MontoACuenta End)))) as SaldoPendiente,
+
+		If(TD.CodigoTipoDocumento='07' or TD.CodigoTipoDocumento='08',group_concat(DR.NombreAbreviadoDocumentoReferencia," ",
+		DR.SerieDocumentoReferencia,"-" ,DR.NumeroDocumentoReferencia separator ", "),"") As DocReferencia,
+
+      FP.NombreFormaPago as FormaPago, CC.Observacion,
+      EMP.CodigoEmpresa, EMP.RazonSocial as NombreEmpresa
+
+      From ComprobanteCompra As CC
+      Inner Join FormaPago As FP on FP.IdFormaPago = CC.IdFormaPago
+      Inner Join TipoDocumento As TD On TD.IdTipoDocumento = CC.IdTipoDocumento
+      Inner Join Proveedor As P On P.IdPersona = CC.IdProveedor
+      Inner Join Persona As Per on Per.IdPersona = P.IdPersona
+      Inner Join Moneda As MND on MND.IdMoneda = CC.IdMoneda
+      Inner join Periodo as PE on PE.IdPeriodo=CC.IdPeriodo
+      Inner join TipoCompra as TC on TC.IdTipoCompra=CC.IdTipoCompra
+      left join DocumentoReferenciaCompra as DR on DR.IdComprobanteNota=CC.IdComprobanteCompra
+    	Cross join Empresa as EMP
+		Where (CC.FechaEmision between $P{FechaInicial} and $P{FechaFinal})
+			and (CC.IndicadorEstado='A')
+			and (Per.IdPersona LIKE $P{IdPersona})
+			and TD.IndicadorDocumentoReporteCompra='1'
+			group by CC.IdComprobanteCompra
+		order by CC.FechaEmision,Per.NumeroDocumentoIdentidad]]>
+	</queryString>
+	<field name="IdComprobanteCompra" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FechaEmision" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Documento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RazonSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NumeroDocumentoIdentidad" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NombreMoneda" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TotalD" class="java.math.BigDecimal"/>
+	<field name="MontoACuentaD" class="java.math.BigDecimal"/>
+	<field name="SaldoPendienteD" class="java.math.BigDecimal"/>
+	<field name="ValorTipoCambio" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Total" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MontoACuenta" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SaldoPendiente" class="java.math.BigDecimal"/>
+	<field name="DocReferencia" class="java.lang.String"/>
+	<field name="FormaPago" class="java.lang.String"/>
+	<field name="Observacion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CodigoEmpresa" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NombreEmpresa" class="java.lang.String"/>
+	<variable name="Total_1" class="java.math.BigDecimal" resetType="Group" resetGroup="SaldoProveedor" calculation="Sum">
+		<variableExpression><![CDATA[$F{Total}]]></variableExpression>
+	</variable>
+	<variable name="MontoACuenta_1" class="java.math.BigDecimal" resetType="Group" resetGroup="SaldoProveedor" calculation="Sum">
+		<variableExpression><![CDATA[$F{MontoACuenta}]]></variableExpression>
+	</variable>
+	<variable name="SaldoPendiente_1" class="java.math.BigDecimal" resetType="Group" resetGroup="SaldoProveedor" calculation="Sum">
+		<variableExpression><![CDATA[$F{SaldoPendiente}]]></variableExpression>
+	</variable>
+	<variable name="TotalD_1" class="java.math.BigDecimal" resetType="Group" resetGroup="SaldoProveedor" calculation="Sum">
+		<variableExpression><![CDATA[$F{TotalD}]]></variableExpression>
+	</variable>
+	<variable name="MontoACuentaD_1" class="java.math.BigDecimal" resetType="Group" resetGroup="SaldoProveedor" calculation="Sum">
+		<variableExpression><![CDATA[$F{MontoACuentaD}]]></variableExpression>
+	</variable>
+	<variable name="SaldoPendienteD_1" class="java.math.BigDecimal" resetType="Group" resetGroup="SaldoProveedor" calculation="Sum">
+		<variableExpression><![CDATA[$F{SaldoPendienteD}]]></variableExpression>
+	</variable>
+	<variable name="SaldoPendienteD_2" class="java.math.BigDecimal" resetType="Group" resetGroup="SaldoProveedor" calculation="Sum">
+		<variableExpression><![CDATA[$F{SaldoPendienteD}]]></variableExpression>
+	</variable>
+	<group name="SaldoProveedor">
+		<groupExpression><![CDATA[$F{NumeroDocumentoIdentidad}]]></groupExpression>
+		<groupHeader>
+			<band height="55">
+				<staticText>
+					<reportElement mode="Opaque" x="608" y="35" width="85" height="15" backcolor="#F0F0F0" uuid="118fd5c7-9341-4800-a064-ab688b282803"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Pago a Cuenta]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="52" y="20" width="123" height="30" backcolor="#F0F0F0" uuid="32152ccf-8e91-4d92-b844-d5bb2acde04e"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Documento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="523" y="35" width="85" height="15" backcolor="#F0F0F0" uuid="47cc105c-5f9e-4b91-b3e2-0eed92277098"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Monto Original]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="483" y="20" width="40" height="30" backcolor="#F0F0F0" uuid="5e8f4c7e-0d0e-4954-acf1-391563f84278"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[T.C.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="693" y="35" width="85" height="15" backcolor="#F0F0F0" uuid="ac48646d-8d8b-48fa-99e3-32eb2c67389d"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Saldo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="175" y="20" width="53" height="30" backcolor="#F0F0F0" uuid="c394e499-6ed3-42b3-9e3e-347ea171e9ab"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Moneda]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="778" y="20" width="84" height="30" backcolor="#F0F0F0" uuid="400c2d87-b476-4a79-a9c2-0690adaa1788"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Doc. Referencia]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="937" y="20" width="124" height="30" backcolor="#F0F0F0" uuid="24956f83-7834-4d38-9a2d-7c0372451176"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Observación]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="862" y="20" width="75" height="30" backcolor="#F0F0F0" uuid="9c29a93a-b425-4761-b3a1-925c786b5fa7"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Forma Pago]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="20" width="52" height="30" backcolor="#F0F0F0" uuid="21b8fb06-9488-453e-8963-5454562aee9f"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha]]></text>
+				</staticText>
+				<textField>
+					<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="483" height="15" uuid="a402ef8b-78f5-48d1-bf7a-6ddd56f87a65"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{RazonSocial}+" - "+$F{NumeroDocumentoIdentidad}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="228" y="35" width="85" height="15" backcolor="#F0F0F0" uuid="472ffda9-aec2-4f4a-b8cd-a1719477d1c1"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Monto Original]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="313" y="35" width="85" height="15" backcolor="#F0F0F0" uuid="9fae396f-e3ae-4a17-a3a9-17a591630e4b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Pago a Cuenta]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="398" y="35" width="85" height="15" backcolor="#F0F0F0" uuid="69f17759-012e-40e4-a96c-f2063582657f"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[Saldo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="228" y="20" width="255" height="15" backcolor="#F0F0F0" uuid="f5de6b75-87ef-4ae9-b710-072e99ab9dfb"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Dólares]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="523" y="20" width="255" height="15" backcolor="#F0F0F0" uuid="b145519a-5e96-4190-9732-4e0e01399f39"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Soles]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="30">
+				<staticText>
+					<reportElement x="175" y="0" width="53" height="15" uuid="4af5809b-135b-4d34-bd53-f733c0455d39"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="15" width="52" height="15" uuid="34961065-2475-4d37-a865-9d41a5bcf5c9"/>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement x="523" y="0" width="85" height="15" uuid="9b692bab-f9a3-405f-9f97-e7feb9850b36"/>
+					<box>
+						<topPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Total_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement x="608" y="0" width="85" height="15" uuid="342c8dd6-37bc-4d74-a72b-3592454729eb"/>
+					<box>
+						<topPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{MontoACuenta_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement style="TotalRojoNegativo" x="693" y="0" width="85" height="15" uuid="298a3734-8003-4f95-80bf-05835862d004"/>
+					<box>
+						<topPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SaldoPendiente_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement x="228" y="0" width="85" height="15" uuid="3c40adac-8eda-49d9-887f-b511db823097"/>
+					<box>
+						<topPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{TotalD_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement x="313" y="0" width="85" height="15" uuid="9fc1cdc8-572a-4ddd-9e28-45838b536a4e"/>
+					<box>
+						<topPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{MontoACuentaD_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement style="TotalRojoNegativoD" x="398" y="0" width="85" height="15" uuid="9ed5f014-690d-4464-b249-70596dc3cd4d"/>
+					<box>
+						<topPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SaldoPendienteD_2}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="97" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="33" width="52" height="16" uuid="19af77f3-8218-4050-93fb-8db025fbebe9"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="49" width="1061" height="16" uuid="8cbe626c-b6b8-4cc1-8b09-48f03edd881c"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="11" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE SALDOS PENDIENTES POR PROVEEDOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="81" width="52" height="16" uuid="44158f6d-41f1-4534-a2ef-762a2c099937"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="0" y="65" width="1061" height="16" uuid="69e06405-534c-4a2d-a750-7a3cbd2f2122"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="11" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Del "+$P{FechaInicial}+" Al "+$P{FechaFinal}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="17" width="483" height="16" uuid="527336d4-3ae0-4c1e-9967-5ea437d850d8"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["RUC "+$F{CodigoEmpresa}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="483" height="17" uuid="e0f53967-b11f-43ea-b704-507ec4c9b8e1"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NombreEmpresa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH:mm:ss">
+				<reportElement x="937" y="0" width="124" height="17" uuid="b08b5e65-443c-4327-b029-a3341eb49940"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="15">
+			<textField pattern="#,##0.000" isBlankWhenNull="true">
+				<reportElement x="483" y="0" width="40" height="15" uuid="aef60600-f99e-4766-82a3-de541e4e4a79"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ValorTipoCambio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="523" y="0" width="85" height="15" uuid="d25d6929-6d7b-4a07-8847-6445e7225801"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Total}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="52" height="15" uuid="bdf2a7a5-52b6-4772-a84a-66429207b868"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FechaEmision}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="52" y="0" width="123" height="15" uuid="acc89769-3dc8-42ef-a220-a30fe66817c7"/>
+				<textElement verticalAlignment="Bottom" markup="none">
+					<font fontName="Arial" size="8"/>
+					<paragraph lineSpacing="Single" tabStopWidth="40"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Documento}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="175" y="0" width="53" height="15" uuid="53ad434c-398a-4462-9ae1-ffff59e13676"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NombreMoneda}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="608" y="0" width="85" height="15" uuid="0585ab45-4913-4814-9a95-9a7f5fe98cd5"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MontoACuenta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement style="RojoNegativo" x="693" y="0" width="85" height="15" uuid="f12f1ac1-09da-4ab9-b64e-171093fd0857"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SaldoPendiente}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="778" y="0" width="84" height="15" uuid="c3982eb2-4661-472f-ad79-e27a721c7a10"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DocReferencia}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="862" y="0" width="75" height="15" uuid="3c34d4d1-d1aa-4fa9-ac1b-479bc8642370"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FormaPago}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="937" y="0" width="124" height="15" uuid="d8178f8d-f2cb-4a86-ade2-3be569e68e74"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Observacion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="228" y="0" width="85" height="15" uuid="9e5bd0e4-84ff-4ef9-906d-632f48639170"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TotalD}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="313" y="0" width="85" height="15" uuid="5e690ba8-7148-4bd1-a68f-1af0618f6c88"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MontoACuentaD}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement style="RojoNegativoD" x="398" y="0" width="85" height="15" uuid="d258f047-55b0-45bf-b59d-a0c056f57ee5"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SaldoPendienteD}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="64" splitType="Stretch"/>
+	</summary>
+</jasperReport>

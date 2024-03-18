@@ -1,0 +1,27 @@
+[{
+	"IdUsuario": 1,
+	"NombreReferencia": "ADMIN",
+	"Series":
+	[{
+		"IdTipoDocumento": 2,
+		"Descripcion": "FACTURA",
+		"IdCorrelativoDocumento": 1
+	},
+	{
+		"IdTipoDocumento": 4,
+		"Descripcion": "BOLETA",
+		"IdCorrelativoDocumento": 7
+	},
+	{
+		"IdTipoDocumento": 4,
+		"IdSubTipoDocumento": 1,
+		"Descripcion": "BOLETA T",
+		"IdCorrelativoDocumento": 33
+	},
+	{
+		"IdTipoDocumento": 4,
+		"IdSubTipoDocumento": 2,
+		"Descripcion": "BOLETA Z",
+		"IdCorrelativoDocumento": 34
+	}]
+}]

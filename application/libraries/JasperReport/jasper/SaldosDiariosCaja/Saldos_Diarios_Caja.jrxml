@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Saldos_Diarios_Caja" language="groovy" pageWidth="1048" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="1008" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="22e02490-3f94-45d2-a721-43da79e09b60">
+	<property name="ireport.zoom" value="1.1000000000000005"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.wrap.text" value="false"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+	<style name="style1"/>
+	<parameter name="FechaInicial" class="java.lang.String"/>
+	<parameter name="FechaFinal" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+	C.NombreCaja,MC.Idcaja, CC.IdTipoDocumento, CC.FechaComprobante, MND.NombreMoneda,
+	CONCAT(TDC.NombreAbreviado, ' ', CC.SerieDocumento, '-', CC.NumeroDocumento) AS DocumentoCaja,
+	IF(CC.IndicadorEstado='N', NULL,IF(CC.IdTipoDocumento='81' or CC.IdTipoDocumento='83',
+		IF(CC.IdMoneda = 2,CC.ValorTipoCambio*MC.MontoIngresoEfectivo, MC.MontoIngresoEfectivo),NULL)) as Ingreso,
+
+	IF(CC.IndicadorEstado='N', NULL, IF(CC.IdTipoDocumento='82' or CC.IdTipoDocumento='84',
+		IF(CC.IdMoneda = 2,CC.ValorTipoCambio*MC.MontoEgresoEfectivo, MC.MontoEgresoEfectivo),NULL)) as Salida,
+
+	IF(CC.IndicadorEstado='N', NULL,MC.SaldoCajaTurno) as SaldoCajaTurno,
+	TOC.NombreConceptoCaja,
+	IF(CC.IndicadorEstado='N', 'ANULADO',CONCAT(TD.NombreAbreviado, ' ', CV.SerieDocumento, '-', CV.NumeroDocumento)) AS DocumentoVenta,
+	IF(CC.IndicadorEstado='N','',P.RazonSocial) as RazonSocial,
+	EMP.CodigoEmpresa, EMP.RazonSocial as NombreEmpresa
+
+FROM comprobantecaja CC
+INNER JOIN movimientocaja MC ON MC.IdComprobanteCaja = CC.IdComprobanteCaja
+LEFT JOIN ComprobanteVenta CV ON CV.IdComprobanteVenta=MC.IdComprobanteVenta
+INNER JOIN moneda AS MND ON MND.IdMoneda = CC.IdMoneda
+INNER JOIN tipooperacioncaja AS TOC ON TOC.IdTipoOperacionCaja = CC.IdTipoOperacionCaja
+INNER JOIN tipodocumento AS TDC ON TDC.IdTipoDocumento = CC.IdTipoDocumento
+LEFT JOIN tipodocumento AS TD On TD.IdTipoDocumento = CV.IdTipoDocumento
+INNER JOIN caja AS C ON C.IdCaja = CC.IdCaja
+LEFT JOIN persona AS P ON P.IdPersona = CC.IdPersona
+CROSS JOIN empresa AS EMP
+
+WHERE (CC.FechaComprobante BETWEEN $P{FechaInicial} AND $P{FechaFinal})
+AND (CC.IndicadorEstado='A' or CC.IndicadorEstado='N')
+ORDER BY C.NombreCaja, CC.FechaComprobante, field(TOC.IdTipoOperacionCaja,'1') desc, field(CC.IdTipoDocumento,'81','83','82','84')]]>
+	</queryString>
+	<field name="NombreCaja" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Idcaja" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IdTipoDocumento" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FechaComprobante" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NombreMoneda" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DocumentoCaja" class="java.lang.String"/>
+	<field name="Ingreso" class="java.math.BigDecimal"/>
+	<field name="Salida" class="java.math.BigDecimal"/>
+	<field name="SaldoCajaTurno" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NombreConceptoCaja" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DocumentoVenta" class="java.lang.String"/>
+	<field name="RazonSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CodigoEmpresa" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NombreEmpresa" class="java.lang.String"/>
+	<variable name="SumaIngreso" class="java.math.BigDecimal" resetType="Group" resetGroup="CAJA" calculation="Sum">
+		<variableExpression><![CDATA[$V{SumaIngreso}]]></variableExpression>
+	</variable>
+	<variable name="SumaEgreso" class="java.math.BigDecimal" resetType="Group" resetGroup="CAJA" calculation="Sum">
+		<variableExpression><![CDATA[$V{SumaEgreso}]]></variableExpression>
+	</variable>
+	<variable name="TotalIngreso" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$V{TotalIngreso}]]></variableExpression>
+	</variable>
+	<variable name="TotalEgreso" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$V{TotalEgreso}]]></variableExpression>
+	</variable>
+	<variable name="Ingreso_1" class="java.math.BigDecimal" resetType="Group" resetGroup="CAJA" calculation="Sum">
+		<variableExpression><![CDATA[$F{Ingreso}]]></variableExpression>
+	</variable>
+	<variable name="Salida_1" class="java.math.BigDecimal" resetType="Group" resetGroup="CAJA" calculation="Sum">
+		<variableExpression><![CDATA[$F{Salida}]]></variableExpression>
+	</variable>
+	<variable name="Ingreso_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{Ingreso}]]></variableExpression>
+	</variable>
+	<variable name="Salida_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{Salida}]]></variableExpression>
+	</variable>
+	<group name="CAJA">
+		<groupExpression><![CDATA[$F{Idcaja}]]></groupExpression>
+		<groupHeader>
+			<band height="15">
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="0" width="97" height="15" uuid="bf9f6bd5-7054-4130-a807-231f66f03807"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NombreCaja}+" ("+$F{NombreMoneda}+")"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="15">
+				<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement x="234" y="0" width="75" height="15" uuid="3222cbd4-ed6b-4010-b8e6-0f6307b66e41"/>
+					<box>
+						<topPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Ingreso_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement x="309" y="0" width="75" height="15" uuid="86952432-b5c2-4994-97ec-f93fc2ff52ee"/>
+					<box>
+						<topPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Salida_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="105" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="45" width="988" height="15" uuid="d60ffd75-231e-4505-bd5a-320d06be4443"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="10" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[SALDOS DIARIOS DE CAJA Y BANCOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="75" width="97" height="15" uuid="2f279a97-5e50-40f5-a383-8b9ff73b2799"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a" isBlankWhenNull="true">
+				<reportElement x="713" y="0" width="275" height="15" uuid="1fe68f00-b97e-419c-9acb-cb5a601f3324"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="30" width="97" height="15" uuid="b430e0eb-cb13-422b-badf-4a23ea63eacf"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="15" width="97" height="15" uuid="147bf5dd-a498-4dca-9ddb-2c29ebff24f5">
+					<printWhenExpression><![CDATA[new Boolean($F{CodigoEmpresa} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["RUC "+$F{CodigoEmpresa}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="459" height="15" uuid="06a45cf0-17f2-4267-ae46-5e640218dcf2"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NombreEmpresa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="0" y="60" width="988" height="15" uuid="dd70b5b9-7ebb-4286-a931-32112c17f480"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Del "+$P{FechaInicial}+" Al "+$P{FechaFinal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="234" y="90" width="75" height="15" forecolor="#FFFFFF" backcolor="#0078D7" uuid="cfd8d374-9e34-4c87-9813-5882fc864a82"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.75" lineColor="#000066"/>
+					<leftPen lineWidth="0.75" lineColor="#000066"/>
+					<bottomPen lineWidth="0.75" lineColor="#000066"/>
+					<rightPen lineWidth="0.75" lineColor="#000066"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ingreso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="97" y="90" width="137" height="15" forecolor="#FFFFFF" backcolor="#0078D7" uuid="460666d6-a502-42de-bc0a-bc5d31e6092d"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.75" lineColor="#000066"/>
+					<leftPen lineWidth="0.75" lineColor="#000066"/>
+					<bottomPen lineWidth="0.75" lineColor="#000066"/>
+					<rightPen lineWidth="0.75" lineColor="#000066"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Documento Caja]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="309" y="90" width="75" height="15" forecolor="#FFFFFF" backcolor="#0078D7" uuid="ddd60611-d164-4448-bc17-a60ec884e6dd"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.75" lineColor="#000066"/>
+					<leftPen lineWidth="0.75" lineColor="#000066"/>
+					<bottomPen lineWidth="0.75" lineColor="#000066"/>
+					<rightPen lineWidth="0.75" lineColor="#000066"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Salida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="90" width="97" height="15" forecolor="#FFFFFF" backcolor="#0078D7" uuid="d42d0bef-186f-4d1a-9ed6-10c23186479b"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.75" lineColor="#000066"/>
+					<leftPen lineWidth="0.75" lineColor="#000066"/>
+					<bottomPen lineWidth="0.75" lineColor="#000066"/>
+					<rightPen lineWidth="0.75" lineColor="#000066"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="384" y="90" width="75" height="15" forecolor="#FFFFFF" backcolor="#0078D7" uuid="a7a14a28-5f0b-40e2-9b3a-9299c053fc10"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.75" lineColor="#000066"/>
+					<leftPen lineWidth="0.75" lineColor="#000066"/>
+					<bottomPen lineWidth="0.75" lineColor="#000066"/>
+					<rightPen lineWidth="0.75" lineColor="#000066"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Saldo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="459" y="90" width="154" height="15" forecolor="#FFFFFF" backcolor="#0078D7" uuid="72acc748-e0ba-4f9f-9629-063a05b8729e"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.75" lineColor="#000066"/>
+					<leftPen lineWidth="0.75" lineColor="#000066"/>
+					<bottomPen lineWidth="0.75" lineColor="#000066"/>
+					<rightPen lineWidth="0.75" lineColor="#000066"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo Operación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="713" y="90" width="275" height="15" forecolor="#FFFFFF" backcolor="#0078D7" uuid="f9d0b248-24a0-4d72-9c85-4d358a4baac8"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.75" lineColor="#000066"/>
+					<leftPen lineWidth="0.75" lineColor="#000066"/>
+					<bottomPen lineWidth="0.75" lineColor="#000066"/>
+					<rightPen lineWidth="0.75" lineColor="#000066"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente / Proveedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="613" y="90" width="100" height="15" forecolor="#FFFFFF" backcolor="#0078D7" uuid="76723597-694e-4e84-a038-7e86f6f7b42f"/>
+				<box>
+					<pen lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.75" lineColor="#000066"/>
+					<leftPen lineWidth="0.75" lineColor="#000066"/>
+					<bottomPen lineWidth="0.75" lineColor="#000066"/>
+					<rightPen lineWidth="0.75" lineColor="#000066"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Documento Ref.]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="97" height="15" uuid="dac96445-ae15-4723-b493-3f69c867b5b8"/>
+				<textFieldExpression><![CDATA[$F{FechaComprobante}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="97" y="0" width="137" height="15" uuid="dbee9f88-bbe2-4517-9e8e-1177fa457736"/>
+				<textFieldExpression><![CDATA[$F{DocumentoCaja}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="234" y="0" width="75" height="15" forecolor="#000000" uuid="e0cb212b-d973-4a6d-afa2-d07be96f682e"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{Ingreso}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="309" y="0" width="75" height="15" forecolor="#000000" uuid="3efd21de-7db1-49bc-a0bc-d8b93d994bb9"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{Salida}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="384" y="0" width="75" height="15" uuid="3a65257c-1052-4e04-99b1-53c1cdb76191"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{SaldoCajaTurno}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="459" y="0" width="154" height="15" uuid="5d82a46c-0d88-4dfa-bf37-351e9778bd0b"/>
+				<textElement verticalAlignment="Top">
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NombreConceptoCaja}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="613" y="0" width="100" height="15" uuid="4741f3a4-92b5-40c5-affc-4ca8bcf1c6c8"/>
+				<textElement>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DocumentoVenta}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="713" y="0" width="275" height="15" uuid="3abdf406-3ced-4eb3-84c8-b243db23c806"/>
+				<textElement>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RazonSocial}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="97" height="15" uuid="801dd3cf-a2e4-4477-a316-23f566bf556c"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="234" y="15" width="75" height="15" uuid="e6271d0b-53ba-425a-82ea-a930b05ddd1f"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Ingreso_2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="309" y="15" width="75" height="15" uuid="f249b7bd-b597-426c-a159-becbb9106744"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Salida_2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

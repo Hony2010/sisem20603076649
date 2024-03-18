@@ -1,0 +1,141 @@
+[
+	{
+		"Data":{
+			"IdMotivoNotaEntrada": 0,
+			"CodigoMotivoNotaEntrada": "00",
+			"NombreMotivoNotaEntrada": "SE HABILITAN TODOS LOS CAMPOS"
+		},
+		"Reglas":{
+			"CantidadFacturas": 0,
+			"_CantidadFactura": "Se Permite Solo Una Factura",
+			"DocumentoReferencia": 2,
+			"_DocumentoReferencia": "Especial para check",
+			"CamposEditables": [1, 2, 3, 4, 5],
+			"_CamposEditables": "Se Listan los campos Editables",
+			"OcultarCampos": [5],
+			"_OcultarCampos": "Se Ocultan los campos dados",
+			"BusquedaPersona": 2,
+			"_BusquedaPersona": "Se busca por Proveedor"
+		}
+	},
+	{
+		"Data": {
+			"IdMotivoNotaEntrada": 2,
+			"CodigoMotivoNotaEntrada": "02",
+			"NombreMotivoNotaEntrada": " COMPRA (CON DOC. REF.)",
+			"GrupoMotivoNotaEntrada": "A"
+		},
+		"Reglas": {
+			"CantidadFacturas": 0,
+			"_CantidadFactura": "Se Permite Solo Una Factura",
+			"DocumentoReferencia": 1,
+			"_DocumentoReferencia": "Tiene documento referencia",
+			"CamposEditables": [3, 5],
+			"_CamposEditables": "Se Listan los campos Editables",
+			"OcultarCampos": [4],
+			"_OcultarCampos": "Se Ocultan los campos dados",
+			"BusquedaPersona": 2,
+			"_BusquedaPersona": "Se busca por Proveedor"
+		}
+	},
+	{
+		"Data": {
+			"IdMotivoNotaEntrada": 3,
+			"CodigoMotivoNotaEntrada": "03",
+			"NombreMotivoNotaEntrada": "CONSIGNACIÓN RECIBIDA",
+			"GrupoMotivoNotaEntrada": "B"
+		},
+		"Reglas": {
+			"CantidadFacturas": 0,
+			"_CantidadFactura": "Se Permite Solo Una Factura",
+			"DocumentoReferencia": 0,
+			"_DocumentoReferencia": "No tiene documento referencia",
+			"CamposEditables": [1, 2, 3, 4, 5],
+			"_CamposEditables": "Se Listan los campos Editables",
+			"OcultarCampos": [5],
+			"_OcultarCampos": "Se Ocultan los campos dados",
+			"BusquedaPersona": 2,
+			"_BusquedaPersona": "Se busca por Proveedor"
+		}
+	},
+	{
+		"Data": {
+			"IdMotivoNotaEntrada": 24,
+			"CodigoMotivoNotaEntrada": "24",
+			"NombreMotivoNotaEntrada": "ENTRADA POR DEVOLUCIÓN DEL CLIENTE (CON DOC. REF.)",
+			"GrupoMotivoNotaEntrada": "A"
+		},
+		"Reglas": {
+			"CantidadFacturas": 0,
+			"_CantidadFactura": "Se Permite Solo Una Factura",
+			"DocumentoReferencia": 1,
+			"_DocumentoReferencia": "Tiene documento referencia",
+			"CamposEditables": [3, 5],
+			"_CamposEditables": "Se Listan los campos Editables",
+			"OcultarCampos": [4],
+			"_OcultarCampos": "Se Ocultan los campos dados",
+			"BusquedaPersona": 1,
+			"_BusquedaPersona": "Se busca Clientes"
+		}
+	},
+	{
+		"Data": {
+			"IdMotivoNotaEntrada": 42,
+			"CodigoMotivoNotaEntrada": "94",
+			"NombreMotivoNotaEntrada": "ENTRADA POR DEVOLUCIÓN (SIN DOC. REF.)",
+			"GrupoMotivoNotaEntrada": "B"
+		},
+		"Reglas": {
+			"CantidadFacturas": 0,
+			"_CantidadFactura": "Se Permite Solo Una Factura",
+			"DocumentoReferencia": 0,
+			"_DocumentoReferencia": "No tiene documento referencia",
+			"CamposEditables": [1, 2, 3, 4, 5],
+			"_CamposEditables": "Se Listan los campos Editables",
+			"OcultarCampos": [5],
+			"_OcultarCampos": "Se Ocultan los campos dados",
+			"BusquedaPersona": 2,
+			"_BusquedaPersona": "Se busca por Proveedor"
+		}
+	},
+	{
+		"Data": {
+			"IdMotivoNotaEntrada": 44,
+			"CodigoMotivoNotaEntrada": "96",
+			"NombreMotivoNotaEntrada": "OTROS 6",
+			"GrupoMotivoNotaEntrada": "B"
+		},
+		"Reglas": {
+			"CantidadFacturas": 0,
+			"_CantidadFactura": "Se Permite Solo Una Factura",
+			"DocumentoReferencia": 0,
+			"_DocumentoReferencia": "No tiene documento referencia",
+			"CamposEditables": [1, 2, 3, 4, 5],
+			"_CamposEditables": "Se Listan los campos Editables",
+			"OcultarCampos": [5],
+			"_OcultarCampos": "Se Ocultan los campos dados",
+			"BusquedaPersona": 2,
+			"_BusquedaPersona": "Se busca por Proveedor"
+		}
+	},
+	{
+		"Data": {
+			"IdMotivoNotaEntrada": 28,
+			"CodigoMotivoNotaEntrada": "28",
+			"NombreMotivoNotaEntrada": "AJUSTE POR DIFERENCIA DE INVENTARIO",
+			"GrupoMotivoNotaEntrada": "B"
+		},
+		"Reglas": {
+			"CantidadFacturas": 0,
+			"_CantidadFactura": "Se Permite Solo Una Factura",
+			"DocumentoReferencia": 0,
+			"_DocumentoReferencia": "No tiene documento referencia",
+			"CamposEditables": [1, 2, 3, 4, 5],
+			"_CamposEditables": "Se Listan los campos Editables",
+			"OcultarCampos": [5],
+			"_OcultarCampos": "Se Ocultan los campos dados",
+			"BusquedaPersona": 2,
+			"_BusquedaPersona": "Se busca por Proveedor"
+		}
+	}
+]

@@ -1,0 +1,19 @@
+[
+  { "IdCampo": 1, "Id":"CodigoMercaderia", "Descripcion": "Codigo", "Clase": "DetalleNotaCredito_Codigo", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 2, "Id":"NombreProducto", "Descripcion": "Descripcion", "Clase": "DetalleNotaCredito_Descripcion", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 3, "Id":"Cantidad", "Descripcion": "Cantidad", "Clase": "DetalleNotaCredito_Cantidad", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 4, "Id":"PrecioUnitario", "Descripcion": "PrecioUnitario", "Clase": "DetalleNotaCredito_PrecioUnitario", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 5, "Id":"Descuento", "Descripcion": "Descuento", "Clase": "DetalleNotaCredito_Descuento", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 6, "Id":"SubTotal", "Descripcion": "Importe", "Clase": "DetalleNotaCredito_Importe", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 7, "Id":"Gravada", "Descripcion": "Gravada", "Clase": "NotaCredito_Gravada", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 8, "Id":"NoGravada", "Descripcion": "NoGravada", "Clase": "NotaCredito_NoGravada", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 9, "Id":"DescuentoGlobal", "Descripcion": "DescuentoGlobal", "Clase": "NotaCredito_DescuentoGlobal", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 10, "Id":"IGV", "Descripcion": "IGV", "Clase": "NotaCredito_IGV", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 11, "Id":"Total", "Descripcion": "Total", "Clase": "NotaCredito_Total", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 12, "Id":"Concepto", "Descripcion": "Concepto", "Clase": "NotaCredito_Concepto", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 13, "Id":"Porcentaje", "Descripcion": "Porcentaje", "Clase": "NotaCredito_Porcentaje", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 14, "Id":"Importe", "Descripcion": "Importe", "Clase": "NotaCredito_Importe", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 15, "Id":"", "Descripcion": "Botton Agregado-Eliminado", "Clase": "DetalleNotaCredito_AgregarEliminar", "Tipo": 1, "_Tipo": "button" },
+  { "IdCampo": 16, "Id":"DescuentoUnitario", "Descripcion": "DescuentoUnitario", "Clase": "DetalleNotaCredito_DescuentoUnitario", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 17, "Id":"Inafecto", "Descripcion": "Inafecto", "Clase": "NotaCredito_Inafecto", "Tipo": 0, "_Tipo": "input" }
+]

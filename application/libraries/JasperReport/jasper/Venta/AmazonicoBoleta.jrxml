@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BoletaFisico" language="groovy" pageWidth="305" pageHeight="475" columnWidth="265" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="34c97518-d028-46ef-89a8-923e3f985dce">
+	<property name="ireport.zoom" value="1.610510000000037"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="IdComprobanteVenta" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select DATE_FORMAT(CV.FechaEmision,'%d')as Dia,
+		 DATE_FORMAT(CV.FechaEmision,'%m')as Mes,
+		 RIGHT(DATE_FORMAT(CV.FechaEmision,'%y'),1) as Año, CV.IdComprobanteVenta, concat(CV.SerieDocumento,'-', CV.NumeroDocumento) as Documento, PER.RazonSocial, PER.NumeroDocumentoIdentidad,
+		 (Case when length(PER.Direccion)>0 then PER.Direccion else '' end) as Direccion,
+		 (Case when length(USU.AliasUsuarioVenta)>0 then USU.AliasUsuarioVenta else '' end) as AliasUsuarioVenta,
+		 cast(CV.FechaEmision as date)as FechaEmision, CV.FechaVencimiento, MON.NombreMoneda,MON.SimboloMoneda,FP.NombreFormaPago,
+		 (Case when length(CV.GuiaRemision)>0 then CV.GuiaRemision else '' end) as GuiaRemision,
+		 (Case when length(CV.OrdenCompra)>0 then CV.OrdenCompra else '' end) as OrdenCompra,
+		 (Case when length(CV.Observacion)>0 then CV.Observacion else '' end) as Observacion,
+		 CV.ValorVentaGravado, CV.ValorVentaNoGravado, CV.DescuentoGlobal,
+		 CV.IGV, CV.Total,LEFT(CV.MontoLetra,LENGTH(CV.MontoLetra)-5)as MontoLetra , DCV.NumeroItem, PRO.NombreProducto, DCV.Cantidad,
+		 DCV.AbreviaturaUnidadMedida,DCV.PrecioUnitario, DCV.DescuentoItem, DCV.SubTotal, FCP.*,
+		 If (CV.IdTipoDocumento = '2', (Case When CV.SerieDocumento like  'F%' then 'FACTURA ELECTRÓNICA' else 'FACTURA' end),
+		 If(CV.IdTipoDocumento = '4',(Case When CV.SerieDocumento like  'B%' then 'BOLETA ELECTRÓNICA' else 'BOLETA' end),''))as TipoDocumento,
+
+		 If (CV.IdTipoVenta = '1', M.CodigoMercaderia,
+		 If (CV.IdTipoVenta = '2',S.CodigoServicio,
+		 If(CV.IdTipoVenta = '3',AF.CodigoActivoFijo,
+		 If(CV.IdTipoVenta = '4',OV.CodigoOtraVenta,'')))) as CodigoProducto
+from comprobanteventa as CV
+inner join cliente as CLI on CLI.IdPersona=CV.IdCliente
+inner join persona as PER on PER.IdPersona=CLI.IdPersona
+inner join usuario as USU on USU.IdUsuario=CV.IdUsuario
+inner join moneda as MON on MON.IdMoneda=CV.IdMoneda
+inner join formapago as FP on FP.IdFormaPago=CV.IdFormaPago
+inner join detallecomprobanteventa as DCV on DCV.IdComprobanteVenta=CV.IdComprobanteVenta
+inner join producto as PRO on DCV.IdProducto=PRO.IdProducto
+left join mercaderia as M on M.IdProducto = PRO.IdProducto
+left join servicio as S on S.IdProducto = PRO.IdProducto
+left join activofijo as AF on AF.IdProducto = PRO.IdProducto
+left join otraventa as OV on OV.IdProducto = PRO.IdProducto
+Cross join formatocomprobantepago as FCP
+where CV.IdComprobanteVenta=$P{IdComprobanteVenta} and CV.IndicadorEstado='A']]>
+	</queryString>
+	<field name="Dia" class="java.lang.String"/>
+	<field name="Mes" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Año" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IdComprobanteVenta" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Documento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RazonSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NumeroDocumentoIdentidad" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Direccion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="AliasUsuarioVenta" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FechaEmision" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FechaVencimiento" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NombreMoneda" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SimboloMoneda" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NombreFormaPago" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="GuiaRemision" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="OrdenCompra" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Observacion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ValorVentaGravado" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ValorVentaNoGravado" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DescuentoGlobal" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IGV" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Total" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MontoLetra" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NumeroItem" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NombreProducto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Cantidad" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="AbreviaturaUnidadMedida" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PrecioUnitario" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DescuentoItem" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SubTotal" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IdFormatoComprobantePago" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Logotipo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RUCEmisor" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ActividadEmpresa" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RazonSocialEmisor" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DireccionEmisor" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Distrito" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Provincia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Departamento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CelularEmisor" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TipoDocumento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CodigoProducto" class="java.lang.String"/>
+	<title>
+		<band height="94" splitType="Stretch">
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="208" y="79" width="21" height="15" uuid="9f1ca881-1658-499f-9f28-54fd158130fc"/>
+				<textElement>
+					<font fontName="Trebuchet MS" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Mes}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="169" y="79" width="26" height="15" uuid="9fa745b7-c820-405d-8ac0-e5f121f6783b"/>
+				<textElement textAlignment="Right">
+					<font fontName="Trebuchet MS" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Dia}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="253" y="79" width="12" height="15" uuid="03c35405-12f0-4370-8092-b975a92fcb5e"/>
+				<textElement>
+					<font fontName="Trebuchet MS" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Año}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="51">
+			<textField isBlankWhenNull="true">
+				<reportElement x="42" y="1" width="223" height="15" uuid="41d8a6bc-9830-46b4-a335-8825b79b194b"/>
+				<textElement>
+					<font fontName="Trebuchet MS" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RazonSocial}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="41" y="15" width="142" height="15" uuid="57764b8b-2c62-4fe2-a88a-391a344b0790"/>
+				<textElement>
+					<font fontName="Trebuchet MS" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Direccion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="199" y="15" width="66" height="15" uuid="3efac5a9-01b8-4b7b-995e-ed8497a05909"/>
+				<textElement textAlignment="Right">
+					<font fontName="Trebuchet MS" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NumeroDocumentoIdentidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="2" y="0" width="30" height="15" uuid="e9691339-7651-400e-b012-98c4259a9494"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Trebuchet MS" size="8"/>
+					<paragraph rightIndent="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Cantidad}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="204" y="0" width="30" height="15" uuid="6a537ca5-8a76-470d-acb0-d42bb64870f1"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Trebuchet MS" size="8"/>
+					<paragraph rightIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PrecioUnitario}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" x="32" y="0" width="172" height="15" uuid="732cfea1-171b-4729-85fd-852b843a3526"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Trebuchet MS" size="7" isUnderline="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Proportional" tabStopWidth="35"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NombreProducto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="234" y="0" width="30" height="15" uuid="46d0484d-f540-45a0-807c-f0e121355853"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Trebuchet MS" size="8"/>
+					<paragraph rightIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SubTotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="68">
+			<textField isBlankWhenNull="true">
+				<reportElement x="224" y="41" width="40" height="16" uuid="f0e6569e-2490-4f6e-872f-664f1c606f35"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Trebuchet MS"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Total}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="27" y="13" width="214" height="14" uuid="ad9874ba-ef51-4bf6-a969-ec896fe14076"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Trebuchet MS" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MontoLetra}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>

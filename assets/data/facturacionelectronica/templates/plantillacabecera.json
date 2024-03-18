@@ -1,0 +1,52 @@
+{
+  "ublVersionIdSwf"     : "2.0",
+  "CustomizationIdSwf"  : "1.0",
+  "nroCdpSwf"           : "",
+  "fechaEmision"        : "",
+  "moneda"              : "",
+  "nroRucEmisorSwf"     : "",
+  "identificadorFacturadorSwf"  : "Elaborado por SISEM PERU 1.0.0",
+  "codigoFacturadorSwf" : "0",
+  "nombreComercialSwf"  : "",
+  "razonSocialSwf"      : "",
+  "identificadorFirmaSwf" : "SIGN",
+  "tipDocuEmisorSwf"      : "6",
+  "ubigeoDomFiscalSwf"    : "",
+  "direccionDomFiscalSwf" : "",
+  "paisDomFiscalSwf"      : "PER",
+
+  "nroDocumento"          : "",
+  "tipoDocumento"         : "",
+  "razonSocialUsuario"    : "",
+  "direccionUsuario"      : "",
+
+  "sumaIgv"               : "0",
+  "idIgv"                 : "1000",
+  "codIgv"                : "IGV",
+  "codExtIgv"             : "VAT",
+
+  "sumaIsc"               : "0",
+  "idIsc"                 : "2000",
+  "codIsc"                : "ISC",
+  "codExtIsc"             : "EXC",
+
+  "sumaOtros"             : "0",
+  "idOtr"                 : "9999",
+  "codOtr"                : "OTROS",
+  "codExtOtr"             : "OTH",
+
+  "descuentoGlobal"       : "0",
+  "sumaOtrosCargos"       : "0",
+  "sumaImporteVenta"      : "0",
+  "tipoCodigoMonedaSwf"   : "01",
+
+  "codigoMontoDescuentosSwf"  : "2005",
+  "totalDescuento"            : "0",
+  "codigoMontoOperGravadasSwf"  : "1001",
+  "montoOperGravadas"           : "0",
+  "codigoMontoOperInafectasSwf" : "1002",
+  "montoOperInafectas"          : "0",
+  "codigoMontoOperExoneradasSwf"  : "1003",
+  "montoOperExoneradas"   : "0",
+  "tipCdpSwf" : ""
+}

@@ -1,0 +1,60 @@
+[
+	{"id": "ublVersionIdSwf", "tipo": "0", "value": "2.1"},
+	{"id": "CustomizationIdSwf", "tipo": "0", "value": "2.0"},
+
+	{"id": "nroCdpSwf", "tipo": "1", "value": "Documento"},
+	{"id": "tipCdpSwf", "tipo": "1", "value": "CodigoTipoDocumento"},
+
+	{"id": "fechaEmision", "tipo": "1", "value": "FechaEmision"},
+	{"id": "horaEmision", "tipo": "1", "value": "HoraEmision"},
+
+	{"id": "tipDocuEmisorSwf", "tipo": "0", "value": "6"},
+	{"id": "nroRucEmisorSwf", "tipo": "1", "value": "CodigoEmpresa"},
+	{"id": "razonSocialSwf", "tipo": "1", "value": "RazonSocialEmisor"},
+
+	{"id": "NrolineaEnvio", "tipo": "0", "value": "1"},
+
+	{"id": "CodigoMotivoTraslado", "tipo": "1", "value": "CodigoMotivoTraslado"},
+	{"id": "NombreMotivoTraslado", "tipo": "1", "value": "NombreMotivoTraslado"},
+
+	{"id": "CodigoTipoDocumentoDestinatario", "tipo": "1", "value": "CodigoTipoDocumentoDestinatario"},
+	{"id": "NumeroDocumentoDestinatario", "tipo": "1", "value": "NumeroDocumentoDestinatario"},
+	{"id": "RazonSocialDestinatario", "tipo": "1", "value": "RazonSocialDestinatario"},
+
+	{"id": "IndicadorTransbordo", "tipo": "1", "value": "IndicadorTransbordo"},
+	{"id": "DenominacionEnvioTransbordo", "tipo": "0", "value": "0"},
+	{"id": "PesoBrutoTotal", "tipo": "1", "value": "PesoBrutoTotal"},
+	{"id": "CodigoUnidadMedidaPesoBrutoTotal", "tipo": "1", "value": "CodigoUnidadMedidaPesoBrutoTotal"},
+	
+	{"id": "CodigoModalidadTraslado", "tipo": "1", "value": "CodigoModalidadTraslado"},
+	{"id": "FechaInicioTraslado", "tipo": "1", "value": "FechaTraslado"},
+	
+	{"id": "CodigoTipoDocumentoTransportista", "tipo": "1", "value": "CodigoTipoDocumentoTransportista"},
+	{"id": "NumeroDocumentoTransportista", "tipo": "1", "value": "NumeroDocumentoTransportista"},
+	{"id": "RazonSocialTransportista", "tipo": "1", "value": "RazonSocialTransportista"},
+	{"id": "NumeroLicenciaConducir", "tipo": "1", "value": "NumeroLicenciaConducir"},
+	{"id": "NumeroPlaca", "tipo": "1", "value": "PlacaVehiculo"},
+
+	{"id": "NumeroContenedor", "tipo": "1", "value": "NumeroContenedor"},
+	{"id": "CodigoPuerto", "tipo": "1", "value": "CodigoPuerto"},
+	
+	{"id": "CodigoUbigeoPuntoLlegada", "tipo": "1", "value": "CodigoUbigeoPuntoLlegada"},
+	{"id": "DireccionPuntoLlegada", "tipo": "1", "value": "DireccionPuntoLlegada"},
+	{"id": "CodigoUbigeoPuntoPartida", "tipo": "1", "value": "CodigoUbigeoPuntoPartida"},
+	{"id": "DireccionPuntoPartida", "tipo": "1", "value": "DireccionPuntoPartida"},
+
+	{"id":"listaDetalle", "tipo": "3", "value":  "DetallesGuiaRemisionRemitente", "datos":
+		[
+			{"id": "lineaSwf", "tipo": "1", "value": "NumeroItem"},
+			{"id": "unidadMedida", "tipo": "1", "value": "CodigoUnidadMedida"},
+			{"id": "cantItem", "tipo": "1", "value": "Cantidad"},
+			{"id": "NombreProducto", "tipo": "1", "value": "NombreProducto"},
+			{"id": "CodigoItem", "tipo": "1", "value": "CodigoMercaderia"}
+		]
+	},
+	{"id": "DocumentoReferencia", "tipo": "1", "value": "DocumentoReferencia"},
+	{"id": "CodigoTipoDocumentoReferencia", "tipo": "1", "value": "CodigoTipoDocumentoReferencia"},
+	{"id": "NombreTipoDocumentoReferencia", "tipo": "1", "value": "NombreTipoDocumentoReferencia"},
+	{"id": "CodigoDocumentoIdentidad", "tipo": "1", "value": "CodigoDocumentoIdentidad"},
+	{"id": "NumeroDocumentoIdentidad", "tipo": "1", "value": "NumeroDocumentoIdentidad"}	
+]

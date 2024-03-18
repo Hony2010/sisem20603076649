@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte_Cobros_Por_Cobrar" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="22e02490-3f94-45d2-a721-43da79e09b60">
+	<property name="ireport.zoom" value="1.1000000000000003"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.wrap.text" value="false"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+	<style name="RojoNumeroNegativo">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{SaldoFisico}<0.00]]></conditionExpression>
+			<style mode="Transparent" forecolor="#FF0000" backcolor="#FFFFFF" fill="Solid">
+				<pen lineColor="#FF0000"/>
+			</style>
+		</conditionalStyle>
+	</style>
+	<parameter name="FechaInicial" class="java.lang.String"/>
+	<parameter name="FechaFinal" class="java.lang.String"/>
+	<parameter name="IdCliente" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="UsuariosSeleccionados" class="java.lang.String"/>
+	<parameter name="NombreZona" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="EstadoDeuda" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+	CONCAT(TD.NombreAbreviado, ' ', CV.SerieDocumento, '-', CV.NumeroDocumento) AS Documento,
+	PER.RazonSocial,
+	PER.Direccion,
+	CV.FechaEmision,
+	CV.FechaVencimiento,
+	CC.FechaComprobante AS FechaCobro,
+	DATEDIFF(CURRENT_DATE(), Cv.FechaEmision) AS DiasVcto,
+	FP.NombreFormaPago,
+	CV.AliasUsuarioVenta,
+	CL.NombreZona,
+	EMP.CodigoEmpresa, EMP.RazonSocial as NombreEmpresa,
+	cc.UsuarioCobrador,
+	cc.MontoComprobante as MontoCobrado,
+	CONCAT(CC.SerieDocumento, '-', CC.NumeroDocumento) AS DocumentoCaja
+FROM comprobanteventa AS CV
+LEFT JOIN tipodocumento AS TD On TD.IdTipoDocumento = CV.IdTipoDocumento
+LEFT JOIN cliente AS CL ON CL.IdPersona = CV.IdCliente
+LEFT JOIN persona AS PER ON PER.IdPersona = CL.IdPersona
+LEFT JOIN moneda AS MND ON MND.IdMoneda = CV.IdMoneda
+LEFT JOIN formapago FP ON FP.IdFormaPago = CV.IdFormaPago
+LEFT JOIN movimientocaja mc ON mc.IdComprobanteVenta = cv.IdComprobanteVenta
+LEFT JOIN comprobantecaja cc ON cc.IdComprobanteCaja = mc.IdComprobanteCaja
+CROSS JOIN empresa AS EMP
+WHERE
+ (CC.FechaComprobante BETWEEN $P{FechaInicial} AND $P{FechaFinal}) AND
+ (CV.IndicadorEstado='A' or CV.IndicadorEstado='N')
+ AND cc.UsuarioCobrador in ($P!{UsuariosSeleccionados})
+ AND CV.IdCliente LIKE $P{IdCliente}
+AND CL.NombreZona like $P{NombreZona}
+AND mc.IndicadorEstado='A'
+AND cc.IndicadorEstado='A'
+ORDER BY cc.UsuarioCobrador,cc.FechaComprobante,Per.RazonSocial,CONCAT(TD.NombreAbreviado, ' ', CV.SerieDocumento, '-', CV.NumeroDocumento),CONCAT(CC.SerieDocumento, '-', CC.NumeroDocumento)]]>
+	</queryString>
+	<field name="Documento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RazonSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Direccion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FechaEmision" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FechaVencimiento" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MontoCobrado" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DiasVcto" class="java.lang.Integer"/>
+	<field name="NombreFormaPago" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="AliasUsuarioVenta" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NombreZona" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CodigoEmpresa" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NombreEmpresa" class="java.lang.String"/>
+	<field name="UsuarioCobrador" class="java.lang.String"/>
+	<field name="FechaCobro" class="java.util.Date"/>
+	<field name="DocumentoCaja" class="java.lang.String"/>
+	<variable name="MontoCobrado_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{MontoCobrado}]]></variableExpression>
+	</variable>
+	<variable name="SUMA_TOTAL_COBRADO" class="java.math.BigDecimal" resetType="Group" resetGroup="GrupoCobrador" calculation="Sum">
+		<variableExpression><![CDATA[$F{MontoCobrado}]]></variableExpression>
+	</variable>
+	<variable name="SUMA_TOTAL_COBROS" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{MontoCobrado}]]></variableExpression>
+	</variable>
+	<group name="GrupoCobrador">
+		<groupExpression><![CDATA[$F{UsuarioCobrador}]]></groupExpression>
+		<groupHeader>
+			<band height="50">
+				<textField>
+					<reportElement x="0" y="15" width="254" height="15" uuid="b62d5865-06ee-444c-a0a7-14844f5505b4"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Cobrador : " + $F{UsuarioCobrador}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="406" y="30" width="133" height="20" backcolor="#F0F0F0" uuid="317df17b-0373-491d-968c-4f6a979c9360"/>
+					<box>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Documento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="1" y="30" width="90" height="20" backcolor="#F0F0F0" uuid="cfd8d374-9e34-4c87-9813-5882fc864a82"/>
+					<box>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha Cobro]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="91" y="30" width="163" height="20" backcolor="#F0F0F0" uuid="460666d6-a502-42de-bc0a-bc5d31e6092d"/>
+					<box>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nombres]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="254" y="30" width="153" height="20" backcolor="#F0F0F0" uuid="d42d0bef-186f-4d1a-9ed6-10c23186479b"/>
+					<box>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Dirección]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="539" y="30" width="78" height="20" backcolor="#F0F0F0" uuid="10e9db0a-e89a-4c95-9c45-2d37c26034a8"/>
+					<box>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha Emisión]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="707" y="30" width="90" height="20" backcolor="#F0F0F0" uuid="5daf925c-eee3-4c5c-ae3b-5a301b604e81"/>
+					<box>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Monto Cobrado]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="617" y="30" width="90" height="20" backcolor="#F0F0F0" uuid="adb5805a-71e9-4cd4-a0b9-53171d7adad2"/>
+					<box>
+						<topPen lineWidth="0.75"/>
+						<leftPen lineWidth="0.75"/>
+						<bottomPen lineWidth="0.75"/>
+						<rightPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Documento Caja]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="30">
+				<staticText>
+					<reportElement x="616" y="8" width="90" height="20" uuid="a94ba6b1-ad04-4ee7-832a-2494925a5efe"/>
+					<textElement textAlignment="Right"/>
+					<text><![CDATA[Sub Total Cobrado :]]></text>
+				</staticText>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="706" y="8" width="90" height="20" uuid="3203fb8a-11a0-4bfc-935c-67e2f6b6e9d3"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{SUMA_TOTAL_COBRADO}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="3" y="6" width="793" height="1" uuid="0108b713-8096-45c3-a6a3-6f12914dd45c"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="94" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="45" width="802" height="15" uuid="d60ffd75-231e-4505-bd5a-320d06be4443"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="10" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE COBROS POR COBRADOR]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm.ss" isBlankWhenNull="true">
+				<reportElement x="628" y="0" width="174" height="15" uuid="1fe68f00-b97e-419c-9acb-cb5a601f3324"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="30" width="133" height="15" uuid="b430e0eb-cb13-422b-badf-4a23ea63eacf"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="15" width="133" height="15" uuid="147bf5dd-a498-4dca-9ddb-2c29ebff24f5"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["RUC "+$F{CodigoEmpresa}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="449" height="15" uuid="06a45cf0-17f2-4267-ae46-5e640218dcf2"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NombreEmpresa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="0" y="60" width="802" height="15" uuid="dd70b5b9-7ebb-4286-a931-32112c17f480"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Del "+$P{FechaInicial}+" Al "+$P{FechaFinal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="539" y="0" width="78" height="15" uuid="b61e1ded-b7e7-498f-94e7-0abd8424c591"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FechaEmision}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="406" y="0" width="133" height="15" uuid="9c6a6162-f9d4-48b6-811d-6e396258d33a"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Documento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="91" y="0" width="163" height="15" uuid="94eecc98-be90-4fe1-82e5-29f30a7ac06f"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RazonSocial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="254" y="0" width="153" height="15" uuid="26d6747b-5a10-47af-9c3e-2a2ab42bd604"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Direccion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="1" y="0" width="90" height="15" uuid="9d6e2f55-07b1-4268-8ca8-4f7631f6fcab"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FechaCobro}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="707" y="0" width="90" height="15" uuid="6f3b83a5-74d4-4f2a-b5df-4c79613050f0"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MontoCobrado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="616" y="0" width="91" height="15" uuid="c92d3166-17a3-4e96-9932-90a06b0ae9db"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{DocumentoCaja}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="616" y="8" width="90" height="20" uuid="0cb5c365-c9ae-4dab-abec-5488a5798d41"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Total Cobranza :]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="706" y="8" width="90" height="20" uuid="5babb162-e282-47bf-887a-60b52fe625d7"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{SUMA_TOTAL_COBROS}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="3" y="3" width="793" height="2" uuid="adac7372-5a46-48ad-87ae-a4f9e454df48"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

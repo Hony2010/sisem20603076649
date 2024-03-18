@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte_Ventas" language="groovy" pageWidth="864" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="824" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="22e02490-3f94-45d2-a721-43da79e09b60">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="28"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.wrap.text" value="false"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+	<style name="RojoNumeroNegativo">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{SaldoFisico}<0.00]]></conditionExpression>
+			<style mode="Transparent" forecolor="#FF0000" backcolor="#FFFFFF" fill="Solid">
+				<pen lineColor="#FF0000"/>
+			</style>
+		</conditionalStyle>
+	</style>
+	<parameter name="NombreZona" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[
+SELECT
+c.IdPersona, c.NombreZona, p.RazonSocial, p.Celular, p.Email,
+dc.Direccion
+FROM cliente c
+INNER JOIN persona p ON p.IdPersona = c.IdPersona
+INNER JOIN (
+	SELECT IdCliente,MAX(IdDireccionCliente) AS IdDireccionClienteMaximo
+	FROM direccioncliente
+	WHERE indicadorestado='A'
+	GROUP BY IdCliente
+) AS sdc
+ON sdc.IdCliente=c.IdPersona
+INNER JOIN direccioncliente dc
+ON dc.IdCliente=sdc.IdCliente
+AND sdc.IdDireccionClienteMaximo = dc.IdDireccionCliente
+WHERE p.IndicadorEstado = 'A' AND dc.IndicadorEstado='A'
+AND c.NombreZona LIKE CONCAT('%',$P{NombreZona},'%')
+ORDER BY c.NombreZona ,p.RazonSocial]]>
+	</queryString>
+	<field name="IdPersona" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NombreZona" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RazonSocial" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Celular" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Email" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Direccion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="RazonSocial_1" class="java.lang.Integer" resetType="Group" resetGroup="NombreZona" calculation="DistinctCount">
+		<variableExpression><![CDATA[$F{RazonSocial}]]></variableExpression>
+	</variable>
+	<group name="NombreZona">
+		<groupExpression><![CDATA[$F{NombreZona}]]></groupExpression>
+		<groupHeader>
+			<band height="15">
+				<textField>
+					<reportElement x="0" y="0" width="150" height="15" uuid="77bce6a3-241e-474a-be1c-54b53b4128a0"/>
+					<textElement verticalAlignment="Top"/>
+					<textFieldExpression><![CDATA["Zona: "+$F{NombreZona}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="NombreZona">
+					<reportElement x="362" y="0" width="130" height="15" uuid="f4ebc240-91a1-4952-9d84-fd494ecda131"/>
+					<textFieldExpression><![CDATA[$V{RazonSocial_1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="150" y="0" width="212" height="15" uuid="e9b12f7c-9954-40db-a2a7-ded7b3cc4fc7"/>
+					<textElement textAlignment="Right"/>
+					<text><![CDATA[Total Clientes:]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="30" width="83" height="15" uuid="2f279a97-5e50-40f5-a383-8b9ff73b2799"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="0" y="15" width="824" height="15" uuid="dd70b5b9-7ebb-4286-a931-32112c17f480"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["REPORTE CLIENTES POR ZONA"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="150" y="45" width="212" height="15" backcolor="#F0F0F0" uuid="cfd8d374-9e34-4c87-9813-5882fc864a82"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RAZÓN SOCIAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="492" y="45" width="190" height="15" backcolor="#F0F0F0" uuid="12dd6f88-7273-4b58-810b-ea2014f3c599"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIRECCIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="362" y="45" width="130" height="15" backcolor="#F0F0F0" uuid="5fdce7c6-d91e-4f81-a15b-d38b4c78b0cc"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CELULAR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="45" width="150" height="15" backcolor="#F0F0F0" uuid="d8eef1dd-38e2-49bb-afef-601a23d5bdaa"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Documento]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement x="492" y="0" width="332" height="15" uuid="d7143310-05ff-4456-abd6-2a9ece3df083"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="682" y="45" width="142" height="15" backcolor="#F0F0F0" uuid="d6941925-1d35-4c61-869b-36c0479490f1"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EMAIL]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="150" y="0" width="212" height="15" uuid="72e1ecef-6aea-4042-8659-ce497f38c9e3"/>
+				<textFieldExpression><![CDATA[$F{RazonSocial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="362" y="0" width="130" height="15" uuid="e300a589-dec1-4999-aa05-8f8f3d755757"/>
+				<textFieldExpression><![CDATA[$F{Celular}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="492" y="0" width="190" height="15" uuid="c0d4b7d4-ed58-4e74-be7d-9c070c26e6fe"/>
+				<textFieldExpression><![CDATA[$F{Direccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="682" y="0" width="142" height="15" uuid="25f24216-579d-49df-8aa6-d0411bf18ba0"/>
+				<textFieldExpression><![CDATA[$F{Email}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="29" splitType="Stretch"/>
+	</summary>
+</jasperReport>

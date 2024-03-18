@@ -1,0 +1,23 @@
+{
+  "ublVersionIdSwf"     : "2.0",
+  "CustomizationIdSwf"  : "1.0",
+  "idComunicacion"      : "",
+  "fechaDocumentoBaja"  : "",
+  "fechaComunicacioBaja"  : "",
+  "nroRucEmisorSwf"     : "",
+  "identificadorFacturadorSwf"  : "Elaborado por SISEM PERU 1.0.0",
+  "codigoFacturadorSwf" : "0",
+  "nombreComercialSwf"  : "",
+  "razonSocialSwf"      : "",
+  "identificadorFirmaSwf" : "SIGN",
+  "tipDocuEmisorSwf"      : "6",
+  "listaResumen"  : [],
+  "__plantilla_detalle__"  :
+    {
+       "linea"  : "0",
+       "tipoDocumentoBaja"  : "",
+       "serieDocumentoBaja"  : "",
+       "nroDocumentoBaja"  : "",
+       "motivoBajaDocumento"  : ""
+    }
+}

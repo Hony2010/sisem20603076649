@@ -1,0 +1,53 @@
+[
+  {"id": "ublVersionIdSwf", "tipo": "0", "value": "2.0"},
+  {"id": "CustomizationIdSwf", "tipo": "0", "value": "1.1"},
+
+  {"id": "nombreComercialSwf", "tipo": "1", "value": "NombreComercial"},
+  {"id": "razonSocialSwf", "tipo": "1", "value": "RazonSocial"},
+  {"id": "nroRucEmisorSwf", "tipo": "1", "value": "CodigoEmpresa"},
+
+  {"id": "tipDocuEmisorSwf", "tipo": "0", "value": "6"},
+  {"id": "fechaEmision", "tipo": "1", "value": "FechaEmisionDocumento"},
+  {"id": "fechaResumen", "tipo": "1", "value": "FechaResumenDiario"},
+
+  {"id": "idResumen", "tipo": "1", "value": "CodigoComunicacion"},
+
+  {"id": "identificadorFirmaSwf", "tipo": "0", "value": "#Sign"},
+
+  {"id": "listaResumen", "tipo": "3", "value": "DetallesResumenDiario", "datos":
+    [
+      {"id": "tipDocResumen", "tipo": "1", "value": "CodigoTipoDocumento"},
+      {"id": "idDocResumen", "tipo": "1", "value": "SerieNumeroDocumento"},
+      {"id": "tipDocUsuario", "tipo": "1", "value": "CodigoDocumentoIdentidad"},
+      {"id": "numDocUsuario", "tipo": "1", "value": "NumeroDocumentoCliente"},
+      {"id": "moneda", "tipo": "1", "value": "CodigoMoneda"},
+
+      {"id": "tipDocModifico", "tipo": "1", "value": "CodigoTipoDocumentoReferencia"},
+      {"id": "serDocModifico", "tipo": "1", "value": "SerieDocumentoReferencia"},
+      {"id": "numDocModifico", "tipo": "1", "value": "NumeroDocumentoReferencia"},
+
+      {"id": "totValGrabado", "tipo": "1", "value": "ValorVentaGravado"},
+      {"id": "totValExoneado", "tipo": "1", "value": "ValorVentaNoGravado"},
+      {"id": "totValInafecto", "tipo": "1", "value": "ValorVentaInafecto"},
+      {"id": "monValGratuito", "tipo": "0", "value": "0.00"},
+      {"id": "totOtroCargo", "tipo": "1", "value": "OtroCargo"},
+
+      {"id": "monTribIsc", "tipo": "1", "value": "ISC"},
+      {"id": "monTribIgv", "tipo": "1", "value": "IGV"},
+      {"id": "monTribOtro", "tipo": "1", "value": "OtroTributo"},
+      {"id": "totImpCpe", "tipo": "1", "value": "Total"},
+      
+      {"id": "monTribICBPER", "tipo": "1", "value": "ICBPER"},
+
+      {"id": "tipRegPercepcion", "tipo": "0", "value": ""},
+      {"id": "porPercepcion", "tipo": "0", "value": "0"},
+      {"id": "monBasePercepcion", "tipo": "0", "value": ""},
+      {"id": "monPercepcion", "tipo": "0", "value": "0"},
+      {"id": "monTotIncPercepcion", "tipo": "0", "value": ""},
+
+      {"id": "tipEstado", "tipo": "1", "value": "CodigoEstado"},
+
+      {"id": "linea", "tipo": "1", "value": "NumeroItem"}
+    ]
+  }
+]

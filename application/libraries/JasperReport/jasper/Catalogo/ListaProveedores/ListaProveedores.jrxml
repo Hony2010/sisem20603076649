@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteDeCliente" language="groovy" pageWidth="849" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="809" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b9951250-3ba9-4397-87ec-6943e9ea2e20">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.wrap.text" value="false"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+	<queryString>
+		<![CDATA[select persona.RazonSocial as 'NombrePersona', tipodocumentoidentidad.NombreAbreviado as 'TipoDocumento',persona.NumeroDocumentoIdentidad, persona.Celular, persona.TelefonoFijo, persona.Email,persona.Direccion, empresa.CodigoEmpresa, empresa.RazonSocial as 'NombreEmpresa' from proveedor
+inner join persona on persona.IdPersona = proveedor.IdPersona
+inner join tipodocumentoidentidad on tipodocumentoidentidad.IdTipoDocumentoIdentidad = persona.IdTipoDocumentoIdentidad
+cross join empresa
+where persona.IndicadorEstado = 'A'
+order by NombrePersona ASC]]>
+	</queryString>
+	<field name="NombrePersona" class="java.lang.String"/>
+	<field name="TipoDocumento" class="java.lang.String"/>
+	<field name="NumeroDocumentoIdentidad" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Celular" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TelefonoFijo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Email" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Direccion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CodigoEmpresa" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NombreEmpresa" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="90" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="0" width="315" height="15" uuid="c9a17b69-ffef-44cb-ac86-6a25bdfc1542"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NombreEmpresa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="571" y="0" width="237" height="15" uuid="37a82838-e170-4fda-9671-137c22e97c3d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="15" width="315" height="15" uuid="c3bbd0f5-28c2-4736-9e45-6d2c23ad426c"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["RUC "+$F{CodigoEmpresa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="30" width="197" height="15" uuid="d34d412a-d6db-45d9-b7eb-e4e5215eb008"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="45" width="807" height="15" uuid="4b5dc76e-8afc-4c35-b802-4e1a2b0495a1"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="11" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[LISTADO DE PROVEEDORES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="60" width="197" height="15" uuid="f2416b67-e947-4f1a-9727-a420688d7ae8"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1" y="75" width="197" height="15" forecolor="#FFFFFF" backcolor="#000033" uuid="d4794322-af94-48f4-8f7c-6dbd7d1ed39e"/>
+				<box>
+					<topPen lineWidth="0.75" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.75" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.75" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.75" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true" isUnderline="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Nombre / Razón Social]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="198" y="75" width="43" height="15" forecolor="#FFFFFF" backcolor="#000033" uuid="7a16acef-53b1-4e41-b0a1-5159ce34f91c"/>
+				<box>
+					<topPen lineWidth="0.75" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.75" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.75" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.75" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true" isUnderline="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Tipo Doc.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="241" y="75" width="75" height="15" forecolor="#FFFFFF" backcolor="#000033" uuid="b23850ae-8e08-4004-b395-e84ec2e4fd10"/>
+				<box>
+					<topPen lineWidth="0.75" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.75" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.75" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.75" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Nro. Doc.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="316" y="75" width="75" height="15" forecolor="#FFFFFF" backcolor="#000033" uuid="410fa310-2864-41d2-bff5-1711cde44109"/>
+				<box>
+					<topPen lineWidth="0.75" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.75" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.75" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.75" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Celular]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="391" y="75" width="65" height="15" forecolor="#FFFFFF" backcolor="#000033" uuid="2dee44a6-f37c-4ffe-b77f-02b77ef616cb"/>
+				<box>
+					<topPen lineWidth="0.75" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.75" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.75" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.75" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Teléf. Fijo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="571" y="75" width="237" height="15" forecolor="#FFFFFF" backcolor="#000033" uuid="5627a1b7-1ef5-44be-9111-1339282d183d"/>
+				<box>
+					<topPen lineWidth="0.75" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.75" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.75" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.75" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true" isUnderline="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Dirección]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="456" y="75" width="115" height="15" forecolor="#FFFFFF" backcolor="#000033" uuid="be3fefe4-3297-42ec-a4f1-919c97d7eb44"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Email]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="0" width="197" height="15" uuid="dc11a13d-e645-4d75-9c7f-c76c1ca9639e"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NombrePersona}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="198" y="0" width="43" height="15" uuid="8c64c57d-7052-41af-a07e-29d2f3929afb"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TipoDocumento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="241" y="0" width="75" height="15" uuid="4256efc1-c54f-4c64-9af8-12cacf350b34"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NumeroDocumentoIdentidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="316" y="0" width="75" height="15" uuid="48ee698c-090f-4a8f-a603-617f02cf77f7"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Celular}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="391" y="0" width="65" height="15" uuid="2a6a06b4-1df9-4f4d-a5a7-9d780326a65f"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TelefonoFijo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="571" y="0" width="237" height="15" uuid="935e2092-c00e-43e0-b3e3-10aa18272a63"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Direccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="456" y="0" width="115" height="15" uuid="16810e72-33b4-4eeb-85b6-44768a49f2f3"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Email}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="35"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,19 @@
+[
+  { "IdCampo": 1, "Id":"CodigoMercaderia", "Descripcion": "Codigo", "Clase": "DetalleNotaDebito_Codigo", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 2, "Id":"NombreProducto", "Descripcion": "Descripcion", "Clase": "DetalleNotaDebito_Descripcion", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 3, "Id":"Cantidad", "Descripcion": "Cantidad", "Clase": "DetalleNotaDebito_Cantidad", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 4, "Id":"PrecioUnitario", "Descripcion": "PrecioUnitario", "Clase": "DetalleNotaDebito_PrecioUnitario", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 5, "Id":"Descuento", "Descripcion": "Descuento", "Clase": "DetalleNotaDebito_Descuento", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 6, "Id":"SubTotal", "Descripcion": "Importe", "Clase": "DetalleNotaDebito_Importe", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 7, "Id":"Gravada", "Descripcion": "Gravada", "Clase": "NotaDebito_Gravada", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 8, "Id":"NoGravada", "Descripcion": "NoGravada", "Clase": "NotaDebito_NoGravada", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 9, "Id":"DescuentoGlobal", "Descripcion": "DescuentoGlobal", "Clase": "NotaDebito_DescuentoGlobal", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 10, "Id":"IGV", "Descripcion": "IGV", "Clase": "NotaDebito_IGV", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 11, "Id":"Total", "Descripcion": "Total", "Clase": "NotaDebito_Total", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 12, "Id":"Concepto", "Descripcion": "Concepto", "Clase": "NotaDebito_Concepto", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 13, "Id":"Porcentaje", "Descripcion": "Porcentaje", "Clase": "NotaDebito_Porcentaje", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 14, "Id":"Importe", "Descripcion": "Importe", "Clase": "NotaDebito_Importe", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 15, "Id":"", "Descripcion": "Botton Agregado-Eliminado", "Clase": "DetalleNotaDebito_AgregarEliminar", "Tipo": 1, "_Tipo": "button" },
+  { "IdCampo": 16, "Id":"AjusteValor", "Descripcion": "AjusteValor", "Clase": "DetalleNotaDebito_AjusteValor", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 17, "Id":"Inafecto", "Descripcion": "Inafecto", "Clase": "NotaDebito_Inafecto", "Tipo": 0, "_Tipo": "input" }
+]

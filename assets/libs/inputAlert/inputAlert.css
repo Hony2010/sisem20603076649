@@ -1,0 +1,78 @@
+
+.input-error,
+.input-error:focus{
+  border-color: #ff2f2f !important;
+  box-shadow: inset 16px 0px 5px -15px #ff2f2f,
+              inset 0px 16px 5px -15px #ff2f2f,
+              inset 0px -16px 5px -15px #ff2f2f!important;
+  color:#ff0000 !important;
+  border-right: none !important;
+  background-color: #ed49491f!important;
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+  border-top-left-radius: 4px !important;
+  border-bottom-left-radius: 4px !important;
+}
+.addon-error{
+  border-color: #ff2f2f !important;
+  box-shadow: inset -16px 0px 5px -15px #ff2f2f,
+              inset 0px 16px 5px -15px #ff2f2f,
+              inset 0px -16px 5px -15px #ff2f2f !important;
+  padding: 0px 5px !important;
+  width: 22px;
+  color:#ff0000;
+  background-color: #ed49491f !important;
+  border-left: 0px;
+
+}
+
+.input-warning,
+.input-warning:focus{
+  border-color: #fed42a !important;
+    box-shadow: inset 16px 0px 5px -15px #ff2f2f, inset 0px 16px 5px -15px #ff2f2f, inset 0px -16px 5px -15px #ff2f2f !important;
+  color:#fed42a !important;
+  border-right: none !important;
+  background-color: #c382111f !important;
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+  border-top-left-radius: 4px !important;
+  border-bottom-left-radius: 4px !important;
+}
+.addon-warning{
+  border-color: #fed42a !important;
+  box-shadow: inset -16px 0px 5px -15px #fed42a,
+              inset 0px 16px 5px -15px #fed42a,
+              inset 0px -16px 5px -15px #fed42a !important;
+  padding: 0px 5px !important;
+  width: 22px;
+  color:#fed42a;
+  background-color: #c382111f !important;
+  border-left: 0px;
+}
+
+.input-success,
+.input-success:focus{
+  border-color: #42e445;
+  box-shadow: inset 16px 0px 5px -15px #42e445,
+              inset -16px 0px 5px -15px #42e445,
+              inset 0px 16px 5px -15px #42e445,
+              inset 0px -16px 5px -15px #42e445!important;
+  color:#42e445;
+  /* border-right: none; */
+  background-color: #3c763d1f;
+  /* border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+  border-top-left-radius: 4px !important;
+  border-bottom-left-radius: 4px !important; */
+}
+.addon-success{
+  border-color: #42e445;
+  box-shadow: inset -16px 0px 5px -15px #42e445,
+              inset 0px 16px 5px -15px #42e445,
+              inset 0px -16px 5px -15px #42e445 !important;
+  padding: 0px 5px !important;
+  width: 22px;
+  color:#42e445 !important;
+  background-color: #3c763d1f !important;
+  border-left: 0px;
+}

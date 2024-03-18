@@ -1,0 +1,66 @@
+{
+  "ublVersionIdSwf": "",
+  "CustomizationIdSwf": "",
+
+  "idResumenDiario": "",
+  "fechaGeneracion": "",
+  "fechaEmision": "",
+  "nroRucEmisorSwf": "",
+  "identificadorFacturadorSwf": "",
+  "codigoFacturadorSwf": "",
+  "nombreComercialSwf": "",
+
+  "URIidentificadorFirmaSwf": "",
+  "razonSocialSwf": "",
+  "identificadorFirmaSwf": "",
+  "tipDocuEmisorSwf": "",
+  "moneda": "",
+
+  "listaResumen": [
+    {
+      "linea": "",
+      "tipoDocumento": "",
+      "serieNumeroDocumento": "",
+      "montoTotal": "",
+
+      "numeroDocumentoCliente": "",
+      "codigoTipoIdentidadCliente": "",
+      "serieNumeroDocumentoReferencia": "",
+      "tipoDocumentoReferencia": "",
+      "indicadorPercepcion ": "",
+      "montoPercepcion": "",
+      "codigoPercepcion": "",
+      "porcentajePercepcion": "",
+      "montoTotalCobrado": "",
+      "montoBaseImponiblePercepcion": "",
+      "codigoEstado": "",
+
+      "montoPagadoOpGravada": "",
+      "instructionIDOpGravada": "",
+      "montoPagadoOpExonerada": "",
+      "instructionIDOpExonerada": "",
+      "montoPagadoOpInafecto": "",
+      "instructionIDOpInafecto": "",
+      "montoPagadoOpGratuita": "",
+      "instructionIDOpGratuita": "",
+
+      "indicadorCargo": "",
+      "montoCargo": "",
+
+      "montoTasaIGV": "",
+      "idTasaIGV": "",
+      "nombreTasaIGV": "",
+      "codigoTasaIGV": "",
+
+      "montoTasaISC": "",
+      "idTasaISC": "",
+      "nombreTasaISC": "",
+      "codigoTasaISC": "",
+
+      "montoTasaOTROS": "",
+      "idTasaOTROS": "",
+      "nombreTasaOTROS": "",
+      "codigoTasaOTROS": ""
+    }
+  ]
+}

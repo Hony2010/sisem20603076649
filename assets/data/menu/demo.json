@@ -1,0 +1,30 @@
+{
+  "demo":{
+    "Data":[
+      {
+        "icono":"fas fa-angle-right",
+        "nombre":"Light",
+        "class":"demo__theme",
+        "css":"assets/css/right.new.css"
+      },
+      {
+        "icono":"fas fa-angle-right",
+        "nombre":"Dark",
+        "class":"demo__theme",
+        "css":"assets/css/right.dark.css"
+      },
+      {
+        "icono":"fas fa-angle-right",
+        "nombre":"Lilac",
+        "class":"demo__theme",
+        "css":"assets/css/right.lilac.css"
+      },
+      {
+        "icono":"fas fa-angle-right",
+        "nombre":"Veterinary",
+        "class":"demo__theme",
+        "css":"assets/css/right.veterinary.css"
+      }
+    ]
+  }
+}

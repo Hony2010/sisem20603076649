@@ -1,0 +1,65 @@
+[
+  {"id": "ublVersionIdSwf", "tipo": "0", "value": "2.0"},
+  {"id": "CustomizationIdSwf", "tipo": "0", "value": "1.1"},
+  {"id": "idResumenDiario", "tipo": "1", "value": "CodigoComunicacion"},
+  {"id": "fechaGeneracion", "tipo": "1", "value": "FechaResumenDiario"},
+  {"id": "fechaEmision", "tipo": "1", "value": "FechaEmisionDocumento"},
+  {"id": "nroRucEmisorSwf", "tipo": "1", "value": "CodigoEmpresa"},
+  {"id": "nombreComercialSwf", "tipo": "1", "value": "NombreComercial"},
+
+  {"id": "URIidentificadorFirmaSwf", "tipo": "0", "value": "SIGN"},
+  {"id": "razonSocialSwf", "tipo": "1", "value": "RazonSocial"},
+  {"id": "identificadorFirmaSwf", "tipo": "0", "value": "SIGN"},
+  {"id": "tipDocuEmisorSwf", "tipo": "0", "value": "6"},
+
+  {"id": "listaResumen", "tipo": "3", "value": "DetallesResumenDiario", "datos":
+    [
+      {"id": "linea", "tipo": "1", "value": "NumeroItem"},
+      {"id": "tipoDocumento", "tipo": "1", "value": "CodigoTipoDocumento"},
+      {"id": "serieNumeroDocumento", "tipo": "1", "value": "SerieNumeroDocumento"},
+      {"id": "montoTotal", "tipo": "1", "value": "Total"},
+      {"id": "moneda", "tipo": "1", "value": "CodigoMoneda"},
+
+      {"id": "numeroDocumentoCliente", "tipo": "1", "value": "NumeroDocumentoCliente"},
+      {"id": "codigoTipoIdentidadCliente", "tipo": "1", "value": "CodigoDocumentoIdentidad"},
+      {"id": "serieNumeroDocumentoReferencia", "tipo": "1", "value": "SerieNumeroDocumentoReferencia"},
+      {"id": "tipoDocumentoReferencia", "tipo": "1", "value": "CodigoTipoDocumentoReferencia"},
+
+      {"id": "indicadorPercepcion", "tipo": "0", "value": "N"},
+      {"id": "montoPercepcion", "tipo": "0", "value": "0"},
+      {"id": "codigoPercepcion", "tipo": "0", "value": "0"},
+      {"id": "porcentajePercepcion", "tipo": "0", "value": "0"},
+
+      {"id": "montoTotalCobrado", "tipo": "1", "value": "Total"},
+      {"id": "montoBaseImponiblePercepcion", "tipo": "0", "value": "0"},
+      {"id": "codigoEstado", "tipo": "1", "value": "CodigoEstado"},
+
+      {"id": "montoPagadoOpGravada", "tipo": "1", "value": "ValorVentaGravado"},
+      {"id": "instructionIDOpGravada", "tipo": "0", "value": "01"},
+      {"id": "montoPagadoOpExonerada", "tipo": "1", "value": "ValorVentaNoGravado"},
+      {"id": "instructionIDOpExonerada", "tipo": "0", "value": "02"},
+      {"id": "montoPagadoOpInafecto", "tipo": "1", "value": "ValorVentaInafecto"},
+      {"id": "instructionIDOpInafecto", "tipo": "0", "value": "03"},
+      {"id": "montoPagadoOpGratuita", "tipo": "0", "value": "0.00"},
+      {"id": "instructionIDOpGratuita", "tipo": "0", "value": "05"},
+
+      {"id": "indicadorCargo", "tipo": "0", "value": "false"},
+      {"id": "montoCargo", "tipo": "1", "value": "OtroCargo"},
+
+      {"id": "montoTasaIGV", "tipo": "1", "value": "IGV"},
+      {"id": "idTasaIGV", "tipo": "0", "value": "1000"},
+      {"id": "nombreTasaIGV", "tipo": "0", "value": "IGV"},
+      {"id": "codigoTasaIGV", "tipo": "0", "value": "IGV"},
+
+      {"id": "montoTasaISC", "tipo": "1", "value": "ISC"},
+      {"id": "idTasaISC", "tipo": "0", "value": "2000"},
+      {"id": "nombreTasaISC", "tipo": "0", "value": "ISC"},
+      {"id": "codigoTasaISC", "tipo": "0", "value": "ISC"},
+
+      {"id": "montoTasaOTROS", "tipo": "1", "value": "OtroTributo"},
+      {"id": "idTasaOTROS", "tipo": "0", "value": "9999"},
+      {"id": "nombreTasaOTROS", "tipo": "0", "value": "OTH"},
+      {"id": "codigoTasaOTROS", "tipo": "0", "value": "OTROS"}
+    ]
+  }
+]

@@ -1,0 +1,112 @@
+[
+	{
+        "Indicador": 0,
+        "Printer": "XP-58",
+        "Jasper": "Venta/Ticket/DocumetoElectronicoTicket5.7.jasper",
+        "A4": "Venta/A4/DocumentoElectronicoA4.jasper",
+        "Advertencia": "El parametro A4 solo se usa para crear el pdf de visualizacion en consulta CPE. No modificar si no es un formato A4.",
+        "Descripcion": "OTROS"
+    },
+    {
+        "Indicador": 2,
+        "Printer": "PDFCreator",
+        "Jasper": "Venta/Ticket/DocumentoElectronicoTicket8.0F.jasper",
+        "A4": "Venta/A4/DocumentoElectronicoA4Modelo2.jasper",        
+        "Descripcion": "FACTURA ELECTRONICA",
+        "Series": [{
+            "SerieDocumento" : "F003",
+            "Printer": "PDFCreator",
+            "Jasper": "Venta/Ticket/DocumetoElectronicoTicket5.7.jasper",
+            "A4": "Venta/A4/DocumentoElectronicoA4Modelo2.jasper"
+        },{
+            "SerieDocumento" : "F002",
+            "Printer": "PDFCreator",
+            "Jasper": "Venta/A4/DocumentoElectronicoA4Modelo2.jasper",
+            "A4": "Venta/A4/DocumentoElectronicoA4Modelo2.jasper"
+        }]
+    },
+	{
+        "Indicador": 20,
+        "Printer": "XP-58",
+        "Jasper": "Venta/FacturaFisico.jasper",
+        "A4": "Venta/A4/DocumentoElectronicoZofraA4_TipoT.jasper",
+        "Descripcion": "FACTURA FISICA"
+    },
+    {
+        "Indicador": 4,
+        "Printer": "PDFCreator",
+        "Jasper": "Venta/Ticket/DocumetoElectronicoTicket5.7.jasper",
+        "A4": "Venta/A4/DocumentoElectronicoA4Modelo2.jasper",
+        "Descripcion": "BOLETA ELECTRONICA"
+    },
+    {
+        "Indicador": 40,
+        "Printer": "PDFCreator",
+        "Jasper": "Venta/BoletaFisico.jasper",
+        "A4": "Venta/A4/DocumentoElectronicoZofraA4_TipoT.jasper",
+        "Descripcion": "BOLETA FISICA"
+    },
+    {
+        "Indicador": 41,
+        "Printer": "PDFCreator",
+        "Jasper": "Venta/Ticket/Zofra/DocumentoElectronicoZofra8.0_TipoT.jasper",
+        "A4": "Venta/A4/DocumentoElectronicoZofraA4_TipoT.jasper",
+        "Descripcion": "BOLETA ELECTRONICA T"
+    },
+    {
+        "Indicador": 42,
+        "Printer": "PDFCreator",
+        "Jasper": "Venta/Ticket/Zofra/DocumentoElectronicoZofra8.0_TipoZ.jasper",
+        "A4": "Venta/A4/DocumentoElectronicoZofraA4_TipoZ.jasper",
+        "Descripcion": "BOLETA ELECTRONICA Z"
+    },
+    {
+        "Indicador": 8,
+        "Printer": "PDFCreator",
+        "Jasper": "Venta/Ticket/DocumetoElectronicoTicket5.7.jasper",
+        "A4": "Venta/A4/DocumentoElectronicoA4.jasper",
+        "Descripcion": "NOTA CREDITO"
+    },
+    {
+        "Indicador": 9,
+        "Printer": "PDFCreator",
+        "Jasper": "Venta/Ticket/DocumetoElectronicoTicket5.7.jasper",
+        "A4": "Venta/A4/DocumentoElectronicoA4.jasper",
+        "Descripcion": "NOTA DEBITO"
+    },
+	{
+        "Indicador": 78,
+        "Printer": "PDFCreator",
+        "Jasper": "Venta/Ticket/DocumetoOrdenPedido.jasper",
+        "A4": "Venta/A4/DocumentoElectronicoA4.jasper",
+        "Descripcion": "ORDEN PEDIDO"
+    },
+	{
+        "Indicador": 86,
+        "Printer": "PDFCreator",
+        "Jasper": "Venta/Ticket/Comanda.jasper",
+        "A4": "Venta/Ticket/Comanda.jasper",
+        "Descripcion": "COMANDA"
+    },
+    {
+        "Indicador": 10,
+        "Printer": "PDFCreator",
+        "Jasper": "GuiaRemision/GuiaRemisionRemitenteA4.jasper",
+        "A4": "GuiaRemision/GuiaRemisionRemitenteA4.jasper",
+        "Descripcion": "GUIA"
+    },
+    {
+        "Indicador": 93,
+        "Printer": "PDFCreator",
+        "Jasper": "CodigoBarras/CodigoBarras.jasper",
+        "A4": "CodigoBarras/CodigoBarras.jasper",
+        "Descripcion": "CODIGO BARRAS"
+    },
+    {
+        "Indicador": 90,
+        "Printer": "PDFCreator",
+        "Jasper": "Proforma/Proforma.jasper",
+        "A4": "Proforma/Proforma.jasper",
+        "Descripcion": "PROFORMA"
+    }
+]

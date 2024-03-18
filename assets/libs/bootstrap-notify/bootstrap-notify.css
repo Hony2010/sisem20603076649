@@ -1,0 +1,50 @@
+.alert-minimalist {
+	background-color: rgb(241, 242, 240);
+	border-color: rgba(149, 149, 149, 0.3);
+	border-radius: 3px;
+	color: rgb(149, 149, 149);
+	padding: 10px;
+}
+.alert-minimalist > [data-notify="icon"] {
+	height: 50px;
+	margin-right: 12px;
+}
+.alert-minimalist > [data-notify="title"] {
+	color: rgb(51, 51, 51);
+	display: block;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+.alert-minimalist > [data-notify="message"] {
+	font-size: 80%;
+}
+
+.notify-success{
+	background-color: #05c46b !important;
+	color: #000000;
+	border-color: #05c46b;
+}
+
+.notify-producto{
+	background-color: #46b7e8 !important;
+	color: #000000;
+	border-color: #46b7e8;
+}
+
+.notify-warning{
+	background-color: #0fbcf9 !important;
+	color: #000000;
+	border-color: #0fbcf9;
+}
+
+.notify-danger{
+	background-color: #ff3f34 !important;
+	color: #000000;
+	border-color: #ff3f34;
+}
+
+.notify-conection{
+	background-color: #000000;
+	color: #FFFFFF;
+	border-color: #000000;
+}

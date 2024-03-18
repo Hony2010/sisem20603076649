@@ -1,0 +1,7 @@
+[
+  { "IdCampo": 1, "Id":"CodigoMercaderia", "Descripcion": "Codigo", "Clase": "DetalleNotaEntrada_Codigo", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 2, "Id":"NombreProducto", "Descripcion": "Descripcion", "Clase": "DetalleNotaEntrada_Descripcion", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 3, "Id":"Cantidad", "Descripcion": "Cantidad", "Clase": "DetalleNotaEntrada_Cantidad", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 4, "Id":"PrecioUnitario", "Descripcion": "PrecioUnitario", "Clase": "DetalleNotaEntrada_ValorUnitario", "Tipo": 0, "_Tipo": "input" },
+  { "IdCampo": 5, "Id":"", "Descripcion": "Botton Agregado-Eliminado", "Clase": "DetalleNotaEntrada_Eliminar", "Tipo": 1, "_Tipo": "button" }
+]

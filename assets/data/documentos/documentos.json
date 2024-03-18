@@ -1,0 +1,28 @@
+{
+  "TiposDocumentoVenta":[
+    {
+      "id": "2",
+      "value": "FACTURA",
+      "codigo": "01"
+    },
+    {
+      "id": "4",
+      "value": "BOLETA",
+      "codigo": "03"
+    }
+  ],
+  "TiposDocumentoVentaNotaDevolucion":[
+    {
+      "id": "78",
+      "value": "ORDEN DE PEDIDO",
+      "codigo": "OP"
+    }
+  ],
+  "TiposDocumentoCompra":[
+    {
+      "id": "8",
+      "value": "NOTA DE CREDITO",
+      "codigo": "07"
+    }
+  ]
+}

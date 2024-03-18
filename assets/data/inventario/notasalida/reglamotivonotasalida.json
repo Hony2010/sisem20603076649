@@ -1,0 +1,262 @@
+[
+	{
+		"Data":{
+			"IdMotivoNotaSalida": 0,
+			"CodigoMotivoNotaSalida": "00",
+			"NombreMotivoNotaSalida": "SE HABILITAN TODOS LOS CAMPOS",
+			"GrupoMotivoNotaSalida": ""
+		},
+		"Reglas":{
+			"CantidadFacturas": 0,
+			"_CantidadFactura": "Se Permite Solo Una Factura",
+			"DocumentoReferencia": 2,
+			"_DocumentoReferencia": "Especial para check",
+			"CamposEditables": [1, 2, 3, 4, 5],
+			"_CamposEditables": "Se Listan los campos Editables",
+			"OcultarCampos": [5],
+			"_OcultarCampos": "Se Ocultan los campos dados",
+			"BusquedaPersona": 1,
+			"_BusquedaPersona": "Se busca Clientes"
+		}
+	},
+	{
+		"Data":{
+			"IdMotivoNotaSalida": 1,
+			"CodigoMotivoNotaSalida": "01",
+			"NombreMotivoNotaSalida": "VENTA CON DOCUMENTO",
+			"GrupoMotivoNotaSalida": "A"
+		},
+		"Reglas":{
+			"CantidadFacturas": 0,
+			"_CantidadFactura": "Se Permite Solo Una Factura",
+			"DocumentoReferencia": 1,
+			"_DocumentoReferencia": "Tiene documento referencia",
+			"CamposEditables": [3, 5],
+			"_CamposEditables": "Se Listan los campos Editables",
+			"OcultarCampos": [4],
+			"_OcultarCampos": "Se Ocultan los campos dados",
+			"BusquedaPersona": 1,
+			"_BusquedaPersona": "Se busca Clientes"
+		}
+	},
+	{
+		"Data":{
+			"IdMotivoNotaSalida": 4,
+			"CodigoMotivoNotaSalida": "04",
+			"NombreMotivoNotaSalida": "CONSIGNACIÓN ENTREGADA",
+			"GrupoMotivoNotaSalida": "B"
+		},
+		"Reglas":{
+			"CantidadFacturas": 0,
+			"_CantidadFactura": "Se Permite Solo Una Factura",
+			"DocumentoReferencia": 0,
+			"_DocumentoReferencia": "No tiene documento referencia",
+			"CamposEditables": [1, 2, 3, 4, 5],
+			"_CamposEditables": "Se Listan los campos Editables",
+			"OcultarCampos": [5],
+			"_OcultarCampos": "Se Ocultan los campos dados",
+			"BusquedaPersona": 1,
+			"_BusquedaPersona": "Se busca Clientes"
+		}
+	},
+	{
+		"Data":{
+			"IdMotivoNotaSalida": 6,
+			"CodigoMotivoNotaSalida": "06",
+			"NombreMotivoNotaSalida": "DEVOLUCIÓN ENTREGADA (SIN DOCUMENTO)",
+			"GrupoMotivoNotaSalida": "B"
+		},
+		"Reglas":{
+			"CantidadFacturas": 0,
+			"_CantidadFactura": "Se Permite Solo Una Factura",
+			"DocumentoReferencia": 0,
+			"_DocumentoReferencia": "No tiene documento referencia",
+			"CamposEditables": [1, 2, 3, 4, 5],
+			"_CamposEditables": "Se Listan los campos Editables",
+			"OcultarCampos": [5],
+			"_OcultarCampos": "Se Ocultan los campos dados",
+			"BusquedaPersona": 1,
+			"_BusquedaPersona": "Se busca Clientes"
+		}
+	},
+	{
+		"Data":{
+			"IdMotivoNotaSalida": 9,
+			"CodigoMotivoNotaSalida": "09",
+			"NombreMotivoNotaSalida": "DONACIÓN",
+			"GrupoMotivoNotaSalida": "B"
+		},
+		"Reglas":{
+			"CantidadFacturas": 0,
+			"_CantidadFactura": "Se Permite Solo Una Factura",
+			"DocumentoReferencia": 0,
+			"_DocumentoReferencia": "No tiene documento referencia",
+			"CamposEditables": [1, 2, 3, 4, 5],
+			"_CamposEditables": "Se Listan los campos Editables",
+			"OcultarCampos": [5],
+			"_OcultarCampos": "Se Ocultan los campos dados",
+			"BusquedaPersona": 1,
+			"_BusquedaPersona": "Se busca Clientes"
+		}
+	},
+	{
+		"Data":{
+			"IdMotivoNotaSalida": 13,
+			"CodigoMotivoNotaSalida": "13",
+			"NombreMotivoNotaSalida": "MERMAS",
+			"GrupoMotivoNotaSalida": "B"
+		},
+		"Reglas":{
+			"CantidadFacturas": 0,
+			"_CantidadFactura": "Se Permite Solo Una Factura",
+			"DocumentoReferencia": 0,
+			"_DocumentoReferencia": "No tiene documento referencia",
+			"CamposEditables": [1, 2, 3, 4, 5],
+			"_CamposEditables": "Se Listan los campos Editables",
+			"OcultarCampos": [5],
+			"_OcultarCampos": "Se Ocultan los campos dados",
+			"BusquedaPersona": 1,
+			"_BusquedaPersona": "Se busca Clientes"
+		}
+	},
+	{
+		"Data":{
+			"IdMotivoNotaSalida": 14,
+			"CodigoMotivoNotaSalida": "14",
+			"NombreMotivoNotaSalida": "DESMEDROS",
+			"GrupoMotivoNotaSalida": "B"
+		},
+		"Reglas":{
+			"CantidadFacturas": 0,
+			"_CantidadFactura": "Se Permite Solo Una Factura",
+			"DocumentoReferencia": 0,
+			"_DocumentoReferencia": "No tiene documento referencia",
+			"CamposEditables": [1, 2, 3, 4, 5],
+			"_CamposEditables": "Se Listan los campos Editables",
+			"OcultarCampos": [5],
+			"_OcultarCampos": "Se Ocultan los campos dados",
+			"BusquedaPersona": 1,
+			"_BusquedaPersona": "Se busca Clientes"
+		}
+	},
+	{
+		"Data":{
+			"IdMotivoNotaSalida": 15,
+			"CodigoMotivoNotaSalida": "15",
+			"NombreMotivoNotaSalida": "DESTRUCCIÓN",
+			"GrupoMotivoNotaSalida": "B"
+		},
+		"Reglas":{
+			"CantidadFacturas": 0,
+			"_CantidadFactura": "Se Permite Solo Una Factura",
+			"DocumentoReferencia": 0,
+			"_DocumentoReferencia": "No tiene documento referencia",
+			"CamposEditables": [1, 2, 3, 4, 5],
+			"_CamposEditables": "Se Listan los campos Editables",
+			"OcultarCampos": [5],
+			"_OcultarCampos": "Se Ocultan los campos dados",
+			"BusquedaPersona": 1,
+			"_BusquedaPersona": "Se busca Clientes"
+		}
+	},
+	{
+		"Data":{
+			"IdMotivoNotaSalida": 17,
+			"CodigoMotivoNotaSalida": "17",
+			"NombreMotivoNotaSalida": "EXPORTACIÓN",
+			"GrupoMotivoNotaSalida": "A"
+		},
+		"Reglas":{
+			"CantidadFacturas": 0,
+			"_CantidadFactura": "Se Permite Solo Una Factura",
+			"DocumentoReferencia": 1,
+			"_DocumentoReferencia": "Tiene documento referencia",
+			"CamposEditables": [3, 5],
+			"_CamposEditables": "Se Listan los campos Editables",
+			"OcultarCampos": [4],
+			"_OcultarCampos": "Se Ocultan los campos dados",
+			"BusquedaPersona": 1,
+			"_BusquedaPersona": "Se busca Clientes"
+		}
+	},
+	{
+		"Data":{
+			"IdMotivoNotaSalida": 25,
+			"CodigoMotivoNotaSalida": "25",
+			"NombreMotivoNotaSalida": "SALIDA POR DEVOLUCIÓN AL PROVEEDOR",
+			"GrupoMotivoNotaSalida": "A"
+		},
+		"Reglas":{
+			"CantidadFacturas": 0,
+			"_CantidadFactura": "Se Permite Solo Una Factura",
+			"DocumentoReferencia": 1,
+			"_DocumentoReferencia": "Tiene documento referencia",
+			"CamposEditables": [3, 5],
+			"_CamposEditables": "Se Listan los campos Editables",
+			"OcultarCampos": [4],
+			"_OcultarCampos": "Se Ocultan los campos dados",
+			"BusquedaPersona": 2,
+			"_BusquedaPersona": "Se busca Proveedor"
+		}
+	},
+	{
+		"Data":{
+			"IdMotivoNotaSalida": 39,
+			"CodigoMotivoNotaSalida": "91",
+			"NombreMotivoNotaSalida": "COMPRA SIN DOCUMENTO",
+			"GrupoMotivoNotaSalida": "B"
+		},
+		"Reglas":{
+			"CantidadFacturas": 0,
+			"_CantidadFactura": "Se Permite Solo Una Factura",
+			"DocumentoReferencia": 0,
+			"_DocumentoReferencia": "No tiene documento referencia",
+			"CamposEditables": [1, 2, 3, 4, 5],
+			"_CamposEditables": "Se Listan los campos Editables",
+			"OcultarCampos": [5],
+			"_OcultarCampos": "Se Ocultan los campos dados",
+			"BusquedaPersona": 1,
+			"_BusquedaPersona": "Se busca Clientes"
+		}
+	},
+	{
+		"Data":{
+			"IdMotivoNotaSalida": 40,
+			"CodigoMotivoNotaSalida": "92",
+			"NombreMotivoNotaSalida": "VENTA SIN DOCUMENTO",
+			"GrupoMotivoNotaSalida": "B"
+		},
+		"Reglas":{
+			"CantidadFacturas": 0,
+			"_CantidadFactura": "Se Permite Solo Una Factura",
+			"DocumentoReferencia": 0,
+			"_DocumentoReferencia": "No tiene documento referencia",
+			"CamposEditables": [1, 2, 3, 4, 5],
+			"_CamposEditables": "Se Listan los campos Editables",
+			"OcultarCampos": [5],
+			"_OcultarCampos": "Se Ocultan los campos dados",
+			"BusquedaPersona": 1,
+			"_BusquedaPersona": "Se busca Clientes"
+		}
+	},
+	{
+		"Data":{
+			"IdMotivoNotaSalida": 28,
+			"CodigoMotivoNotaSalida": "28",
+			"NombreMotivoNotaSalida": "AJUSTE POR DIFERENCIA DE INVENTARIO",
+			"GrupoMotivoNotaSalida": "B"
+		},
+		"Reglas":{
+			"CantidadFacturas": 0,
+			"_CantidadFactura": "Se Permite Solo Una Factura",
+			"DocumentoReferencia": 0,
+			"_DocumentoReferencia": "No tiene documento referencia",
+			"CamposEditables": [1, 2, 3, 4, 5],
+			"_CamposEditables": "Se Listan los campos Editables",
+			"OcultarCampos": [5],
+			"_OcultarCampos": "Se Ocultan los campos dados",
+			"BusquedaPersona": 1,
+			"_BusquedaPersona": "Se busca Clientes"
+		}
+	}
+]
