@@ -41,6 +41,18 @@
 </cac:DeliveryCustomerParty>
 </#if>
 <#if (CodigoMotivoTraslado='02' || CodigoMotivoTraslado='07' || CodigoMotivoTraslado='13') >
+<cac:DeliveryCustomerParty>
+    <cbc:CustomerAssignedAccountID schemeID="${tipDocuEmisorSwf}">${nroRucEmisorSwf}</cbc:CustomerAssignedAccountID>
+    <cac:Party>
+        <cac:PartyIdentification>
+            <cbc:ID schemeID="${tipDocuEmisorSwf}" schemeName="Documento de Identidad" schemeAgencyName="PE:SUNAT" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">${nroRucEmisorSwf}</cbc:ID>
+        </cac:PartyIdentification>
+        <cac:PartyLegalEntity>
+            <cbc:RegistrationName><![CDATA[${razonSocialSwf}]]></cbc:RegistrationName>
+        </cac:PartyLegalEntity>
+    </cac:Party>
+</cac:DeliveryCustomerParty>
+
 <cac:SellerSupplierParty>
     <cbc:CustomerAssignedAccountID schemeID="${CodigoTipoDocumentoDestinatario}">${NumeroDocumentoDestinatario}</cbc:CustomerAssignedAccountID>
     <cac:Party>
@@ -63,7 +75,9 @@
     <#if IndicadorTransbordo != "0">
     <!-- <cbc:SplitConsignmentIndicator>${DenominacionEnvioTransbordo}</cbc:SplitConsignmentIndicator> -->
     </#if>    
-   
+    <#if IndicadorM1L == "1">
+    <cbc:SpecialInstructions>SUNAT_Envio_IndicadorTrasladoVehiculoM1L</cbc:SpecialInstructions>
+    </#if>  
     <cac:ShipmentStage>
         <cbc:TransportModeCode>${CodigoModalidadTraslado}</cbc:TransportModeCode>
         <cac:TransitPeriod>
@@ -118,8 +132,16 @@
             <cac:DespatchAddress>
                 <!-- UBIGEO DE PARTIDA -->
                 <cbc:ID schemeName="Ubigeos" schemeAgencyName="PE:INEI">${CodigoUbigeoPuntoPartida}</cbc:ID>
+
+                <#if !(CodigoMotivoTraslado='02' || CodigoMotivoTraslado='07' || CodigoMotivoTraslado='13') >
                 <!-- CODIGO DE ESTABLECIMIENTO ANEXO DE PARTIDA -->
                 <cbc:AddressTypeCode listID="${nroRucEmisorSwf}" listAgencyName="PE:SUNAT" listName="Establecimientos anexos">0000</cbc:AddressTypeCode>
+                </#if> 
+                <#if (CodigoMotivoTraslado='02' || CodigoMotivoTraslado='07' || CodigoMotivoTraslado='13') >
+                <!-- CODIGO DE ESTABLECIMIENTO ANEXO DE PARTIDA -->
+                <cbc:AddressTypeCode listID="${NumeroDocumentoDestinatario}" listAgencyName="PE:SUNAT" listName="Establecimientos anexos">0000</cbc:AddressTypeCode>
+                </#if> 
+
                 <!-- DIRECCION COMPLETA Y DETALLADA DE PARTIDA -->
                 <cac:AddressLine>
                     <cbc:Line>${DireccionPuntoPartida}</cbc:Line>

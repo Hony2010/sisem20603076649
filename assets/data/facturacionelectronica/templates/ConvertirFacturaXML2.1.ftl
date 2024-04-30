@@ -548,7 +548,7 @@
                   <#if (detalle.mtoIgvItemReferencial?eval gt 0)>
                   <cbc:Percent>${detalle.porIgvItem}</cbc:Percent>
                   <#else>
-                  <cbc:Percent>0.00</cbc:Percent>
+                  <cbc:Percent>18</cbc:Percent>
                   </#if>
                   <cbc:TaxExemptionReasonCode listAgencyName="PE:SUNAT"
                                               listName="Afectacion del IGV"

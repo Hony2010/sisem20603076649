@@ -23,6 +23,7 @@
 
 	{"id": "IndicadorTransbordo", "tipo": "1", "value": "IndicadorTransbordo"},
 	{"id": "DenominacionEnvioTransbordo", "tipo": "0", "value": "0"},
+	{"id": "IndicadorM1L", "tipo": "1", "value": "IndicadorM1L"},
 	{"id": "PesoBrutoTotal", "tipo": "1", "value": "PesoBrutoTotal"},
 	{"id": "CodigoUnidadMedidaPesoBrutoTotal", "tipo": "1", "value": "CodigoUnidadMedidaPesoBrutoTotal"},
 	

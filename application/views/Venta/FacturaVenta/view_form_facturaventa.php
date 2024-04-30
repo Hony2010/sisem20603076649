@@ -539,7 +539,7 @@
 													<!-- ko if: TipoVenta() == TIPO_VENTA.MERCADERIAS -->
 													<th class="col-sm-1 products__title op-mercaderia"></th>
 													<!-- /ko -->
-													<!-- ko if:(ParametroObservacionDetalle() == "1" && TipoVenta() == TIPO_VENTA.SERVICIOS ) -->
+													<!-- ko if:(ParametroObservacionDetalle() == "1") -->
 													<th class="col-sm-2 products__title">Otros Datos</th>
 													<!-- /ko -->
 													<!-- ko if:(TipoVenta() == TIPO_VENTA.MERCADERIAS && ParametroMarcaVenta() == 1) -->
@@ -659,7 +659,7 @@
 														<input name="Observacion"
 															class="form-control  formulario numeric text-mumeric inputs"
 															data-bind="value : Observacion ,
-                             									disable: ProductoBonificado,
+                             									disable: ,
 																attr : { id : IdDetalleComprobanteVenta() + '_input_Observacion'},
 																event: { focus: function(data,event) { return OnFocus(data,event,$parent.OnRefrescar); } , keydown : function(data,event) { return OnKeyEnter(data,event,$parent.OnKeyEnter); } , focusout : ValidarObservacion}"
 															type="text" data-validation=""
@@ -702,7 +702,7 @@
 														<input name="NumeroLote" class="form-control formulario"
 															data-bind="
 															value : NumeroLote, 
-															disable: ProductoBonificado,
+															disable: ,
 															attr : { id : IdDetalleComprobanteVenta() + '_input_NumeroLote'},
                            									event: {focus : function(data,event) { return OnFocus(data,event,$parent.OnRefrescar); } , keydown : function(data,event) { return OnKeyEnter(data,event,$parent.OnKeyEnter); }, focusout : ValidarNumeroLote } , ko_autocomplete_lote: { lote: DataLotes($parent.IdAsignacionSede()),id: IdLoteProducto}"
 															type="text" data-validation="required_lote"

@@ -254,6 +254,7 @@
               </div>
             </div>
           </fieldset>
+
           <div class="form-group" style="margin-top: 10px">
             <b style="margin-right: 10px">MODALIDAD DE TRASLADO: </b>
             <div class="radio radio-inline">
@@ -264,15 +265,24 @@
               <input id="TransportePrivado" type="radio" name="ModalidadTrasnporte" value="2" data-bind="checked: IdModalidadTraslado">
               <label for="TransportePrivado">Privado (Propio de la Empresa)</label>
             </div>
+            <div class="checkbox checkbox-inline" style="margin-left: 100px">
+              <input id="IndicadorM1L" type="checkbox" name="IndicadorM1L" value="1" data-bind="checked: IndicadorM1L">
+              <label for="IndicadorM1L">TRANSPORTE CON VEHÍCULO M1 O L<strong class="alert-info">&nbsp&nbsp&nbsp(Dejar en modalidad de traslado Publico y Razón social: NO ESPECIFICADO)</strong></label>
+            </div>
           </div>
+
           <fieldset>
-            <legend>Datos del Transportista</legend>
+            <legend data-bind="visible: IdModalidadTraslado() == 1">Datos de la Empresa de Transporte</legend>
+            <legend data-bind="visible: IdModalidadTraslado() == 2">Datos del Conductor</legend>
             <div class="row">
               <div class="col-md-12">
                 <div class="col-md-12">
                   <div class="form-group">
                     <div class="input-group">
-                      <div class="input-group-addon formulario">Nombre / Razón S. <strong class="alert-info">(*)</strong></div>
+
+                      <div class="input-group-addon formulario" data-bind="visible: IdModalidadTraslado() == 1">Razón social <strong class="alert-info">(*)</strong></div>
+                      <div class="input-group-addon formulario" data-bind="visible: IdModalidadTraslado() == 2">Nombres y apellidos <strong class="alert-info">(*)</strong></div>
+
                       <input id="NombreTransportista" type="text" class="form-control formulario" data-bind="
                       value: NombreTransportista,
                       event: { focus: OnFocus, keydown: OnKeyEnter }" data-validation="autocompletado" data-validation-error-msg="" data-validation-text-found="">
@@ -297,7 +307,8 @@
                       <div class="input-group-addon formulario">Placa <strong class="alert-info" data-bind="visible: IdModalidadTraslado() == 2">(*)</strong> </div>
                       <input id="PlacaVehiculo" type="text" class="form-control formulario" data-bind="
                         value: PlacaVehiculo,
-                        event: { focus: OnFocus, keydown: OnKeyEnter }" data-validation="placa" data-validation-error-msg="Campo obligatorio">
+                        event: { focus: OnFocus, keydown: OnKeyEnter }">
+                        <!-- data-validation="placa" data-validation-error-msg="Campo obligatorio" -> agregar para tener validación. -->
                     </div>
                   </div>
                 </div>
@@ -306,7 +317,9 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <div class="input-group">
-                      <div id="NumeroBrevete" class="input-group-addon formulario">Brevete</div>
+                      <div id="NumeroBrevete" class="input-group-addon formulario">Brevete
+                        <strong class="alert-info" data-bind="visible: IdModalidadTraslado() == 2">(*)</strong>
+                      </div>
                       <input type="text" class="form-control formulario" data-bind="
                           value: NumeroLicenciaConducir,
                           event: { focus: OnFocus, keydown: OnKeyEnter }">
@@ -316,7 +329,9 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <div class="input-group">
-                      <div class="input-group-addon formulario">Marca Vehiculo</div>
+                      <div class="input-group-addon formulario">Marca de Vehiculo
+                        <strong class="alert-info" data-bind="visible: IdModalidadTraslado() == 2">(*)</strong>
+                      </div>
                       <input id="MarcaVehiculo" type="text" class="form-control formulario" data-bind="
                       value: MarcaVehiculo,
                       event: { focus: OnFocus, keydown: OnKeyEnter }">
@@ -326,7 +341,8 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <div class="input-group">
-                      <div class="input-group-addon formulario">C. Inscripción</div>
+                      <div class="input-group-addon formulario">C. Inscripción
+                      </div>
                       <input id="NumeroConstanciaInscripcion" type="text" class="form-control formulario" data-bind="
                       value: NumeroConstanciaInscripcion,
                       event: { focus: OnFocus, keydown: OnKeyEnter }">
@@ -365,24 +381,24 @@
             <table id="DetallesGuiaRemisionRemitente" class="table grid-detail-body">
               <thead>
                 <tr>
-                  <th>Código</th>
+                  <th class="text-center">Código</th>
                   <th>Descripción</th>
-                  <th class="col-sm-1 products__title">Unidad</th>
+                  <th class="col-sm-1 products__title text-center">Unidad</th>
                   <!-- ko if: (ParametroLote() != 0) -->
                   <th class="col-sm-1 products__title">
                       <center>Lote</center>
                   </th>
                   <!-- /ko -->
-                  <th>Cantidad</th>
-                  <th>Peso</th>
-                  <th data-bind="visible : IdMotivoTraslado() == ID_PARAMETRO_MOTIVO_TRASLADO_VENTA">Pendiente</th>
+                  <th class="text-center">Cantidad</th>
+                  <!-- <th>Peso</th> -->
+                  <!-- <th data-bind="visible : IdMotivoTraslado() == ID_PARAMETRO_MOTIVO_TRASLADO_VENTA">Pendiente</th> -->
                   <th width="41"></th>
                 </tr>
               </thead>
               <tbody>
                 <!-- ko foreach : DetallesGuiaRemisionRemitente -->
                 <tr>
-                  <td>
+                  <td class="col-sm-2 text-center">
                     <div class="form-group">
                       <input type="text" class="form-control formulario" data-bind="
                       value: CodigoMercaderia,
@@ -391,16 +407,16 @@
                       event: { focus: OnFocusCodigoMercaderia, keydown: OnKeyEnterCodigoMercaderia}" data-validation="validacion_producto" data-validation-error-msg="Cod. Inválido" data-validation-text-found="">
                     </div>
                   </td>
-                  <td>
+                  <td class="col-sm-6">
                     <div class="form-group">
                       <input type="text" class="form-control formulario" data-bind="
                       value: NombreProducto,
                       attr: { id: 'input_NombreProducto_' + IdDetalleGuiaRemisionRemitente(), 'data-validation-reference': 'input_CodigoMercaderia_' + IdDetalleGuiaRemisionRemitente() },
-                      event: { focus: OnFocusNombreProducto, change: OnChangeNombreProducto }" data-validation="autocompletado_producto" data-validation-error-msg="No se han encontrado resultados para tu búsqueda de producto" style="width: 300px;">
+                      event: { focus: OnFocusNombreProducto, change: OnChangeNombreProducto }" data-validation="autocompletado_producto" data-validation-error-msg="No se han encontrado resultados para tu búsqueda de producto">
                     </div>
                   </td>
                 
-                  <td>                    
+                  <td class="text-center">                    
                     <span data-bind="text: AbreviaturaUnidadMedida"></span>
                   </td>                  
                         
@@ -417,7 +433,7 @@
                      data-validation-found="false"> <!--  data-validation="required_lote" data-validation-error-msg="Requerido"  -->
                   </td>
                   <!-- /ko -->
-                  <td>
+                  <td class="col-sm-2">
                     <div class="form-group">
                       <input type="text" class="form-control formulario text-right" data-bind="
                       value: Cantidad,
@@ -427,20 +443,17 @@
                       numberdecimal: Cantidad " data-validation="number_calc" data-validation-allowing="float,positive,range[0.001;9999999]" data-validation-decimal-separator="." data-validation-error-msg="De 0 a más">
                     </div>
                   </td>
-                  <td>
-                    <div class="form-group"><!-- disable : $parent.IdMotivoTraslado() == ID_PARAMETRO_MOTIVO_TRASLADO_VENTA, -->
+                  <!-- <td>
+                    <div class="form-group">
                       <input type="text" class="form-control formulario text-right" data-bind="
                       value: Peso,                      
                       disable : $parent.IdMotivoTraslado() == ID_PARAMETRO_MOTIVO_TRASLADO_VENTA && UltimoItem() == true,
                       attr: { id: 'input_Peso_' + IdDetalleGuiaRemisionRemitente(), 'data-cantidad-decimal': DecimalPeso() },
                       numberdecimal: Peso,
-                      event: { focus: $parent.OnChangePesoBrutoTotal, keydown: $parent.OnKeyEnter, focusout: $parent.OnChangePesoBrutoTotal, change : $parent.OnChangePesoBrutoTotal }"
-                      
-                      data-validation="number_calc" data-validation-allowing="float,positive,range[0.001;9999999]" 
-                      data-validation-decimal-separator="." data-validation-error-msg="De 0 a más">
+                      event: { focus: $parent.OnChangePesoBrutoTotal, keydown: $parent.OnKeyEnter, focusout: $parent.OnChangePesoBrutoTotal, change : $parent.OnChangePesoBrutoTotal }">
                     </div>
-                  </td>
-                  <td data-bind="visible : $parent.IdMotivoTraslado() == ID_PARAMETRO_MOTIVO_TRASLADO_VENTA">
+                  </td> -->
+<!--                   <td data-bind="visible : $parent.IdMotivoTraslado() == ID_PARAMETRO_MOTIVO_TRASLADO_VENTA">
                     <div class="form-group">
                       <input type="text" class="form-control formulario text-right" data-bind="
                       value: SaldoPendienteGuiaRemision,
@@ -449,11 +462,11 @@
                       numberdecimal: SaldoPendienteGuiaRemision,
                       event: { focus: $parent.OnFocus, keydown: $parent.OnKeyEnter }">
                     </div>
-                  </td>                  
+                  </td>   -->                
                   <td>
                     <div class="input-group ajuste-opcion-plusminus">
                       <button type="button" class="btn btn-danger btn-consulta glyphicon glyphicon-minus no-tab" data-bind="
-                      visible: !UltimoItem(),                      
+                      visible: !UltimoItem(),                       
                       click : function(data,event) {  return OnClickBtnOpcion(data,event,$parent.OnQuitarFila); },                      
                       event : {
                          focus: function(data,event) { return OnFocus(data,event,$parent.OnRefrescar); } ,
@@ -467,11 +480,25 @@
             </table>
           </fieldset>
         </div>
-        <div class="row">
+<!--         <div class="row">
           <div class="cold-md-12 text-right">
             Peso Bruto Total <span data-bind="text: PesoBrutoTotal"></span> (KGM)
           </div>
+        </div> -->
+        <br>
+        <div class="row" style="margin-left: 350px; margin-right: 400px;">
+          <div class="cold-md-8" >
+            <div class="input-group">
+              <div class="input-group-addon formulario">PESO TOTAL (KGM) <strong class="alert-info">(*)</strong></div>
+              <input id="PesoBrutoTotal" type="text" class="form-control formulario" data-bind="
+                value: PesoBrutoTotal,
+                event: { focus: $parent.OnChangePesoBrutoTotal, keydown: $parent.OnKeyEnter, focusout: $parent.OnChangePesoBrutoTotal, change : $parent.OnChangePesoBrutoTotal }"
+                data-validation="number_calc" data-validation-allowing="float,positive,range[0.001;9999999]" data-validation-decimal-separator="." data-validation-error-msg="De 0 a más">
+            </div>
+          </div>
         </div>
+        <br>
+
         <div class="row">
           <div class="col-md-2">
             <br>

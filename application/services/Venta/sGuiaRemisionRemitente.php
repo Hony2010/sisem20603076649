@@ -286,10 +286,17 @@ class sGuiaRemisionRemitente extends MY_Service
       }
       $data["FechaEmision"] = convertToDate($data["FechaEmision"]);
       $data["FechaTraslado"] = convertToDate($data["FechaTraslado"]);
+      $data["IndicadorM1L"] = convertToDate($data["IndicadorM1L"]);
       $data["IndicadorTransbordo"]=$data["IdModalidadTraslado"] == 1 ? "1" : "0";
       $data["DenominacionEnvioTransbordo"]=$data["IndicadorTransbordo"] == "1" ? "SUNAT_Envio_IndicadorTrasladoVehiculoM1L" : "";
       $resultadoValidacion = $this->ValidarGuiaRemisionRemitente($data);
       $resultadoValidacionCertificado = $this->ValidarCertificadoDigital($data);
+
+      if(isset($_POST['IndicadorM1L']) && $_POST['IndicadorM1L'] == '1'){
+      $valor_checkbox = 1;
+      } else {
+      $valor_checkbox = 0;
+      };
 
       if (!$this->session->userdata("Usuario_" . LICENCIA_EMPRESA_RUC)) {
         return "Usted a cerrado sesión previamente, se necesita abrir la sesión para continuar con la operación.";
@@ -343,7 +350,6 @@ class sGuiaRemisionRemitente extends MY_Service
           $this->sComprobanteVenta->ActualizarEstadoComprobanteVenta($dataComprobanteVenta);
         }
 
-
         return $resultado;
       } else {
         $resultado = nl2br($resultadoValidacion); //throw new Exception(nl2br($resultadoValidacion));
@@ -362,10 +368,17 @@ class sGuiaRemisionRemitente extends MY_Service
       }
       $data["FechaEmision"] = convertToDate($data["FechaEmision"]);
       $data["FechaTraslado"] = convertToDate($data["FechaTraslado"]);
+      $data["IndicadorM1L"] = convertToDate($data["IndicadorM1L"]);
       $data["IndicadorTransbordo"]=$data["IdModalidadTraslado"] == 1 ? "1" : "0";
       $data["DenominacionEnvioTransbordo"]=$data["IndicadorTransbordo"] == "1" ? "SUNAT_Envio_IndicadorTrasladoVehiculoM1L" : "";
       $resultadoValidacion = $this->ValidarGuiaRemisionRemitente($data);
       $resultadoValidacionCertificado = $this->ValidarCertificadoDigital($data);
+
+      if(isset($_POST['IndicadorM1L']) && $_POST['IndicadorM1L'] == '1'){
+      $valor_checkbox = 1;
+      } else {
+      $valor_checkbox = 0;
+      };
 
       if (!$this->session->userdata("Usuario_" . LICENCIA_EMPRESA_RUC)) {
         return "Usted a cerrado sesión previamente, se necesita abrir la sesión para continuar con la operación.";
@@ -515,28 +528,24 @@ class sGuiaRemisionRemitente extends MY_Service
         }
       }
 
-      if($data["IdModalidadTraslado"]  != 1) {//1 = Modalidad Privado
-        if (strlen($data["NumeroDocumentoIdentidadTransportista"]) != 8) {
+      if($data["IdModalidadTraslado"]  == 2) {//1 = Modalidad Publico, 2 = Modalidad Privado
+        if (strlen($data["NumeroDocumentoIdentidadTransportista"]) == 2) {
           $resultado = $resultado . "En la modalidad de traslado privado debe ingresar el DNI del chofer de la empresa" . "\n";
         }
       }
 
-      if($data["IdModalidadTraslado"]  != 1) {//1 = Modalidad Privado
-        if (!ctype_alnum($data["PlacaVehiculo"])) {
-          $resultado = $resultado . "El número de Placa solo debe tener letras y números (sin espacios ni comas)" . "\n";
+      if($data["IdModalidadTraslado"]  == 1) {//1 = Modalidad Publico, 2 = Modalidad Privado
+        if (strlen($data["NumeroDocumentoIdentidadTransportista"]) == 4) {
+          $resultado = $resultado . "En la modalidad de traslado Público debe ingresar el RUC de la empresa de transporte" . "\n";
         }
       }
-    }
-    
-      if($data["IdModalidadTraslado"] != 2) {//2 = Modalidad Publico
-        if (!ctype_alnum($data["NumeroLicenciaConducir"])) {
-          $resultado = $resultado . "El número de Brevete solo debe tener letras y números (sin espacios ni comas)" . "\n";
-        }
 
-        if (!ctype_alnum($data["PlacaVehiculo"])) {
-          $resultado = $resultado . "El número de Placa solo debe tener letras y números (sin espacios ni comas)" . "\n";
-        }
-      }
+      // if($data["IdModalidadTraslado"]  == 2 ) {
+      //   if (!ctype_alnum($data["PlacaVehiculo"])) {
+      //     $resultado = $resultado . "El número de Placa solo debe tener letras y números (sin espacios ni comas)" . "\n";
+      //   }
+      // }
+    }
 
     // $resultado = $resultado.$this->ValidarEstadoGuiaRemisionRemitente($data);
     $resultado_detalle = $this->sDetalleGuiaRemisionRemitente->ValidarDetallesGuiaRemisionRemitente($data["DetallesGuiaRemisionRemitente"]);
