@@ -43,14 +43,9 @@ class RestApi {
     }
   }
 
-  
- function obtenerToken($client_id,$client_secret,$username,$password) {
+function obtenerToken($client_id,$client_secret,$username,$password) {
  
-  $headers = array(
-            'Content-Type : application/x-www-form-urlencoded'
-          );
-
-  $this->API_URL = "https://api-seguridad.sunat.gob.pe/v1/clientessol/$client_id/oauth2/token/";
+   $this->API_URL = "https://api-seguridad.sunat.gob.pe/v1/clientessol/$client_id/oauth2/token/";
 
    $parseoData = array(
       'grant_type' =>"password",
@@ -60,22 +55,30 @@ class RestApi {
       'username'=>$username,
       'password'=>$password
     );  
-
-    $ch = curl_init($this->API_URL);
+    
     $datos=http_build_query($parseoData);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER,$headers);
-    curl_setopt($ch, CURLOPT_POST , 1);      
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $datos);
-    
-  
-    
-    $result = curl_exec($ch);
 
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => $this->API_URL,
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'POST',
+      CURLOPT_POSTFIELDS => $datos,
+      CURLOPT_HTTPHEADER => array(
+        'Content-Type: application/x-www-form-urlencoded'
+      ),
+    ));
+
+    $result = curl_exec($curl);
 
     // Close cURL resource
-    curl_close($ch);
+    curl_close($curl);
 
     $resultado = json_decode($result, true); 
 
