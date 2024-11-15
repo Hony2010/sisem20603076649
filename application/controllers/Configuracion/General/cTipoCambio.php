@@ -131,13 +131,13 @@ class cTipoCambio extends CI_Controller  {
 		$resultado = $this->sTipoCambio->ObtenerTipoCambio($data);
 
 		if ($resultado == null) {
-			$hoy = convertToDate($this->Base->ObtenerFechaServidor("d/m/Y"));
+			// $hoy = convertToDate($this->Base->ObtenerFechaServidor("d/m/Y"));
 			
-			if($data["FechaCambio"] == $hoy)
-			{
+			// if($data["FechaCambio"] == $hoy)
+			// {
 				if($this->sConstanteSistema->ObtenerParametroTipoCambioActual() == 1)
 				{
-					$TipoCambioActual = $this->tipocambiosunat->ConsultarTipoCambio();
+					$TipoCambioActual = $this->tipocambiosunat->ConsultarTipoCambio($data["FechaEmision"]);
 					$TipoCambioActual["FechaCambio"] = $data["FechaCambio"];
 					$insertar = $this->sTipoCambio->InsertarTipoCambio($TipoCambioActual);
 					if ($insertar) {
@@ -146,7 +146,7 @@ class cTipoCambio extends CI_Controller  {
 						$resultado = $TipoCambioActual;
 					}
 				}
-			}
+			// }
 
 		}
 		echo $this->json->json_response($resultado);

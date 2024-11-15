@@ -91,29 +91,37 @@ class TipoCambioSunat {
     }
   }
 
-  public function ConsultarTipoCambio()
+  public function ConsultarTipoCambio($fecha)
   {
     try {
-      $ValidarTipoCambio = $this->ValidarURL();
-      if($ValidarTipoCambio)
-      {
-        $datos_tipocambio = file_get_contents($this->URL_TIPOCAMBIO);
-        $json_tipocambio = json_decode($datos_tipocambio, true);
-        if(is_array($json_tipocambio))
-        {
-          if(count($json_tipocambio["Cotizacion"]) > 0)
-          {
-            $tipoCambio = $json_tipocambio["Cotizacion"][0];
-            return array('TipoCambioVenta' => $tipoCambio["Venta"], 'TipoCambioCompra' => $tipoCambio["Compra"]);
-          }
-          else {
-            return '';
-          }
-        }
-      }
-      else {
-        return '';
-      }
+        $fechaES = DateTime::createFromFormat('d/m/Y', $fecha);
+        $fechaEN = $fechaES->format('Y-m-d');
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://api.apis.net.pe/v1/tipo-cambio-sunat?fecha=$fechaEN",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'GET',
+          CURLOPT_HTTPHEADER => array(
+            'Content-Type: application/x-www-form-urlencoded'
+          ),
+        ));
+
+        $result = curl_exec($curl);
+
+        // Close cURL resource
+        curl_close($curl);
+
+        $resultado = json_decode($result, true); 
+
+        return array('TipoCambioVenta' => $resultado["venta"], 'TipoCambioCompra' => $resultado["compra"]);
+
     } catch (Exception $e) {
       return '';
     }
