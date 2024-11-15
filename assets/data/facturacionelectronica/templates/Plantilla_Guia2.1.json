@@ -7,7 +7,7 @@
 
 	{"id": "fechaEmision", "tipo": "1", "value": "FechaEmision"},
 	{"id": "horaEmision", "tipo": "1", "value": "HoraEmision"},
-
+	{"id": "NumeroDocumentoReferencia", "tipo": "1", "value": "NumeroDocumentoReferencia"},
 	{"id": "tipDocuEmisorSwf", "tipo": "0", "value": "6"},
 	{"id": "nroRucEmisorSwf", "tipo": "1", "value": "CodigoEmpresa"},
 	{"id": "razonSocialSwf", "tipo": "1", "value": "RazonSocialEmisor"},

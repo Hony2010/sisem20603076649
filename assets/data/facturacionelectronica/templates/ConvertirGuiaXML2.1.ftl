@@ -16,6 +16,13 @@
 <cbc:IssueTime>${horaEmision}</cbc:IssueTime>
 </#if>
 <cbc:DespatchAdviceTypeCode>${tipCdpSwf}</cbc:DespatchAdviceTypeCode>
+<#if (CodigoMotivoTraslado='08') || (CodigoMotivoTraslado='09') >
+    <cac:AdditionalDocumentReference>
+        <cbc:ID>${NumeroDocumentoReferencia}</cbc:ID> <!-- Número del documento relacionado -->
+        <cbc:DocumentTypeCode>52</cbc:DocumentTypeCode> <!-- Código para DUA o Declaración Simplificada -->
+        <cbc:DocumentType>DUA</cbc:DocumentType> <!-- Tipo de documento, puede ser DUA o DS según corresponda -->
+    </cac:AdditionalDocumentReference>
+</#if>
 <cac:DespatchSupplierParty>
     <cbc:CustomerAssignedAccountID schemeID="${tipDocuEmisorSwf}">${nroRucEmisorSwf}</cbc:CustomerAssignedAccountID>
     <cac:Party>
@@ -69,7 +76,17 @@
     <cbc:ID>${NrolineaEnvio}</cbc:ID>
     <cbc:HandlingCode>${CodigoMotivoTraslado}</cbc:HandlingCode>
     <#if CodigoMotivoTraslado == "08" || CodigoMotivoTraslado == "09">
+
+<cbc:TotalTransportHandlingUnitQuantity>0</cbc:TotalTransportHandlingUnitQuantity>
+<cac:TransportHandlingUnit>
+    <cac:Package>
+        <cbc:ID>1</cbc:ID> <!-- Identificador único del contenedor o paquete -->
+        <cbc:TraceID>1</cbc:TraceID> <!-- Identificador de seguimiento, si es necesario y permitido en tu contexto específico -->
+    </cac:Package>
+</cac:TransportHandlingUnit>
+
     <cbc:Information>${NombreMotivoTraslado}</cbc:Information>
+
     </#if>
     <cbc:GrossWeightMeasure unitCode="${CodigoUnidadMedidaPesoBrutoTotal}">${PesoBrutoTotal}</cbc:GrossWeightMeasure>
     <#if IndicadorTransbordo != "0">
@@ -84,7 +101,7 @@
             <cbc:StartDate>${FechaInicioTraslado}</cbc:StartDate>
         </cac:TransitPeriod>
         <!--POR CODIGO MODALIDAD 01 - TRASLADO PUBLICO-->
-        <#if CodigoModalidadTraslado = "01" && IndicadorTransbordo != "0" >
+        <#if CodigoModalidadTraslado = "01" && IndicadorTransbordo != "0" && IndicadorM1L == "">
         <cac:CarrierParty>
             <cac:PartyIdentification>
                 <cbc:ID schemeID="${CodigoTipoDocumentoTransportista}">${NumeroDocumentoTransportista}</cbc:ID>
@@ -122,11 +139,15 @@
     <cac:Delivery>        
         <#if !(CodigoMotivoTraslado='18') >
         <cac:DeliveryAddress>            
-            <cbc:ID schemeName="Ubigeos" schemeAgencyName="PE:INEI">${CodigoUbigeoPuntoLlegada}</cbc:ID>              <cac:AddressLine>
+            <cbc:ID schemeName="Ubigeos" schemeAgencyName="PE:INEI">${CodigoUbigeoPuntoLlegada}</cbc:ID>  
+            <#if (CodigoMotivoTraslado='04')>
+            <cbc:AddressTypeCode listID="${nroRucEmisorSwf}" listAgencyName="PE:SUNAT" listName="Establecimientos anexos">0000</cbc:AddressTypeCode>
+            </#if>            
+            <cac:AddressLine>
                 <cbc:Line>${DireccionPuntoLlegada}</cbc:Line>
             </cac:AddressLine>
         </cac:DeliveryAddress>
-        </#if>                              
+        </#if>                               
         <cac:Despatch>
             <!-- DIRECCION DEL PUNTO DE PARTIDA -->
             <cac:DespatchAddress>

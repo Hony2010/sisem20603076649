@@ -13,7 +13,7 @@ VistaModeloDetalleGuiaRemisionRemitente = function (data, parent) {
   self.InicializarVistaModelo = function (event) {
     if (event) {
       var data = { id: self.InputProducto(), TipoVenta: TIPO_VENTA.MERCADERIAS };
-      $(data.id).autoCompletadoProducto(data, event, self.ValidarAutocompletadoProducto, ORIGEN_MERCADERIA.GENERALVENTA);
+      $(data.id).autoCompletadoProducto(data, event, self.ValidarAutocompletadoProducto, ORIGEN_MERCADERIA.TODOS);
     }
   }
   self.InputCodigoMercaderia = ko.computed(function () {
@@ -124,7 +124,7 @@ VistaModeloDetalleGuiaRemisionRemitente = function (data, parent) {
       var $input = $(self.InputCodigoMercaderia());
       var json = ObtenerJSONCodificadoDesdeURL(SERVER_URL + URL_JSON_MERCADERIAS);
 
-      var queryBusqueda = '//*[' + _busqueda + '="' + codigo + '" and IdOrigenMercaderia = "' + ORIGEN_MERCADERIA.GENERAL + '"]';
+var queryBusqueda = '//*[' + _busqueda + '="' + codigo + '" and (IdOrigenMercaderia = "' + ORIGEN_MERCADERIA.GENERAL + '" or IdOrigenMercaderia = "' + ORIGEN_MERCADERIA.DUA + '" or IdOrigenMercaderia = "' + ORIGEN_MERCADERIA.ZOFRA + '")]';
 
       var rpta = JSON.search(json, queryBusqueda);
 
