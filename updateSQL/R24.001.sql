@@ -1,4 +1,4 @@
--- 1 --
+-- 01 --
 
 ALTER TABLE comprobanteventa
 ADD COLUMN SumCuotaPagoClienteComprobanteVenta DECIMAL(10,2) NULL DEFAULT 0.00 
@@ -45,3 +45,11 @@ BEGIN
 END $$
 
 DELIMITER ;
+
+-- 05 --
+
+UPDATE parametrosistema 
+SET ValorParametroSistema = 'VentaDetallado/Reporte_Venta_Detallado_2024'
+WHERE NombreParametroSistema = 'nombre_archivo_jasper' AND ValorParametroSistema = 'VentaDetallado/Reporte_Venta_Detallado';
+
+-- 06 --
