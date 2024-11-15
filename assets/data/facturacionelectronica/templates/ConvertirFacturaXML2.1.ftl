@@ -187,30 +187,19 @@
   </#if>
 
   <#if idFormaPago?? && idFormaPago == '2'>
-<!--   <cac:PaymentTerms>
-	  <cbc:ID>${nomIdFormaPago}</cbc:ID>
-	  <cbc:PaymentMeansID>Credito</cbc:PaymentMeansID>
-    <cbc:Amount currencyID="${moneda}">${sumMontoPendientePago}</cbc:Amount>
-	</cac:PaymentTerms>
-	<cac:PaymentTerms>
-	  <cbc:ID>${nomIdFormaPago}</cbc:ID>
-    <cbc:PaymentMeansID>${nomCuotaPago}</cbc:PaymentMeansID>
-    <cbc:Amount currencyID="${moneda}">${sumMontoPendientePago}</cbc:Amount>
-    <cbc:PaymentDueDate >${fecVencimiento}</cbc:PaymentDueDate>
-	</cac:PaymentTerms> -->
   <cac:PaymentTerms>
         <cbc:ID>${nomIdFormaPago}</cbc:ID>
         <cbc:PaymentMeansID>Credito</cbc:PaymentMeansID>
-        <cbc:Amount currencyID="${moneda}">${MontoNetoPendientePagoCredito}</cbc:Amount>
+        <cbc:Amount currencyID="${moneda}">${SumCuotaPagoClienteComprobanteVenta}</cbc:Amount>
   </cac:PaymentTerms>
-      <#list listaCuotasPago as cuotaPago>
+  <#list listaCuotasPago as cuotaPago>
       <cac:PaymentTerms>
         <cbc:ID>${nomIdFormaPago}</cbc:ID>
         <cbc:PaymentMeansID>${cuotaPago.IdentificadorCuota}</cbc:PaymentMeansID>        
         <cbc:Amount currencyID="${moneda}">${cuotaPago.MontoCuota}</cbc:Amount>
         <cbc:PaymentDueDate>${cuotaPago.FechaPagoCuota}</cbc:PaymentDueDate>
   </cac:PaymentTerms>
-      </#list>
+  </#list>
   </#if>
 
   <#if desDireccionEntrega??><#if desDireccionEntrega != '-' && codUbigeoEntrega != '-'  && desDireccionEntrega != ''>

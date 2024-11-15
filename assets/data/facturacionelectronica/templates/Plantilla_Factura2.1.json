@@ -39,6 +39,7 @@
 	{"id":"idFormaPago", "tipo": "1", "value": "IdFormaPago"},
 	{"id":"nomCuotaPago", "tipo": "0", "value": "Cuota001"},
 	{"id":"MontoNetoPendientePagoCredito", "tipo": "1", "value": "MontoNetoPendientePagoCredito"},
+	{"id":"SumCuotaPagoClienteComprobanteVenta", "tipo": "1", "value": "SumCuotaPagoClienteComprobanteVenta"},
 
 	{"id":"listaDetalle", "tipo": "3", "value":  "DetallesComprobanteVenta", "datos":
 		[
