@@ -296,7 +296,7 @@
                               blur: (data,event) => CalculoSubTotal(data,event,$parent.OnRefrescar) },
                             numberdecimal: Cantidad " type="text" data-validation="number_calc"
 														data-validation-allowing="float,positive,range[0.001;9999999]"
-														data-validation-decimal-separator="." data-validation-error-msg="De 0 a más">
+														data-validation-decimal-separator="." data-validation-error-msg="Solo Positivo">
 												</td>
 												<!-- ko if: $parent.IndicadorTipoCalculoIGV() == 1 -->
 												<td class="col-sm-2">
@@ -309,9 +309,9 @@
                             keydown: (data,event) => OnKeyEnter(data,event,$parent.OnKeyEnterTotales), 
                             focusout: ValidarPrecioUnitario,
                             blur: (data,event) => CalculoSubTotal(data,event,$parent.OnRefrescar) }, 
-                          numberdecimal : PrecioUnitario" type="text" data-validation="number_calc"
-														data-validation-allowing="float,positive,range[1;9999999]"
-														data-validation-decimal-separator="." data-validation-error-msg="Solo positivo">
+                          numberdecimal : PrecioUnitario" type="text" data-validation="number_desc"
+														data-validation-allowing="float,positive,range[0.001;9999999]"
+														data-validation-decimal-separator="." data-validation-error-msg="De 0 a más">
 												</td>
 												<!-- /ko -->
 												<!-- ko if: $parent.IndicadorTipoCalculoIGV() == 0 -->
@@ -324,9 +324,9 @@
                                 keydown : (data,event) => OnKeyEnter(data,event,$parent.OnKeyEnterTotales), 
                                 focusout : ValidarCostoUnitario,
                                 blur: (data,event) => CalculoSubTotal(data,event,$parent.OnRefrescar) }, 
-                              numberdecimal : CostoUnitario" type="text" data-validation="number_calc"
-														data-validation-allowing="float,positive,range[1;9999999]"
-														data-validation-decimal-separator="." data-validation-error-msg="Solo positivo">
+                              numberdecimal : CostoUnitario" type="text" data-validation="number_desc"
+														data-validation-allowing="float,positive,range[0.001;9999999]"
+														data-validation-decimal-separator="." data-validation-error-msg="De 0 a más">
 												</td>
 												<!-- /ko -->
 												<td class="col-sm-1">
