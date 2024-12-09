@@ -56,7 +56,7 @@
         </td>
         <!-- ko if: $parent.ParametroEnvioEmail() == 1-->
         <td class="col-sm-1" align="center" >
-          <button data-bind="attr : { id : IdComprobanteVenta() + '_btnEnviarXML'}, event: {click: $root.AbrirModalDeEnvioDeComprobantes}, disable: IdCliente() == '1'"
+          <button data-bind="attr : { id : IdComprobanteVenta() + '_btnEnviarXML'}, event: {click: $root.AbrirModalDeEnvioDeComprobantes}"
             class="btn btn-success btn-operaciones" data-toogle="tooltip" title="Enviar Email Cliente">
             <span class="fas fa-at fa-lg"></span>
           </button>
