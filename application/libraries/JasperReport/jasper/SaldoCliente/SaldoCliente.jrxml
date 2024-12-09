@@ -53,7 +53,7 @@ DR.SerieDocumentoReferencia,"-" ,DR.NumeroDocumentoReferencia separator ", ") el
 		and (CV.IndicadorEstado='A' or CV.IndicadorEstado='N')
 		and (Per.IdPersona LIKE $P{IdPersona})
 		group by CV.IdComprobanteVenta
-		order by CV.FechaEmision,Per.NumeroDocumentoIdentidad]]>
+		order by Per.NumeroDocumentoIdentidad]]>
 	</queryString>
 	<field name="IdComprobanteVenta" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -82,7 +82,9 @@ DR.SerieDocumentoReferencia,"-" ,DR.NumeroDocumentoReferencia separator ", ") el
 	<field name="MontoACuenta" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[Pago a Cuenta hecho por el cliente]]></fieldDescription>
 	</field>
-	<field name="SaldoPendiente" class="java.math.BigDecimal"/>
+	<field name="SaldoPendiente" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="DocReferencia" class="java.lang.String"/>
 	<field name="FormaPago" class="java.lang.String"/>
 	<field name="Observacion" class="java.lang.String">
@@ -145,7 +147,7 @@ DR.SerieDocumentoReferencia,"-" ,DR.NumeroDocumentoReferencia separator ", ") el
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
-					<text><![CDATA[Monto Pedido]]></text>
+					<text><![CDATA[Monto Total]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="228" y="12" width="40" height="15" backcolor="#F0F0F0" uuid="5e8f4c7e-0d0e-4954-acf1-391563f84278"/>
@@ -190,7 +192,7 @@ DR.SerieDocumentoReferencia,"-" ,DR.NumeroDocumentoReferencia separator ", ") el
 					<text><![CDATA[Moneda]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="493" y="12" width="84" height="15" backcolor="#F0F0F0" uuid="400c2d87-b476-4a79-a9c2-0690adaa1788"/>
+					<reportElement mode="Opaque" x="493" y="12" width="107" height="15" backcolor="#F0F0F0" uuid="400c2d87-b476-4a79-a9c2-0690adaa1788"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -204,7 +206,7 @@ DR.SerieDocumentoReferencia,"-" ,DR.NumeroDocumentoReferencia separator ", ") el
 					<text><![CDATA[Doc. Referencia]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="652" y="12" width="121" height="15" backcolor="#F0F0F0" uuid="24956f83-7834-4d38-9a2d-7c0372451176"/>
+					<reportElement mode="Opaque" x="675" y="12" width="121" height="15" backcolor="#F0F0F0" uuid="24956f83-7834-4d38-9a2d-7c0372451176"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -218,7 +220,7 @@ DR.SerieDocumentoReferencia,"-" ,DR.NumeroDocumentoReferencia separator ", ") el
 					<text><![CDATA[Observación]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="577" y="12" width="75" height="15" backcolor="#F0F0F0" uuid="9c29a93a-b425-4761-b3a1-925c786b5fa7"/>
+					<reportElement mode="Opaque" x="600" y="12" width="75" height="15" backcolor="#F0F0F0" uuid="9c29a93a-b425-4761-b3a1-925c786b5fa7"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -247,7 +249,7 @@ DR.SerieDocumentoReferencia,"-" ,DR.NumeroDocumentoReferencia separator ", ") el
 				</staticText>
 				<textField>
 					<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="493" height="12" uuid="a402ef8b-78f5-48d1-bf7a-6ddd56f87a65"/>
-					<textElement verticalAlignment="Bottom">
+					<textElement verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{RazonSocial}+" - "+$F{NumeroDocumentoIdentidad}]]></textFieldExpression>
@@ -257,14 +259,15 @@ DR.SerieDocumentoReferencia,"-" ,DR.NumeroDocumentoReferencia separator ", ") el
 		<groupFooter>
 			<band height="30">
 				<staticText>
-					<reportElement x="175" y="0" width="53" height="15" uuid="4af5809b-135b-4d34-bd53-f733c0455d39"/>
-					<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<reportElement x="228" y="0" width="40" height="15" uuid="4af5809b-135b-4d34-bd53-f733c0455d39"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="10" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Total ]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="0" y="15" width="52" height="15" uuid="34961065-2475-4d37-a865-9d41a5bcf5c9"/>
+					<textElement verticalAlignment="Middle"/>
 					<text><![CDATA[]]></text>
 				</staticText>
 				<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
@@ -272,7 +275,7 @@ DR.SerieDocumentoReferencia,"-" ,DR.NumeroDocumentoReferencia separator ", ") el
 					<box>
 						<topPen lineWidth="0.75"/>
 					</box>
-					<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Arial" size="8" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{Total_1}]]></textFieldExpression>
@@ -282,7 +285,7 @@ DR.SerieDocumentoReferencia,"-" ,DR.NumeroDocumentoReferencia separator ", ") el
 					<box>
 						<topPen lineWidth="0.75"/>
 					</box>
-					<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Arial" size="8" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{MontoACuenta_1}]]></textFieldExpression>
@@ -292,7 +295,7 @@ DR.SerieDocumentoReferencia,"-" ,DR.NumeroDocumentoReferencia separator ", ") el
 					<box>
 						<topPen lineWidth="0.75" lineColor="#000000"/>
 					</box>
-					<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Arial" size="8" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{SaldoPendiente_1}]]></textFieldExpression>
@@ -307,49 +310,49 @@ DR.SerieDocumentoReferencia,"-" ,DR.NumeroDocumentoReferencia separator ", ") el
 		<band height="124" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="33" width="52" height="16" uuid="19af77f3-8218-4050-93fb-8db025fbebe9"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="49" width="773" height="16" uuid="8cbe626c-b6b8-4cc1-8b09-48f03edd881c"/>
-				<textElement textAlignment="Center" verticalAlignment="Bottom">
+				<reportElement x="0" y="49" width="796" height="16" uuid="8cbe626c-b6b8-4cc1-8b09-48f03edd881c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="11" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[REPORTE DE SALDOS PENDIENTES POR CLIENTE]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="81" width="52" height="16" uuid="44158f6d-41f1-4534-a2ef-762a2c099937"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="0" y="65" width="773" height="16" uuid="69e06405-534c-4a2d-a750-7a3cbd2f2122"/>
-				<textElement textAlignment="Center" verticalAlignment="Bottom">
+				<reportElement x="0" y="65" width="796" height="16" uuid="69e06405-534c-4a2d-a750-7a3cbd2f2122"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="11" isBold="true" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Del "+$P{FechaInicial}+" Al "+$P{FechaFinal}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="17" width="343" height="16" uuid="527336d4-3ae0-4c1e-9967-5ea437d850d8"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["RUC "+$F{CodigoEmpresa}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="0" width="343" height="17" uuid="e0f53967-b11f-43ea-b704-507ec4c9b8e1"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NombreEmpresa}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy HH:mm:ss">
-				<reportElement x="652" y="0" width="121" height="17" uuid="b08b5e65-443c-4327-b029-a3341eb49940"/>
-				<textElement textAlignment="Right">
+				<reportElement x="675" y="0" width="121" height="17" uuid="b08b5e65-443c-4327-b029-a3341eb49940"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
@@ -360,28 +363,28 @@ DR.SerieDocumentoReferencia,"-" ,DR.NumeroDocumentoReferencia separator ", ") el
 		<band height="15">
 			<textField pattern="#,##0.000" isBlankWhenNull="true">
 				<reportElement x="228" y="0" width="40" height="15" uuid="aef60600-f99e-4766-82a3-de541e4e4a79"/>
-				<textElement textAlignment="Right" verticalAlignment="Bottom">
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ValorTipoCambio}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
 				<reportElement style="RojoNegativo" x="268" y="0" width="75" height="15" uuid="d25d6929-6d7b-4a07-8847-6445e7225801"/>
-				<textElement textAlignment="Right" verticalAlignment="Bottom">
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Total}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="52" height="15" uuid="bdf2a7a5-52b6-4772-a84a-66429207b868"/>
-				<textElement textAlignment="Center" verticalAlignment="Bottom">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{FechaEmision}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement stretchType="RelativeToTallestObject" x="52" y="0" width="123" height="15" uuid="acc89769-3dc8-42ef-a220-a30fe66817c7"/>
-				<textElement verticalAlignment="Bottom" markup="none">
+				<textElement verticalAlignment="Middle" markup="none">
 					<font fontName="Arial" size="8"/>
 					<paragraph lineSpacing="Single" tabStopWidth="40"/>
 				</textElement>
@@ -389,42 +392,42 @@ DR.SerieDocumentoReferencia,"-" ,DR.NumeroDocumentoReferencia separator ", ") el
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="175" y="0" width="53" height="15" uuid="53ad434c-398a-4462-9ae1-ffff59e13676"/>
-				<textElement verticalAlignment="Bottom">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NombreMoneda}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
 				<reportElement x="343" y="0" width="75" height="15" uuid="0585ab45-4913-4814-9a95-9a7f5fe98cd5"/>
-				<textElement textAlignment="Right" verticalAlignment="Bottom">
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{MontoACuenta}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
 				<reportElement style="RojoNegativo" x="418" y="0" width="75" height="15" uuid="f12f1ac1-09da-4ab9-b64e-171093fd0857"/>
-				<textElement textAlignment="Right" verticalAlignment="Bottom">
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{SaldoPendiente}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="493" y="0" width="84" height="15" uuid="c3982eb2-4661-472f-ad79-e27a721c7a10"/>
-				<textElement verticalAlignment="Bottom">
+				<reportElement x="493" y="0" width="107" height="15" uuid="c3982eb2-4661-472f-ad79-e27a721c7a10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{DocReferencia}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="577" y="0" width="75" height="15" uuid="3c34d4d1-d1aa-4fa9-ac1b-479bc8642370"/>
-				<textElement verticalAlignment="Bottom">
+				<reportElement x="600" y="0" width="75" height="15" uuid="3c34d4d1-d1aa-4fa9-ac1b-479bc8642370"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{FormaPago}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="652" y="0" width="121" height="15" uuid="d8178f8d-f2cb-4a86-ade2-3be569e68e74"/>
-				<textElement verticalAlignment="Bottom">
+				<reportElement x="675" y="0" width="121" height="15" uuid="d8178f8d-f2cb-4a86-ade2-3be569e68e74"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Observacion}]]></textFieldExpression>
