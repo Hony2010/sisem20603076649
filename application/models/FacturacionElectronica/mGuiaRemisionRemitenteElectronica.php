@@ -311,7 +311,7 @@ class mGuiaRemisionRemitenteElectronica extends CI_Model
                 (GRR.FechaEmision BETWEEN '$FechaInicio' AND '$FechaFin') 
                 ".$estadoTodo."
                 AND GRRE.IndicadorEstado != 'E'
-                ORDER BY GRR.FechaEmision DESC";
+                ORDER BY GRR.SerieDocumento, GRR.NumeroDocumento DESC, GRR.FechaEmision DESC, TD.NombreTipoDocumento";
                 //print_r($consulta);exit;
 
     $query = $this->db->query($consulta);
