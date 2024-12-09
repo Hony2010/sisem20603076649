@@ -57,7 +57,8 @@
     <cbc:DocumentTypeCode>${resumen.tipDocResumen}</cbc:DocumentTypeCode>
     <cbc:ID>${resumen.idDocResumen}</cbc:ID>
     <#assign importeTotal = resumen.totImpCpe?number>
-    <#if (importeTotal >= 700.00) >
+    <#assign monedaDolares = resumen.moneda>
+    <#if ((importeTotal >= 700.00) || (monedaDolares == "USD" && importeTotal >= 25.00)) >
     <cac:AccountingCustomerParty>
       <cbc:CustomerAssignedAccountID>${resumen.numDocUsuario}</cbc:CustomerAssignedAccountID>
       <cbc:AdditionalAccountID>${resumen.tipDocUsuario}</cbc:AdditionalAccountID>
@@ -94,7 +95,7 @@
 
     <!--Total Venta Operaciones Gravadas - 01 -->
 	<#if resumen.totValGrabado != ''>
-	<#if resumen.totValGrabado?number gt 0>
+	<#if resumen.totValGrabado?number gte 0>
     <sac:BillingPayment>
       <cbc:PaidAmount currencyID="${resumen.moneda}">${resumen.totValGrabado}</cbc:PaidAmount>
       <cbc:InstructionID>01</cbc:InstructionID>
