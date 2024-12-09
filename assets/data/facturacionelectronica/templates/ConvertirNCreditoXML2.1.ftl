@@ -227,17 +227,16 @@
    </#if>
 
   <#if FormaPagoSUNAT??>
-    <#if FormaPagoSUNAT=="Contado">
+    <#if codMotivo != '13'>
       <!-- <cac:PaymentTerms>
         <cbc:ID>FormaPago</cbc:ID>
         <cbc:PaymentMeansID>${FormaPagoSUNAT}</cbc:PaymentMeansID>
       </cac:PaymentTerms> -->
     <#else>    
-      <#if FormaPagoSUNAT=="Credito">
       <cac:PaymentTerms>
         <cbc:ID>FormaPago</cbc:ID>
         <cbc:PaymentMeansID>${FormaPagoSUNAT}</cbc:PaymentMeansID>
-        <cbc:Amount currencyID="${moneda}">${MontoNetoPendientePagoCredito}</cbc:Amount>
+        <cbc:Amount currencyID="${moneda}">${SumCuotaPagoClienteComprobanteVenta}</cbc:Amount>
       </cac:PaymentTerms>
       <#list listaCuotasPago as cuotaPago>
       <cac:PaymentTerms>
@@ -247,7 +246,6 @@
         <cbc:PaymentDueDate>${cuotaPago.FechaPagoCuota}</cbc:PaymentDueDate>
       </cac:PaymentTerms>
       </#list>
-      </#if>    
     </#if>
   </#if>
 

@@ -36,7 +36,7 @@
 	{"id":"porDetraccion", "tipo": "1", "value": "PorcentajeDetraccion"},
 	{"id":"mtoDetraccion", "tipo": "1", "value": "MontoDetraccion"},	
 	{"id":"MontoNetoPendientePagoCredito", "tipo": "1", "value": "MontoNetoPendientePagoCredito"},	
-	
+	{"id":"SumCuotaPagoClienteComprobanteVenta", "tipo": "1", "value": "SumCuotaPagoClienteComprobanteVenta"},
 
 	{"id": "listaReferencia", "tipo": "3", "value": "DocumentosReferencia", "datos":
 		[
