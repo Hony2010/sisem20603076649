@@ -106,7 +106,7 @@
 
     <!--Total Venta Operaciones Exoneradas - 02 -->
 	<#if resumen.totValExoneado != ''>
-	<#if resumen.totValExoneado?number gt 0>
+	<#if resumen.totValExoneado?number gte 0>
     <sac:BillingPayment>
       <cbc:PaidAmount currencyID="${resumen.moneda}">${resumen.totValExoneado}</cbc:PaidAmount>
       <cbc:InstructionID>02</cbc:InstructionID>
@@ -117,7 +117,7 @@
 
     <!--Total Venta Operaciones Inafectas - 03 -->
 	<#if resumen.totValInafecto != ''>
-	<#if resumen.totValInafecto?number gt 0>
+	<#if resumen.totValInafecto?number gte 0>
     <sac:BillingPayment>
       <cbc:PaidAmount currencyID="${resumen.moneda}">${resumen.totValInafecto}</cbc:PaidAmount>
       <cbc:InstructionID>03</cbc:InstructionID>
