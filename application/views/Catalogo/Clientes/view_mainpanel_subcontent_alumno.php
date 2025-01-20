@@ -3,12 +3,14 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
             <div class="modal-header">
-                <h5 style="margin: 0px; width: 100%;">
-                  <center>
-                    <b>Padre: <span  class="text-uppercase" id="TituloNombrePadreAlumno"></b></span>
-                    <button id="btnAgregarAlumno" class="btn btn-info" type="button" data-bind="click : $root.AgregarAlumno"><u>N</u>uevo</button>
-                  </center>
-                </h5>
+<h5 style="margin: 0px; width: 100%;">
+  <center>
+    <b>Padre: <span class="text-uppercase" id="TituloNombrePadreAlumno"></span></b>
+    <div style="margin-top: 10px;">
+      <button id="btnAgregarAlumno" class="btn btn-info" type="button" data-bind="click : $root.AgregarAlumno">Agregar Alumno</button>
+    </div>
+  </center>
+</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-bind="event:{click: $root.Cerrar}"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">

@@ -25,13 +25,13 @@
           <td class="col-md-2" data-bind="text : NombreTipoPersona"></td>
           <td data-bind="text : NumeroDocumentoIdentidad"></td>
           <!-- ko if:($parent.Parametro.ParametroAlumno() == "1" ) -->
-          <!-- <td align="center" data-bind="">
+          <td align="center" data-bind="">
             <div data-bind="css: VistaOpciones">
-              <button data-bind="event : {click : $root.ConsultarAlumno}, attr : { id : IdPersona() + '_button_modal_Alumno' } " class="btn btn-sm btn-default btn_subfamiliaproducto btn-operaciones" data-toogle="tooltip" title="SubFamilia">
+              <button data-bind="event : {click : $root.ConsultarAlumno}, attr : { id : IdPersona() + '_button_modal_Alumno' } " class="btn btn-sm btn-default btn_subfamiliaproducto btn-operaciones" data-toogle="tooltip" title="Agregar Alumno">
                   <span class="fa fa-fw fa-folder"></span>
               </button>
             </div>
-          </td> -->
+          </td>
           <!-- /ko -->
           <td align="center" >
             <div data-bind="css: VistaOpciones">
