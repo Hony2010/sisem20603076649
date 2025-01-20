@@ -217,6 +217,7 @@ class sComprobanteVenta extends MY_Service {
     $this->ComprobanteVenta["ParametroMarcaVenta"] = $this->sConstanteSistema->ObtenerParametroMarcaVenta();
     $this->ComprobanteVenta["ParametroCodigoBarras"] = $this->sConstanteSistema->ObtenerParametroCodigoBarras();
     $this->ComprobanteVenta["ParametroCalcularCantidad"] = $this->sConstanteSistema->ObtenerParametroCalcularCantidad();
+    $this->ComprobanteVenta["ParametroHoraConsultaVenta"] = $this->sConstanteSistema->ObtenerParametroHoraConsultaVenta();
 
     $this->ComprobanteVenta["ParametroFiltroClienteSinRuc"] = $this->sConstanteSistema->ObtenerParametroClienteSinRuc();
     $this->ComprobanteVenta["ParametroMostrarCampoMontoRecibido"] = $this->sConstanteSistema->ObtenerParametroMostrarCampoMontoRecibido();

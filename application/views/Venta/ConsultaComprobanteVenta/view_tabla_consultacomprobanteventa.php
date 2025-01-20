@@ -35,9 +35,16 @@
 			<tr class="clickable-row"
 				data-bind="click : $root.Seleccionar, attr : { id: IdComprobanteVenta }, css: IndicadorEstado() == 'N' ? 'anulado' : ''">
 				<td class="col-md-auto col-md-auto-height text-center" data-bind="text : Numero()"></td>
+				<!-- ko if: $parent.ComprobanteVenta.ParametroHoraConsultaVenta() == 1 -->
 				<td class="col-md-auto col-md-auto-height text-center">
-					<span data-bind="text : FechaEmision"></span>
+					<span data-bind="text : FechaEmision() + ' - ' + HoraRegistro()"></span>
 				</td>
+				<!-- /ko -->
+				<!-- ko if: $parent.ComprobanteVenta.ParametroHoraConsultaVenta() == 0 -->
+				<td class="col-md-auto col-md-auto-height text-center">
+					<span data-bind="text : FechaEmision()"></span>
+				</td>
+				<!-- /ko -->
 				<td class="col-md-1 col-md-auto-height" data-bind="text : NumeroDocumentoIdentidad"></td>
 				<td class="col-md-3 col-md-auto-height" data-bind="text : RazonSocial"></td>
 				<td class="col-md-1 text-right col-md-auto-height" data-bind="text : TotalComprobante()"></td>

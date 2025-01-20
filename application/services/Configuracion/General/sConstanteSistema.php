@@ -1902,6 +1902,18 @@ function ObtenerParametroCantidadDecimalesVentaCampoPrecioUnitario() {
     }
   }
 
+  function ObtenerParametroHoraConsultaVenta() {
+  $data['IdParametroSistema'] = ID_PARAMETRO_HORA_CONSULTA_VENTA;
+  $resultado = $this->sParametroSistema->ObtenerParametroSistemaPorId($data);
+
+  if (is_string($resultado)) {
+    return $resultado;
+    } else {
+      $ValorParametroSistema = $resultado[0]->ValorParametroSistema;
+      return $ValorParametroSistema;
+      }
+  }
+
   function ObtenerParametroURLServidor() {    
 		$resultado=$this->sParametroSistema->ObtenerValorParametroSistemaPorNombreParametroSistema("BASE_URL_SERVIDOR");
 

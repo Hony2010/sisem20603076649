@@ -51,5 +51,3 @@ DELIMITER ;
 UPDATE parametrosistema 
 SET ValorParametroSistema = 'VentaDetallado/Reporte_Venta_Detallado_2024'
 WHERE NombreParametroSistema = 'nombre_archivo_jasper' AND ValorParametroSistema = 'VentaDetallado/Reporte_Venta_Detallado';
-
--- 06 --

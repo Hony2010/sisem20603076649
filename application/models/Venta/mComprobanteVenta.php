@@ -283,6 +283,7 @@ class mComprobanteVenta extends CI_Model {
                 MND.SimboloMoneda, concat(ALUM.NombreCompleto,' ', ALUM.ApellidoCompleto)as NombreAlumno, ALUM.CodigoAlumno,
                 NS.SerieNotaSalida, NS.NumeroNotaSalida,CS.NombreCasillero,G.NombreGenero,ASD.IdSede,
                 date_format(CV.FechaRegistro, '%r') AS HoraOcupacionCasillero,
+                DATE_FORMAT(CV.FechaRegistro, '%h:%i %p') AS HoraRegistro,
                 (CASE WHEN cg.IndicadorCasilleroDisponible = 0 then '' 
                 else date_format(cg.FechaModificacion, '%r') END) AS HoraLiberacionCasillero,
                 cg.IndicadorCasilleroDisponible,
