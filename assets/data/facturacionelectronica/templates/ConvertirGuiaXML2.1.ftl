@@ -170,7 +170,7 @@
             </cac:DespatchAddress>                
         </cac:Despatch>
     </cac:Delivery>
-    <#if ( (CodigoModalidadTraslado = "01" || CodigoModalidadTraslado = "02") && NumeroPlaca !='' ) >
+    <#if ( (CodigoModalidadTraslado = "02") && NumeroPlaca !='' ) >
       <cac:TransportHandlingUnit>
             <cac:TransportEquipment>
                 <cbc:ID>${NumeroPlaca}</cbc:ID>
