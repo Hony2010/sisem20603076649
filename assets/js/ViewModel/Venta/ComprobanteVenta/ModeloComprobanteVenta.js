@@ -387,7 +387,7 @@ ModeloComprobanteVenta = function (data) {
       var igv = parseFloatAvanzado(self.CalcularIGV())
       base.IGV(igv);
 
-      var total = parseFloatAvanzado(self.CalcularTotal())
+      var total = parseFloatAvanzado(self.CalcularTotal() - self.DescuentoGlobal());
 
       var icbper = parseFloatAvanzado(self.ICBPER());
 

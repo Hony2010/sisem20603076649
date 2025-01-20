@@ -736,14 +736,14 @@
 					<div class="row">
 						<div class="col-md-2" data-bind="">
 						</div>
-						<div class="col-md-2">
+<!-- 						<div class="col-md-2">
 							<div class="form-group">
 								<div class="addon-top" data-bind="text : NombreCampoSubTotal"></div>
 								<input readonly tabindex="-1"
 									class="form-control formulario numeric text-mumeric input-totales no-tab"
 									type="text" placeholder="0.00" data-bind="value : CalculoTotalVenta()">
 							</div>
-						</div>
+						</div> -->
 						<!-- ko if:(ParametroCamposConEnvioYGestion() == 1) -->
 						<div class="col-md-2">
 							<div class="form-group">
@@ -772,7 +772,7 @@
 								<input id="Total" readonly tabindex="-1"
 									class="form-control formulario numeric text-mumeric input-totales no-tab"
 									type="text" placeholder="0.00"
-									data-bind="value : TotalConEnvioGestion(), numbertrim : TotalConEnvioGestion">
+									data-bind="value : CalculoTotalVenta()">
 							</div>
 						</div>
 						<!-- ko if:(ParametroCampoACuenta() == 1) -->
@@ -814,7 +814,7 @@
 						</div>
 						<!-- /ko -->
 						<!-- ko if:(ParametroMostrarCampoMontoRecibido() == 1) -->
-						<div class="col-md-2">
+<!-- 						<div class="col-md-2">
 							<div class="form-group">
 								<div class="addon-top">Debe</div>
 								<input id="MontoDebe" class="form-control formulario numeric text-mumeric input-totales"
@@ -825,7 +825,7 @@
 									data-validation-allowing="float,range[0.001;9999999]"
 									data-validation-decimal-separator="." data-validation-error-msg="Mayor o igual a 0">
 							</div>
-						</div>
+						</div> -->
 						<div class="col-md-2">
 							<div class="form-group">
 								<div class="addon-top">Monto Recibido</div>
@@ -844,7 +844,7 @@
 								<div class="addon-top">Vuelto</div>
 								<input id="ACuenta" class="form-control formulario numeric text-mumeric input-totales"
 									type="text" readonly placeholder="0.00" data-bind="
-                value : VueltoRecibido , 
+                value : (CalculoTotalVenta() - MontoRecibido()).toFixed(2) , 
                 numbertrim :VueltoRecibido, 
                 event:{ focus: OnFocus, keydown : OnKeyEnter}">
 							</div>
