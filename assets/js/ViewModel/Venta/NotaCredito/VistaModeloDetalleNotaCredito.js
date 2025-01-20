@@ -197,9 +197,9 @@ VistaModeloDetalleNotaCredito = function (data) {
             var $data = Knockout.CopiarObjeto(data);
 
             self.ValidarProductoPorCodigo($data,$evento2,function($data3,$evento3){
-              // $(self.InputCantidad()).focus();
-              // $(self.InputCodigoMercaderia()).next().focus();
-              // $(event.target).enterToTab(event)
+              $(self.InputCantidad()).focus();
+              $(self.InputCodigoMercaderia()).next().focus();
+              $(event.target).enterToTab(event)
               var id_combo = "#" + self.IdDetalleComprobanteVenta() + "_input_NombreProducto";
               if($(id_combo).closest("tr").next().length > 0)
               {

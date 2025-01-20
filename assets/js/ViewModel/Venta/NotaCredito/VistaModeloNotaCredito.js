@@ -517,7 +517,7 @@ VistaModeloNotaCredito = function (data, options) {
       }
       else {
           var idmotivo = self.$form.find("#combo-motivo").val();
-          if(idmotivo !=13) {
+          if(idmotivo !=13 && idmotivo != 3) {
               if (parseFloatAvanzado(self.Total()) <= 0 && window.Motivo.Reglas.TotalCero != 1) {
               
                 alertify.alert(self.titulo + " - VALIDACION", "El total debe ser mayor a cero.");
@@ -909,115 +909,97 @@ VistaModeloNotaCredito = function (data, options) {
     }
   }
 
-  self.AgregarComprobantesVentaPorCliente = function (data, event) {
-    if (event) {
-      var objeto = Knockout.CopiarObjeto(self.BusquedaComprobanteVentaNC);
-      var i = 0;
-      
-      self.DetallesNotaCredito([]);
+self.AgregarComprobantesVentaPorCliente = function (data, event) {
+  if (event) {
+    var objeto = Knockout.CopiarObjeto(self.BusquedaComprobanteVentaNC);
+    var i = 0;
 
-      ko.utils.arrayFirst(objeto(), function (item) {
-        var data_items = ko.mapping.toJS(item);
+    self.DetallesNotaCredito([]);
 
-        self.AliasUsuarioVenta(item.AliasUsuarioVenta());
-        self.MiniComprobantesVentaNC.push(new MiniComprobantesVentaNCModel(data_items));
+    ko.utils.arrayFirst(objeto(), function (item) {
+      var data_items = ko.mapping.toJS(item);
 
-        ko.utils.arrayFirst(item.DetallesComprobanteVenta(), function (item2) {
-          // var data_item = ko.mapping.toJS(item2, {ignore : ["SaldoPendienteNotaCredito"]});
-          var data_item = ko.mapping.toJS(item2);
-          data_item.IdReferenciaDCV = data_item.IdDetalleComprobanteVenta;
-          data_item.IdDetalleReferencia = data_item.IdDetalleComprobanteVenta;
+      self.AliasUsuarioVenta(item.AliasUsuarioVenta());
+      self.MiniComprobantesVentaNC.push(new MiniComprobantesVentaNCModel(data_items));
 
-          if (window.Motivo.Reglas.IniciarCampoDetalle.length > 0) {
-            window.Motivo.Reglas.IniciarCampoDetalle.forEach(function (elemento) {
-              var nombre_elemento = elemento.Id;
-              delete data_item[nombre_elemento];
-              data_item[nombre_elemento] = elemento.Value;
-            });
-          }
-          console.log(data_item);
-          // var _objeto = new VistaModeloDetalleNotaCredito(data_item);
-          var _objeto = self.DetallesNotaCredito.AgregarDetalleNotaCredito(data_item, event);
-          // var _objeto = new VistaModeloDetalleNotaCredito(data_item);
-          // self.DetallesNotaCredito.push(_objeto);
-          _objeto.InicializarVistaModelo(event, self.PostBusquedaProducto);
-          // self.DetallesNotaCredito.Agregar(item2, event);
-        });
-        i++;
+      ko.utils.arrayFirst(item.DetallesComprobanteVenta(), function (item2) {
+        var data_item = ko.mapping.toJS(item2);
+        data_item.IdReferenciaDCV = data_item.IdDetalleComprobanteVenta;
+        data_item.IdDetalleReferencia = data_item.IdDetalleComprobanteVenta;
+
+        if (window.Motivo.Reglas.IniciarCampoDetalle.length > 0) {
+          window.Motivo.Reglas.IniciarCampoDetalle.forEach(function (elemento) {
+            var nombre_elemento = elemento.Id;
+            delete data_item[nombre_elemento];
+            data_item[nombre_elemento] = elemento.Value;
+          });
+        }
+        console.log(data_item);
+
+        var _objeto = self.DetallesNotaCredito.AgregarDetalleNotaCredito(data_item, event);
+        _objeto.InicializarVistaModelo(event, self.PostBusquedaProducto);
       });
+      i++;
+    });
 
-      if (window.Motivo.Reglas.CantidadFacturas != 1 && window.Motivo.Reglas.MontoCero == 0) {
-        idmotivo = self.$form.find("#combo-motivo").val();
-        if(idmotivo !=13) {
-          var comprobante = ko.mapping.toJS(objeto()[0], ignoreNotaCredito);
-          var includesList = Object.keys(mapeadoNotaCredito);
-          var nuevadata = leaveJustIncludedProperties(comprobante, includesList);
+    // Declarar idmotivo antes de usarlo
+    var idmotivo = self.$form.find("#combo-motivo").val();
 
-          ko.mapping.fromJS(nuevadata, self);
-        }
-        // self.IdTipoVenta(comprobante.IdTipoVenta);
-        // console.log(comprobante);
-        // self.CalcularTotales(event);
+    if (window.Motivo.Reglas.CantidadFacturas != 1 && window.Motivo.Reglas.MontoCero == 0) {
+      if (idmotivo != 13) {
+        var comprobante = ko.mapping.toJS(objeto()[0], ignoreNotaCredito);
+        var includesList = Object.keys(mapeadoNotaCredito);
+        var nuevadata = leaveJustIncludedProperties(comprobante, includesList);
+
+        ko.mapping.fromJS(nuevadata, self);
       }
-      else {
-        if(idmotivo !=13) {
-          var comprobante = ko.mapping.toJS(self.MiniComprobantesVentaNC()[0], ignoreNotaCredito);
-          var includesList = Object.keys(mapeoPropiedadesNotaCredito);
-          var nuevadata = leaveJustIncludedProperties(comprobante, includesList);
+    } else {
+      if (idmotivo != 13) {
+        var comprobante = ko.mapping.toJS(self.MiniComprobantesVentaNC()[0], ignoreNotaCredito);
+        var includesList = Object.keys(mapeoPropiedadesNotaCredito);
+        var nuevadata = leaveJustIncludedProperties(comprobante, includesList);
 
-          ko.mapping.fromJS(nuevadata, self);
-        // self.IdTipoVenta(comprobante.IdTipoVenta);
-        }
-      }
-
-      self.SumarComprobantesElegidos(event);
-
-      self.BusquedaComprobanteVentaNC([]);
-      self.BusquedaComprobantesVentaNC([]);
-      self.$buscador.resetearValidaciones();
-      self.$buscador.modal("hide");
-
-      //HABILITAMOS Y DESHABILITAMOS SEGUN MOTIVO
-      self.HabilitarCampos(window.Motivo, event);
-      self.LimpiarPorConcepto(event);
-
-      //HABILITAMOS DEL PRIMER CAMPO DE LA TABLA seleccionada
-      if (self.$form.find("#tablaDetalleComprobanteVenta").is(":visible")) {
-
-        if (self.$form.find("#tablaDetalleComprobanteVenta").find("select:not([disabled]), input:not([disabled])").length > 0) {
-          self.$form.find("#tablaDetalleComprobanteVenta").find("select:not([disabled]), input:not([disabled])")[0].focus();
-        }
-        else {
-          if (self.$form.find("#footer_notacredito").find("select:not([disabled]), input:not([disabled])").length > 0) {
-            self.$form.find("#footer_notacredito").find("select:not([disabled]), input:not([disabled])")[0].focus();
-          }
-          else {
-            self.$form.find("#btn_Grabar").focus();
-          }
-        }
-      }
-      else if (self.$form.find("#tablaConceptoComprobanteVenta").is(":visible")) {
-        if (self.$form.find("#tablaConceptoComprobanteVenta").find("select:not([disabled]), input:not([disabled])").length > 0) {
-          self.$form.find("#tablaConceptoComprobanteVenta").find("select:not([disabled]), input:not([disabled])")[0].focus();
-        }
-        else {
-          if (self.$form.find("#footer_notacredito").find("select:not([disabled]), input:not([disabled])").length > 0) {
-            self.$form.find("#footer_notacredito").find("select:not([disabled]), input:not([disabled])")[0].focus();
-          }
-          else {
-            self.$form.find("#btn_Grabar").focus();
-          }
-        }
-      }
-      //self.CalcularTotales(event);
-      // self.ActualizarTotales(data, event);
-      if (self.MiniComprobantesVentaNC().length > 0 && window.Motivo.Reglas.BorrarDetalles == 1) {
-        idmotivo = self.$form.find("#combo-motivo").val();
-        if(idmotivo !=13)
-          self.CalcularPorcentaje(data, event);
+        ko.mapping.fromJS(nuevadata, self);
       }
     }
+
+    self.SumarComprobantesElegidos(event);
+
+    self.BusquedaComprobanteVentaNC([]);
+    self.BusquedaComprobantesVentaNC([]);
+    self.$buscador.resetearValidaciones();
+    self.$buscador.modal("hide");
+
+    self.HabilitarCampos(window.Motivo, event);
+    self.LimpiarPorConcepto(event);
+
+    if (self.$form.find("#tablaDetalleComprobanteVenta").is(":visible")) {
+      if (self.$form.find("#tablaDetalleComprobanteVenta").find("select:not([disabled]), input:not([disabled])").length > 0) {
+        self.$form.find("#tablaDetalleComprobanteVenta").find("select:not([disabled]), input:not([disabled])")[0].focus();
+      } else {
+        if (self.$form.find("#footer_notacredito").find("select:not([disabled]), input:not([disabled])").length > 0) {
+          self.$form.find("#footer_notacredito").find("select:not([disabled]), input:not([disabled])")[0].focus();
+        } else {
+          self.$form.find("#btn_Grabar").focus();
+        }
+      }
+    } else if (self.$form.find("#tablaConceptoComprobanteVenta").is(":visible")) {
+      if (self.$form.find("#tablaConceptoComprobanteVenta").find("select:not([disabled]), input:not([disabled])").length > 0) {
+        self.$form.find("#tablaConceptoComprobanteVenta").find("select:not([disabled]), input:not([disabled])")[0].focus();
+      } else {
+        if (self.$form.find("#footer_notacredito").find("select:not([disabled]), input:not([disabled])").length > 0) {
+          self.$form.find("#footer_notacredito").find("select:not([disabled]), input:not([disabled])")[0].focus();
+        } else {
+          self.$form.find("#btn_Grabar").focus();
+        }
+      }
+    }
+
+    if (self.MiniComprobantesVentaNC().length > 0 && window.Motivo.Reglas.BorrarDetalles == 1) {
+      if (idmotivo != 13) self.CalcularPorcentaje(data, event);
+    }
   }
+};
 
   self.LimpiarPorConcepto = function (data, event) {
     if (event) {

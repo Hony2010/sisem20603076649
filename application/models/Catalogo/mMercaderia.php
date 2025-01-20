@@ -348,7 +348,7 @@ class mMercaderia extends CI_Model {
   {
     $criterio=$data["CodigoMercaderia"];
     $query = $this->db->query("Select M.*, F.NombreFabricante,TE.NombreTipoExistencia, UM.AbreviaturaUnidadMedida,
-                                MND.NombreMoneda, FP.NombreFamiliaProducto, FP.IdFamiliaProducto, SFP.NombreSubFamiliaProducto, LP.NombreLineaProducto, MRC.NombreMarca, MRC.IdMarca,
+                                MND.NombreMoneda, FP.NombreFamiliaProducto, FP.IdFamiliaProducto, SFP.NombreSubFamiliaProducto, LP.NombreLineaProducto, MRC.NombreMarca, MRC.IdMarca, DCV.NombreProducto,
                                 MDL.NombreModelo, P.*,
                                 UM.NombreUnidadMedida,TAI.CodigoTipoAfectacionIGV,TP.CodigoTipoPrecio,TSI.CodigoTipoSistemaISC
                                 From Mercaderia As M
@@ -365,6 +365,7 @@ class mMercaderia extends CI_Model {
                                 Inner join TipoAfectacionIGV as TAI  on TAI.IdTipoAfectacionIGV = M.IdTipoAfectacionIGV
                                 Inner join TipoPrecio as TP  on  TP.IdTipoPrecio = M.IdTipoPrecio
                                 Inner join TipoSistemaISC as TSI on TSI.IdTipoSistemaISC = M.IdTipoSistemaISC
+                                INNER JOIN DetalleComprobanteVenta AS DCV ON DCV.IdProducto = M.IdProducto
                                 Where P.IndicadorEstado= 'A' AND M.CodigoMercaderia = '$criterio'
                                 ORDER BY(M.CodigoMercaderia)");
     $resultado = $query->row();

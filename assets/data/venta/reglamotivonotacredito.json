@@ -98,7 +98,7 @@
 			"_CantidadFactura": "Se Permite Solo Una Factura",
 			"MotivoDetalle": 0,
 			"_DetalleMotivo": "Se Muestra el Detalle",
-			"CamposEditables": [1, 2],
+			"CamposEditables": [1, 2, 7],
 			"_CamposEditables": "Se Listan los campos Editables",
 			"OcultarCampos": [16],
 			"_OcultarCampos": "Se Ocultan los campos dados",

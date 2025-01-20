@@ -119,9 +119,9 @@
 										</div> -->
 									</div>									
 								</div>
-								<div class="col-md-12">
+<!-- 								<div class="col-md-12">
 									<strong class="alert-info">*La forma de Pago: CREDITO solo debe ser usado por el motivo: Ajustes - montos y/o fechas de pago, en los demás motivos dejarlo en CONTADO.</strong>
-								</div>
+								</div> -->
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
@@ -342,9 +342,7 @@
 												data-bind="value: NombreProducto,
             attr : { id : IdDetalleComprobanteVenta() + '_input_NombreProducto',
             'data-validation-reference' : IdDetalleComprobanteVenta() + '_input_CodigoMercaderia' },
-            event: { focus : $parent.Seleccionar , keydown : $parent.OnKeyEnter }" type="text"
-												data-validation="autocompletado_producto"
-												data-validation-error-msg="No se han encontrado resultados para tu búsqueda de producto">
+            event: { focus : $parent.Seleccionar , keydown : $parent.OnKeyEnter }" type="text">
 										</td>
 										<td class="col-sm-1  text-center op-unidad">
 											<span class="input-detallecomprobanteventa" data-bind="text : AbreviaturaUnidadMedida , visible : true ,
@@ -495,7 +493,8 @@
 					<div class="col-md-3">
 						<div class="mostrarnota" style="display: none;">
 							<h4>Nota:</h4>
-							<span data-bind="text: NotaUsuario">No se pueden hacer modificaciones de la vida</span>
+							<span data-bind="text: NotaUsuario">No se pueden hacer modificaciones de la vida</span><BR>
+							<strong class="alert-info">*LA OPERACION GRABADA DEBE TENER MONTOS 00.00.</strong>
 						</div>
 					</div>
 					<div class="col-md-2">
