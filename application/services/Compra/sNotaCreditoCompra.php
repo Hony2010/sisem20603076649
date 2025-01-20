@@ -340,12 +340,20 @@ class sNotaCreditoCompra extends sComprobanteCompra {
   {
     foreach ($data["DetallesNotaCreditoCompra"] as $key => $value) {
       $nueva_data["IdDetalleComprobanteCompra"] = $value["IdDetalleReferencia"];
-      $detalle = $this->sDetalleComprobanteCompra->ConsultarDetalleComprobanteCompraPorId($nueva_data);      
+      $detalle = $this->sDetalleComprobanteCompra->ConsultarDetalleComprobanteCompraPorId($nueva_data);
+
+    if (!empty($detalle) && isset($detalle[0])) {      
       $detalle[0]["SaldoPendienteNotaCredito"] = (is_string($detalle[0]["SaldoPendienteNotaCredito"])) ? str_replace(',',"",$detalle[0]["SaldoPendienteNotaCredito"]) : $detalle[0]["SaldoPendienteNotaCredito"]; //$nueva_data["SaldoPendienteNotaCredito"] = $detalle[0]["SaldoPendienteNotaCredito"] - $value["CostoItem"];
       //$value["SubTotal"] = (is_string($value["SubTotal"])) ? str_replace(',',"",$value["SubTotal"]) : $value["SubTotal"]; 
       //$nueva_data["SaldoPendienteNotaCredito"] = $detalle[0]["SaldoPendienteNotaCredito"] - $value["SubTotal"];
       $value["CostoItem"] = (is_string($value["CostoItem"])) ? str_replace(',',"",$value["CostoItem"]) : $value["CostoItem"]; 
       $nueva_data["SaldoPendienteNotaCredito"] = $detalle[0]["SaldoPendienteNotaCredito"] - $value["CostoItem"];
+    } else {
+    // Manejar el caso cuando no se encuentra detalle o es vacío
+    // Puedes agregar un mensaje de error o manejarlo de otra forma
+    // Ejemplo:
+    log_message('error', 'No se encontró detalle para IdDetalleReferencia: ' . $nueva_data["IdDetalleComprobanteCompra"]);
+}
       
       // $nueva_data["SaldoNotaCredito"] = $value["SaldoNotaCredito"] - $data["Total"];
       // parent::ActualizarDetalleComprobanteCompra($nueva_data);
