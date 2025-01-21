@@ -4,3 +4,6 @@ INSERT INTO `parametrosistema` (`IdParametroSistema`, `NombreParametroSistema`, 
 
 -- R25.009
 UPDATE motivonotacredito SET IndicadorVenta = '1', AfectacionVenta = '1', IndicadorEstado = 'A' WHERE CodigoMotivoNotaCredito = '02' and CodigoMotivoNotaCredito = '03';
+
+-- R25.011
+ALTER TABLE `comprobantecompra` MODIFY COLUMN `Observacion` VARCHAR(900);
