@@ -807,7 +807,7 @@ VistaModeloGuiaRemisionRemitente = function (data, options) {
       var pesoBrutoTotal=0;
       ko.utils.arrayForEach(self.DetallesGuiaRemisionRemitente(), function (item) {
         if(item.Peso() != null) {
-          pesoBrutoTotal=  pesoBrutoTotal;
+          pesoBrutoTotal=  pesoBrutoTotal + parseFloatAvanzado(item.Peso());;
         }             
       })
 

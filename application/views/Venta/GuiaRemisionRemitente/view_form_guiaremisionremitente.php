@@ -102,7 +102,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <div class="input-group">
-                      <div class="input-group-addon formulario">Destinatario</div>
+                    <div class="input-group-addon formulario" data-bind="text: IdMotivoTraslado() == 3 ? 'Proveedor' : 'Destinatario'"></div>
                       <input id="NombreDestinatario" type="text" class="form-control formulario" data-bind="
                       value: NombreDestinatario,
                       event: { focus: OnFocus, keydown: OnKeyEnter, change: ValidarDestinatario }" data-validation="autocompletado" data-validation-error-msg="" data-validation-text-found="">
@@ -265,9 +265,9 @@
               <input id="TransportePrivado" type="radio" name="ModalidadTrasnporte" value="2" data-bind="checked: IdModalidadTraslado">
               <label for="TransportePrivado">Privado (Propio de la Empresa)</label>
             </div>
-            <div class="checkbox checkbox-inline" style="margin-left: 100px">
+            <div class="checkbox checkbox-inline" style="margin-left: 100px" data-bind="visible: IdModalidadTraslado() == 1">
               <input id="IndicadorM1L" type="checkbox" name="IndicadorM1L" value="1" data-bind="checked: IndicadorM1L">
-              <label for="IndicadorM1L">TRANSPORTE CON VEHÍCULO M1 O L<strong class="alert-info">&nbsp&nbsp&nbsp(Dejar en modalidad de traslado Publico y Razón social: NO ESPECIFICADO)</strong></label>
+              <label for="IndicadorM1L">TRANSPORTE CON VEHÍCULO M1 O L<strong class="alert-info">&nbsp&nbsp&nbsp(Elegir la razón social: NO ESPECIFICADO)</strong></label>
             </div>
           </div>
 
@@ -390,7 +390,7 @@
                   </th>
                   <!-- /ko -->
                   <th class="text-center">Cantidad</th>
-                  <!-- <th>Peso</th> -->
+                  <th class="text-center">Peso<strong class="alert-info">&nbsp&nbsp&nbsp(OPCIONAL)</strong></th>
                   <!-- <th data-bind="visible : IdMotivoTraslado() == ID_PARAMETRO_MOTIVO_TRASLADO_VENTA">Pendiente</th> -->
                   <th width="41"></th>
                 </tr>
@@ -443,7 +443,7 @@
                       numberdecimal: Cantidad " data-validation="number_calc" data-validation-allowing="float,positive,range[0.001;9999999]" data-validation-decimal-separator="." data-validation-error-msg="De 0 a más">
                     </div>
                   </td>
-                  <!-- <td>
+                  <td>
                     <div class="form-group">
                       <input type="text" class="form-control formulario text-right" data-bind="
                       value: Peso,                      
@@ -452,7 +452,7 @@
                       numberdecimal: Peso,
                       event: { focus: $parent.OnChangePesoBrutoTotal, keydown: $parent.OnKeyEnter, focusout: $parent.OnChangePesoBrutoTotal, change : $parent.OnChangePesoBrutoTotal }">
                     </div>
-                  </td> -->
+                  </td>
 <!--                   <td data-bind="visible : $parent.IdMotivoTraslado() == ID_PARAMETRO_MOTIVO_TRASLADO_VENTA">
                     <div class="form-group">
                       <input type="text" class="form-control formulario text-right" data-bind="
