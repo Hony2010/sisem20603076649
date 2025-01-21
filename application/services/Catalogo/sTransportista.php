@@ -52,7 +52,7 @@ class sTransportista extends MY_Service {
     $this->Transportista["NombreComercial"] = "";
     $this->Transportista["RepresentanteLegal"] = "";
     $this->Transportista["Email"] = "";
-    $this->Transportista["IndicadorEstadoTransportista"] = true;
+    $this->Transportista["EstadoTransportista"] = true;
 
     $TiposDocumentoIdentidad = $this->sTipoDocumentoIdentidad->ListarTiposDocumentoIdentidad();
     $TiposPersona = $this->sTipoPersona->ListarTiposPersona();
@@ -180,7 +180,7 @@ class sTransportista extends MY_Service {
       $inicio = ($pagina*$ValorParametroSistema)-$ValorParametroSistema;
       $resultado = $this->mTransportista->ListarTransportistas($inicio,$ValorParametroSistema);
       foreach ($resultado as $key => $value) {
-        $resultado[$key]["IndicadorEstadoTransportista"] = ($resultado[$key]["EstadoTransportista"] =="1") ? true : false;
+        $resultado[$key]["EstadoTransportista"] = ($resultado[$key]["EstadoTransportista"] =="1") ? true : false;
         $resultado[$key]['FechaNacimiento'] = convertirFechaES($value['FechaNacimiento']);
       }
       return($resultado);
@@ -288,7 +288,7 @@ class sTransportista extends MY_Service {
         $resultadoPersona["IdTransportista"] = $resultadoPersona["IdPersona"];
         $resultadoPersona["NumeroConstanciaInscripcion"] = $data["NumeroConstanciaInscripcion"];
         $resultadoPersona["NumeroLicenciaConducir"] = $data["NumeroLicenciaConducir"];
-        $resultadoPersona["EstadoTransportista"] = ($data["IndicadorEstadoTransportista"] == true) ? "1" : "0";
+        $resultadoPersona["EstadoTransportista"] = ($data["EstadoTransportista"] == true) ? "1" : "0";
         $resultado = $this->mTransportista->InsertarTransportista($resultadoPersona);
         $resultadoPersona['FechaNacimiento'] = convertirFechaES($resultadoPersona['FechaNacimiento']);
 

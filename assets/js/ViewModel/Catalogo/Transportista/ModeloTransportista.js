@@ -308,7 +308,7 @@ ModeloTransportista = function (data) {
 
   
   self.CambiarEstadoTransportista = ko.computed(function () {
-    var estado = self.IndicadorEstadoTransportista() == true ? '1' : '0';
+    var estado = self.EstadoTransportista() == true ? '1' : '0';
     self.EstadoTransportista(estado);
   }, this)
 

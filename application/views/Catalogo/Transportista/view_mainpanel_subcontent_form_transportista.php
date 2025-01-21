@@ -158,8 +158,8 @@
     <div class="row">
       <div class="col-md-12">
         <div class="checkbox checkbox-inline">
-          <input id="IndicadorEstadoTransportista" type="checkbox" class="no-tab" data-bind="checked : IndicadorEstadoTransportista">
-          <label for="IndicadorEstadoTransportista">Estado Transportista</label>
+          <input id="EstadoTransportista" type="checkbox" class="no-tab" data-bind="checked : EstadoTransportista">
+          <label for="EstadoTransportista">Estado Transportista</label>
         </div>
       </div>
     </div>
