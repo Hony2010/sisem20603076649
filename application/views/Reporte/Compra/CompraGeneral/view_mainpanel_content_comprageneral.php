@@ -41,7 +41,7 @@
                                   </div>
                                 </div>
                               </fieldset>
-                              <fieldset>
+                              <!-- <fieldset>
                                 <legend>Por periodo de emisión</legend>
                                 <div class="col-md-12">
                                   <div class="row">
@@ -86,7 +86,7 @@
                                     </div>
                                   </div>
                                 </div>
-                              </fieldset>
+                              </fieldset> -->
                               <fieldset>
                                 <legend></legend>
                                 <div class="col-md-12">

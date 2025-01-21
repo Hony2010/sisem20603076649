@@ -43,7 +43,7 @@
                                 </div>
                               </fieldset>
                               <fieldset>
-                                <legend>Por periodo de emisión</legend>
+<!--                                 <legend>Por periodo de emisión</legend>
                                 <div class="col-md-12">
                                   <div class="row">
                                     <div class="col-md-3">
@@ -87,7 +87,7 @@
                                     </div>
                                   </div>
                                 </div>
-                              </fieldset>
+                              </fieldset> -->                              
                               <fieldset>
                                 <legend>Condición de compras</legend>
                                 <div class="col-md-12">
