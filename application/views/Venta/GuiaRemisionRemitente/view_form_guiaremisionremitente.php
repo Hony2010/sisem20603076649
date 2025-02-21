@@ -307,8 +307,9 @@
                       <div class="input-group-addon formulario">Placa <strong class="alert-info" data-bind="visible: IdModalidadTraslado() == 2">(*)</strong> </div>
                       <input id="PlacaVehiculo" type="text" class="form-control formulario" data-bind="
                         value: PlacaVehiculo,
-                        event: { focus: OnFocus, keydown: OnKeyEnter }">
-                        <!-- data-validation="placa" data-validation-error-msg="Campo obligatorio" -> agregar para tener validación. -->
+                        event: { focus: OnFocus, keydown: OnKeyEnter },
+                        attr: { 'data-validation': IdModalidadTraslado() == 2 ? 'placa' : null, 
+                        'data-validation-error-msg': IdModalidadTraslado() == 2 ? 'Campo obligatorio' : null }">
                     </div>
                   </div>
                 </div>
