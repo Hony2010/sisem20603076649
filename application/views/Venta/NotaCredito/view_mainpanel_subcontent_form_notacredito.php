@@ -490,13 +490,21 @@
 
 				<br>
 				<div id="footer_notacredito" class="row">
-					<div class="col-md-3">
+<!-- 					<div class="col-md-3">
 						<div class="mostrarnota" style="display: none;">
 							<h4>Nota:</h4>
 							<span data-bind="text: NotaUsuario">No se pueden hacer modificaciones de la vida</span><BR>
 							<strong class="alert-info">*LA OPERACION GRABADA DEBE TENER MONTOS 00.00.</strong>
 						</div>
+					</div> -->
+
+					<div class="col-md-3" data-bind="visible: IdMotivoNotaCredito() == 3">
+						<div>
+							<h4>Nota:</h4>
+							<strong class="alert-info">*LA OPERACION GRABADA DEBE TENER MONTOS 00.00.</strong>
+						</div>
 					</div>
+
 					<div class="col-md-2">
 						<div class="form-group">
 							<div class="addon-top">Op. Gravada</div>
