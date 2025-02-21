@@ -472,6 +472,20 @@ VistaModeloComprobanteVenta = function (data, options) {
 		}
 	};
 
+	self.OnChangeTipoDetraccion = function (data, event) {
+		if (event) {
+			var value = $form.find("#combo-tipo-detraccion option:selected").val();
+
+			self.CodigoBienProductoDetraccionSUNAT(value);
+			const detraccion = self.TiposDetraccion().find(i => i.IdTipoDetraccion() === value)
+			if (detraccion) {
+				self.PorcentajeDetraccion(detraccion.PorcentajeTipoDetraccion());	
+			} else {
+				self.PorcentajeDetraccion(0);	
+			}
+		}
+	};
+
 	self.CambiarCampoACuenta = function (data, event) {
 		if (event) {
 			var id = $form.find("#combo-formapago").val();
@@ -1396,6 +1410,17 @@ VistaModeloComprobanteVenta = function (data, options) {
 						"Debe seleccionar un Genero y Casillero",
 						function () {}
 					);
+					return false;
+				}
+			}
+
+			const cuotas = self.CuotasPagoClienteComprobanteVenta()
+			if (self.ParametroDetraccion() == '1' && self.IdFormaPago() == ID_FORMA_PAGO_CREDITO && cuotas.length > 0) {
+				const totalPagar = self.CalculoMontoAPagar()
+				const sumaCuotas = cuotas.reduce((suma, cuota) => suma + parseFloat(cuota.MontoCuota()), 0);
+
+				if (parseFloat(totalPagar) != sumaCuotas) {
+					alertify.alert("Validación", `La suma de las cuotas debe ser igual ${totalPagar}`);
 					return false;
 				}
 			}
@@ -4746,20 +4771,21 @@ VistaModeloComprobanteVenta = function (data, options) {
 
 	self.OnChangeCheckEstadoDetraccion = function(data,event) {
 		if(event) {
-				var checked = $form.find("#CheckEstadoDetraccion").prop("checked");
-				if (checked) {
-					self.EstadoDetraccion(true);	
-					self.NumeroDetraccionBancoNacion(self.ParametroNumeroDetraccionBancoNacion());	
-					self.CodigoBienProductoDetraccionSUNAT(self.ParametroCodigoBienProductoDetraccionSUNAT());	
-					self.PorcentajeDetraccion(self.ParametroPorcentajeDetraccion());	
-					$form.find("#PorcentajeDetraccion").attr("readonly", false);
-				} else {
-					self.EstadoDetraccion(false);					
-					self.NumeroDetraccionBancoNacion("");	
-					self.CodigoBienProductoDetraccionSUNAT("");						
-					self.PorcentajeDetraccion("0.00");	
-					$form.find("#PorcentajeDetraccion").attr("readonly", true);
-				}
+			var checked = $form.find("#CheckEstadoDetraccion").prop("checked");
+			if (checked) {
+				self.EstadoDetraccion(true);	
+				self.CodigoMedioPagoDetraccion(CODIGO_MEDIO_PAGO_DETRACCION_DEPOSITO);	
+				self.NumeroDetraccionBancoNacion(self.ParametroNumeroDetraccionBancoNacion());	
+				self.IdTipoOperacion(ID_TIPO_OPERACION_DETRACCION)
+				self.OnChangeTipoDetraccion(data, event)
+			} else {
+				self.EstadoDetraccion(false);					
+				self.CodigoMedioPagoDetraccion("");	
+				self.NumeroDetraccionBancoNacion("");	
+				self.IdTipoOperacion(ID_TIPO_OPERACION_VENTA_INTERNA)
+				
+				self.OnChangeTipoDetraccion(data, event)
+			}
 		}	
 	}
 
@@ -4781,10 +4807,13 @@ VistaModeloComprobanteVenta = function (data, options) {
 	}
 
 	self.CalculoMontoDetraccion = ko.computed(function () {
-		var porcentajeDetraccion=parseFloat(self.PorcentajeDetraccion() == "" ? 0 : self.PorcentajeDetraccion());
+		var porcentajeDetraccion= 0;
+		if (self.EstadoDetraccion()) {
+			porcentajeDetraccion = self.PorcentajeDetraccion();
+		}
 		var total = parseFloat(self.Total());
-		var resultado = accounting.formatNumber(porcentajeDetraccion*total/100, NUMERO_DECIMALES_VENTA);
-		self.MontoDetraccion(resultado);
+		var resultado = accounting.formatNumber(porcentajeDetraccion*total/100, 0);
+		self.MontoDetraccion(parseFloat(resultado).toFixed(2));
 		return resultado;
 	}, this);
 

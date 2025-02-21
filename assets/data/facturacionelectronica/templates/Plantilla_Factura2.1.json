@@ -41,6 +41,12 @@
 	{"id":"MontoNetoPendientePagoCredito", "tipo": "1", "value": "MontoNetoPendientePagoCredito"},
 	{"id":"SumCuotaPagoClienteComprobanteVenta", "tipo": "1", "value": "SumCuotaPagoClienteComprobanteVenta"},
 
+	{"id":"codMedioPagoDetraccion", "tipo": "1", "value": "CodigoMedioPagoDetraccion"},
+	{"id":"ctaBancoNacionDetraccion", "tipo": "1", "value": "NumeroDetraccionBancoNacion"},
+	{"id":"codBienDetraccion", "tipo": "1", "value": "CodigoBienProductoDetraccionSUNAT"},
+	{"id":"porDetraccion", "tipo": "1", "value": "PorcentajeDetraccion"},
+	{"id":"mtoDetraccion", "tipo": "1", "value": "MontoDetraccion"},	
+	
 	{"id":"listaDetalle", "tipo": "3", "value":  "DetallesComprobanteVenta", "datos":
 		[
 			{"id":"unidadMedida", "tipo": "1", "value":  "CodigoUnidadMedida"},

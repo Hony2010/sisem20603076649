@@ -487,6 +487,57 @@
 									</div>
 									<!-- /ko -->
 								</div>
+								<!-- ko if: (ParametroDetraccion() == 1)-->
+								<div class="row">
+									<div class="col-md-6" style="margin-top: 10px;">
+									<fieldset style="padding: 2px !important;">
+											<legend>
+												<div class="checkbox">
+													<input name="CheckEstadoDetraccion" id="CheckEstadoDetraccion" type="checkbox"
+														class="form-control formulario"
+														data-bind="checked: EstadoDetraccion, event: {focus : OnFocus , keydown : OnKeyEnter, change: OnChangeCheckEstadoDetraccion}" />
+													<label for="CheckEstadoDetraccion"> <b>Con detracción</b> </label>
+												</div>
+											</legend>
+											<div class="col-md-8">
+												<div class="form-group">
+													<div class="input-group">
+														<div class="input-group-addon formulario-venta">Tipo de Detracción</div>
+														<select id="combo-tipo-detraccion" class="form-control formulario"
+															data-bind="
+															value : CodigoBienProductoDetraccionSUNAT,
+															options : TiposDetraccion,
+															optionsValue : 'IdTipoDetraccion' ,
+															optionsText : 'DescripcionTipoDetraccion' ,
+															attr : { disabled : !EstadoDetraccion() },
+															event : { focus : OnFocus , change : (data,event) => OnChangeTipoDetraccion(data,event,$parent) , keydown : OnKeyEnter }"
+															data-validation="required"
+															data-validation-error-msg="No un tipo de detracción asignado">
+														</select>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<div class="input-group">
+														<div class="input-group-addon formulario-venta">Porcentaje
+														</div>
+														<input id="PorcentajeDetraccion" name="PorcentajeDetraccion"
+															class="form-control formulario"
+															data-bind="
+															value: PorcentajeDetraccion,
+															attr : { disabled : !EstadoDetraccion() }, 
+															event : {focus : OnFocus,  keydown : OnKeyEnter}"
+															data-validation="required"
+															data-validation-error-msg="El porcentaje es Obligtorio" />
+													</div>
+												</div>
+											</div>
+										</fieldset>
+									</div>
+								</div>
+								<!-- /ko -->
+
 							</div>
 						</fieldset>
 					</div>
@@ -955,6 +1006,18 @@
 									type="text" placeholder="Total" data-bind="value : CalculoTotalVenta()">
 							</div>
 						</div>
+						
+						<!-- ko if:(MontoDetraccion() > 0) -->
+						<div class="col-md-2">
+							<div class="form-group">
+								<div class="addon-top">Detracción (<span data-bind="text: PorcentajeDetraccion"></span>%) </div>
+								<input id="Total" readonly tabindex="-1"
+									class="form-control formulario numeric text-mumeric no-tab input-totales"
+									type="text" placeholder="Detracción" data-bind="value : MontoDetraccion()">
+							</div>
+						</div>
+						<!-- /ko -->
+
 						<!-- ko if:(ParametroCampoACuenta() == 1) -->
 						<div class="col-md-2">
 							<div class="form-group">

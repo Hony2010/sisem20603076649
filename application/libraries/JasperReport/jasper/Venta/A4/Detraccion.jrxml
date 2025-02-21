@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Detracción" language="groovy" pageWidth="230" pageHeight="115" columnWidth="230" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="1d35af4f-aac0-481e-9102-c339435caff3">
+	<property name="ireport.zoom" value="2.1961500000000007"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="IdComprobanteVenta" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT *,
+    CASE
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '001' THEN 'Azúcar'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '003' THEN 'Alcohol etílico'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '004' THEN 'Recursos hidrobiológicos'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '005' THEN 'Maíz amarillo duro'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '007' THEN 'Caña de azúcar'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '008' THEN 'Madera'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '009' THEN 'Arena y piedra'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '010' THEN 'Residuos, subproductos, desechos, recortes y desperdicios'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '011' THEN 'Bienes del inciso A) del Apéndice I de la Ley del IGV'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '012' THEN 'Intermediación laboral y tercerización'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '014' THEN 'Carnes y despojos comestibles'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '016' THEN 'Aceite de pescado'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '017' THEN 'Harina, polvo y “pellets” de pescado, crustáceos, moluscos y demás invertebrados acuáticos'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '019' THEN 'Arrendamiento de bienes muebles'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '020' THEN 'Mantenimiento y reparación de bienes muebles'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '021' THEN 'Movimiento de carga'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '022' THEN 'Otros servicios empresariales'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '023' THEN 'Leche'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '024' THEN 'Comisión mercantil'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '025' THEN 'Fabricación de bienes por encargo'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '026' THEN 'Servicio de transporte de personas'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '027' THEN 'Servicio de transporte de bienes'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '030' THEN 'Contratos de construcción'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '031' THEN 'Oro gravado con el IGV'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '032' THEN 'Páprika y otros frutos de los géneros capsicum o pimienta'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '034' THEN 'Minerales metálicos no auríferos'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '035' THEN 'Bienes exonerados del IGV'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '036' THEN 'Oro y demás minerales metálicos exonerados del IGV'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '037' THEN 'Demás servicios gravados con el IGV'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '039' THEN 'Minerales no metálicos'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '040' THEN 'Bien inmueble gravado con IGV'
+        WHEN CV.CodigoBienProductoDetraccionSUNAT = '041' THEN 'Plomo'
+        ELSE 'No especificado'
+    END AS DescripcionTipoDetraccion
+FROM comprobanteventa AS CV
+WHERE CV.IdComprobanteVenta = $P{IdComprobanteVenta}
+AND CV.IndicadorEstado = 'A'
+AND CV.EstadoDetraccion = '1';]]>
+	</queryString>
+	<field name="IdComprobanteVenta" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SerieDocumento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IdPeriodoCuota" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Ultimo del anterior Periodo]]></fieldDescription>
+	</field>
+	<field name="NumeroDocumento" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FechaEmision" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IdTipoDocumento" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IdSubTipoDocumento" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IdCliente" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IdMoneda" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IdFormaPago" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IdUsuario" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IdTipoTarjeta" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IdMotivoNotaDebito" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IdMotivoNotaCredito" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IdTipoVenta" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IdTipoOperacion" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IdAlumno" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IdMesa" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IdGenero" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IdCasillero" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IdComprobantePreVenta" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Es el IdComprobanteVenta de una PreVenta]]></fieldDescription>
+	</field>
+	<field name="IdCaja" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Solo llenar si el pago es al contado]]></fieldDescription>
+	</field>
+	<field name="IdNotaSalida" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IdVehiculo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="KilometrajeVehiculo" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IdRadioTaxi" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ICBPER" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NumeroOrdenDireccion" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CuotaCliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PrecioCuota" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CantidadCuota" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NombreGradoAlumno" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IdCorrelativoDocumento" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Esto permite cargar en el combo, pära que se pueda cambiar el número de CP durante la edición]]></fieldDescription>
+	</field>
+	<field name="IdAsignacionSede" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Se enlista todas las Sedes que son tipo Almacen]]></fieldDescription>
+	</field>
+	<field name="FechaMovimientoAlmacen" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CodigoEstado" class="java.lang.String">
+		<fieldDescription><![CDATA[Es el código de Estado de Boletas, Catálogo 19 SUNAT]]></fieldDescription>
+	</field>
+	<field name="CodigoSede" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NombreSede" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FechaVencimiento" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ValorTipoCambio" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="GuiaRemision" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="OrdenCompra" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Observacion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ValorVentaGravado" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ValorVentaNetoGravado" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ValorVentaNoGravado" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ValorVentaNetoNoGravado" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ValorVentaInafecto" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ValorVentaNetoInafecto" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ValorVentaTotal" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ISC" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DescuentoTotalItem" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DescuentoGlobal" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="OtroTributo" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="OtroCargo" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IGV" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Total" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MontoPendientePago" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SaldoNotaCredito" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[Saldo en soles]]></fieldDescription>
+	</field>
+	<field name="MontoLetra" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CodigoSedeAgencia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NombreSedeAgencia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="AliasUsuarioVenta" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MontoRecibido" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="VueltoRecibido" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="EstadoPendienteNota" class="java.lang.String">
+		<fieldDescription><![CDATA[Es el estado pendiente para generar Nota de Salida]]></fieldDescription>
+	</field>
+	<field name="IndicadorEstadoCPE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IndicadorEstadoResumenDiario" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IndicadorEstadoComunicacionBaja" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NombreDispositivo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IndicadorEstado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="EstadoCentral" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SituacionCPE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MontoEnvioGestion" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[Monto usado en ordenes de pedido]]></fieldDescription>
+	</field>
+	<field name="MontoACuenta" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[Pago a Cuenta hecho por el cliente]]></fieldDescription>
+	</field>
+	<field name="TotalConEnvioGestion" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Porcentaje" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[Para Motivo Nota Credito. Descuento Global, Bonificacion]]></fieldDescription>
+	</field>
+	<field name="ObservacionColegio" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IndicadorPagado" class="java.lang.String">
+		<fieldDescription><![CDATA[1 - 0]]></fieldDescription>
+	</field>
+	<field name="IndicadorCanjeado" class="java.lang.String">
+		<fieldDescription><![CDATA[0 - 1 - 2]]></fieldDescription>
+	</field>
+	<field name="IndicadorPreCuenta" class="java.lang.String">
+		<fieldDescription><![CDATA[1 - 0]]></fieldDescription>
+	</field>
+	<field name="FechaRegistro" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FechaModificacion" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="UsuarioRegistro" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="UsuarioModificacion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NumeroPlaca" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IdComprobanteVentaReferencia" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MontoComision" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NumeroAsiento" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IndicadorBoletaViaje" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IdReferenciaProforma" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NombreRadioTaxi" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DocumentoVentaProforma" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DocumentoVentaReferencia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Direccion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PorcentajeComision" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IdTipoListaPrecioEspecial" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ValorVentaOperacionGratuita" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IGVOperacionGratuita" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DescuentoTotalValorItem" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DescTotalValorItemNoGrabado" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NumeroDetraccionBancoNacion" class="java.lang.String">
+		<fieldDescription><![CDATA[Numero Cuenta Detraccion Banco Nacion]]></fieldDescription>
+	</field>
+	<field name="CodigoMedioPagoDetraccion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CodigoBienProductoDetraccionSUNAT" class="java.lang.String">
+		<fieldDescription><![CDATA[Codigo Bien o Producto Detraccion SUNAT]]></fieldDescription>
+	</field>
+	<field name="PorcentajeDetraccion" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[Porcentaje Detraccion]]></fieldDescription>
+	</field>
+	<field name="MontoDetraccion" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[Monto de Detracción]]></fieldDescription>
+	</field>
+	<field name="EstadoDetraccion" class="java.lang.String">
+		<fieldDescription><![CDATA[0 : No aplica detraccion , 1:  Aplica Detraccion]]></fieldDescription>
+	</field>
+	<field name="BaseImponibleRetencionIGV" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[Base Imponible de Retencion IGV]]></fieldDescription>
+	</field>
+	<field name="PorcentajeRetencionIGV" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[Porcentaje de Retencion IGV (Decimales)]]></fieldDescription>
+	</field>
+	<field name="MontoRetencionIGV" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[Monto de Retencion IGV]]></fieldDescription>
+	</field>
+	<field name="EstadoRetencionIGV" class="java.lang.String">
+		<fieldDescription><![CDATA[0 : No aplica retencion IGV, 1:  Aplica Retencion IGV]]></fieldDescription>
+	</field>
+	<field name="ResumenCuotasPagoFormaPagoCredito" class="java.lang.String">
+		<fieldDescription><![CDATA[Texto Resumen de Cuotas de Pago al Credito]]></fieldDescription>
+	</field>
+	<field name="MontoNetoPendientePagoCredito" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[Monto Neto Pendiente Pago]]></fieldDescription>
+	</field>
+	<field name="FechaEntrega" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SumCuotaPagoClienteComprobanteVenta" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[Suma de las cuotas por  rutina almacenada de la tabla cuotapagoclientecomprobanteventa.]]></fieldDescription>
+	</field>
+	<field name="DescripcionTipoDetraccion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<columnHeader>
+		<band height="96" splitType="Stretch">
+			<rectangle radius="2">
+				<reportElement mode="Transparent" x="2" y="0" width="226" height="96" isPrintWhenDetailOverflows="true" uuid="1873de1e-30fe-4009-8ee5-23c68d433ff3"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="5" y="2" width="220" height="11" isPrintWhenDetailOverflows="true" uuid="291622ac-2e28-4ab8-8ee7-5e99498daa33"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Información de la Detracción :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="73" width="77" height="10" isPrintWhenDetailOverflows="true" uuid="3ec898bc-c1e3-471a-b464-f57bfd62ca07"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Porcentaje Detracción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="63" y="13" width="10" height="20" isPrintWhenDetailOverflows="true" uuid="2d6e9a64-28e5-4ec0-9b84-524cceb9ba29"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="83" y="73" width="10" height="10" isPrintWhenDetailOverflows="true" uuid="b08acb27-07a8-4cdd-82a4-9f0824de6eef"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="73" y="13" width="152" height="20" isPrintWhenDetailOverflows="true" uuid="4a4655c8-6975-4cbd-b4f8-462fdb355609"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Operación sujeta al Sistema de Pago de Obligaciones Tributarias con el Gobierno Central."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="53" width="58" height="10" isPrintWhenDetailOverflows="true" uuid="dbd02f6b-0b99-4650-a894-13b249822f0d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Medio de Pago]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="13" width="58" height="20" isPrintWhenDetailOverflows="true" uuid="cdc654ab-df67-4249-80c0-8166108b51ba"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Leyenda]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="63" y="33" width="10" height="20" isPrintWhenDetailOverflows="true" uuid="c08fe2e4-db17-4ea8-8d3f-4ba58f0deee4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="33" width="58" height="20" isPrintWhenDetailOverflows="true" uuid="fc530312-a74e-4936-b627-c608cd6a3038"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bien o Servicio]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="73" y="53" width="152" height="10" isPrintWhenDetailOverflows="true" uuid="7c85a1ed-0446-43ca-889a-55c41c844894"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA["001 Deposito en Cuenta"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="73" y="33" width="152" height="20" isPrintWhenDetailOverflows="true" uuid="7fbfa4b9-3fa7-44d7-95cc-b76587a03867"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="false"/>
+					<paragraph lineSpacing="Proportional" rightIndent="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CodigoBienProductoDetraccionSUNAT}+"  "+$F{DescripcionTipoDetraccion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="93" y="73" width="132" height="10" isPrintWhenDetailOverflows="true" uuid="1c5c48bc-07a4-462c-826a-54396b6e7900"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="false"/>
+					<paragraph lineSpacing="Proportional" rightIndent="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PorcentajeDetraccion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="63" width="108" height="10" isPrintWhenDetailOverflows="true" uuid="a9effe13-c9e5-449a-840a-246cf0fa27c7"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nro. Cuenta Banco de la Nación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="63" y="53" width="10" height="10" isPrintWhenDetailOverflows="true" uuid="f8b00c5c-847e-4594-bac7-c79fbf964912"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="113" y="63" width="10" height="10" isPrintWhenDetailOverflows="true" uuid="0cafa844-1a0c-48a9-8a33-a199e7de989d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="83" y="83" width="10" height="10" isPrintWhenDetailOverflows="true" uuid="e2820327-15c3-4789-a758-64683751f395"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="83" width="77" height="10" isPrintWhenDetailOverflows="true" uuid="02d725ff-5dd1-4f77-ac8a-18c5de002438"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto Detracción]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="93" y="83" width="132" height="10" isPrintWhenDetailOverflows="true" uuid="bcac70f0-0492-42a6-9311-e79bb984ef7e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="false"/>
+					<paragraph lineSpacing="Proportional" rightIndent="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MontoDetraccion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="123" y="63" width="102" height="10" isPrintWhenDetailOverflows="true" uuid="0421ad2b-e462-43cb-ba82-c10110057a13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NumeroDetraccionBancoNacion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+</jasperReport>

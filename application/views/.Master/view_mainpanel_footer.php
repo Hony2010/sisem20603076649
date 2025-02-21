@@ -209,7 +209,11 @@
   var NOMBRE_EMPRESA = "<?php echo $this->session->userdata("Empresa_".LICENCIA_EMPRESA_RUC)["RazonSocial"]; ?>";
   var RUC_EMPRESA = "<?php echo $this->session->userdata("Empresa_".LICENCIA_EMPRESA_RUC)["CodigoEmpresa"]; ?>";
 
-  var url_menu = SERVER_URL +"assets/data/menu/menu-<?php echo $this->session->userdata('Usuario_'.LICENCIA_EMPRESA_RUC)['NombreUsuario']; ?>.json";//'assets/data/menu/__menu.json';
+  var ID_TIPO_OPERACION_VENTA_INTERNA = <?php echo ID_TIPO_OPERACION_VENTA_INTERNA;?>;
+  var ID_TIPO_OPERACION_DETRACCION = <?php echo ID_TIPO_OPERACION_DETRACCION;?>;
+  var CODIGO_MEDIO_PAGO_DETRACCION_DEPOSITO = "<?php echo CODIGO_MEDIO_PAGO_DETRACCION_DEPOSITO;?>";
+
+var url_menu = SERVER_URL +"assets/data/menu/menu-<?php echo $this->session->userdata('Usuario_'.LICENCIA_EMPRESA_RUC)['NombreUsuario']; ?>.json";//'assets/data/menu/__menu.json';
 </script>
 
 <link href="<?php echo base_url()?>assets/css/styles.css" rel="stylesheet">

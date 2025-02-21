@@ -32,9 +32,13 @@
 <#list listaLeyendas as leyenda>
   <cbc:Note languageLocaleID="${leyenda.codigo}"><![CDATA[${leyenda.descripcion}]]></cbc:Note>
 </#list>
+<#if tipOperacion == "1001">
+  <cbc:Note languageLocaleID="2006"><![CDATA[Operación sujeta a detracción]]></cbc:Note>
+</#if>
   <cbc:DocumentCurrencyCode listID="ISO 4217 Alpha"
                           listName="Currency"
                           listAgencyName="United Nations Economic Commission for Europe">${moneda}</cbc:DocumentCurrencyCode>
+
 <#list listaRelacionado as relacion>
   <#if relacion.indDocRelacionado = "3">
   <!-- Orden Compra -->
@@ -201,7 +205,6 @@
   </cac:PaymentTerms>
   </#list>
   </#if>
-
   <#if desDireccionEntrega??><#if desDireccionEntrega != '-' && codUbigeoEntrega != '-'  && desDireccionEntrega != ''>
   <cac:DeliveryTerms>
     <!-- Dato de Entrega -->
@@ -223,27 +226,23 @@
 	<!-- Fin Dato de Entrega -->
   </cac:DeliveryTerms>
   </#if></#if>
-
-  <#if ctaBancoNacionDetraccion??><#if ctaBancoNacionDetraccion != "-" && ctaBancoNacionDetraccion != "">
+  <#if tipOperacion == "1001">
+  <!-- Inicio de detracciones -->
   <cac:PaymentMeans>
-	<cbc:PaymentMeansCode listName="Medio de pago"
-						  listAgencyName="PE:SUNAT"
-						  listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo59">${codMedioPago}</cbc:PaymentMeansCode>
-	<cac:PayeeFinancialAccount>
+  <cbc:ID>Detraccion</cbc:ID>
+	<cbc:PaymentMeansCode>${codMedioPagoDetraccion}</cbc:PaymentMeansCode>
+	  <cac:PayeeFinancialAccount>
       <cbc:ID>${ctaBancoNacionDetraccion}</cbc:ID>
     </cac:PayeeFinancialAccount>
   </cac:PaymentMeans>
   <cac:PaymentTerms>
-	<cbc:PaymentMeansID schemeName="Codigo de detraccion"
-						schemeAgencyName="PE:SUNAT"
-						schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo54">${codBienDetraccion}</cbc:PaymentMeansID>
+  <cbc:ID>Detraccion</cbc:ID>
+	  <cbc:PaymentMeansID>${codBienDetraccion}</cbc:PaymentMeansID>
     <cbc:PaymentPercent>${porDetraccion}</cbc:PaymentPercent>
     <cbc:Amount currencyID="${moneda}">${mtoDetraccion}</cbc:Amount>
   </cac:PaymentTerms>
   <!-- Fin de detracciones -->
    </#if>
-   </#if>
-
 <#if sumTotalAnticipos??>
 <#list listaRelacionado as relacion>
   <#if relacion.indDocRelacionado = "2">
@@ -256,7 +255,6 @@
   </#if>
 </#list>
 </#if>
-
 <#list listaVariablesGlobales as variableGlobal>
 <#if (variableGlobal.codTipoVariableGlobal?? && variableGlobal.codTipoVariableGlobal != "-") >
 	<cac:AllowanceCharge>

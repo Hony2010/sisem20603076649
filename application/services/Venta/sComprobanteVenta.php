@@ -33,6 +33,7 @@ class sComprobanteVenta extends MY_Service {
     $this->load->service("Configuracion/General/sFormaPago");
     $this->load->service("Configuracion/General/sMoneda");
     $this->load->service("Configuracion/Venta/sTipoTarjeta");
+    $this->load->service("Configuracion/Venta/sTipoDetraccion");
     $this->load->service("Configuracion/General/sMedioPago");    
     $this->load->service("Configuracion/General/sLugarDestino");
     $this->load->service("Configuracion/General/sSede");
@@ -320,8 +321,9 @@ class sComprobanteVenta extends MY_Service {
     $this->ComprobanteVenta["ParametroDetraccion"] = $this->sConstanteSistema->ObtenerParametroDetraccion();
 
     $this->ComprobanteVenta["EstadoDetraccion"] = false;
-    $this->ComprobanteVenta["PorcentajeDetraccion"] = "0.00";
+    $this->ComprobanteVenta["PorcentajeDetraccion"] = "0";
     $this->ComprobanteVenta["MontoDetraccion"] = "0.00";
+    $this->ComprobanteVenta["CodigoMedioPagoDetraccion"] = '';
 
     $this->ComprobanteVenta["EstadoRetencionIGV"] = false;
     $this->ComprobanteVenta["BaseImponibleRetencionIGV"] = 0.00;
@@ -333,6 +335,7 @@ class sComprobanteVenta extends MY_Service {
     $FormasPago = $this->sFormaPago->ListarFormasPago();
     $Monedas = $this->sMoneda->ListarMonedas();
     $TiposTarjeta = $this->sTipoTarjeta->ListarTiposTarjeta();
+    $TiposDetraccion = $this->sTipoDetraccion->ListarTiposDetraccion();
     $dataCliente = $this->sCliente->Cargar();
     $Sedes = $this->sAccesoUsuarioAlmacen->ConsultarSedesTipoAlmacenPorUsuario($parametro); //$this->sSede->ListarSedesTipoAlmacen();
     $Alumnos = $this->sAlumno->ListarTodosAlumnos();
@@ -365,6 +368,7 @@ class sComprobanteVenta extends MY_Service {
       'FormasPago' => $FormasPago,
       'Monedas' => $Monedas,
       'TiposTarjeta' => $TiposTarjeta,
+      'TiposDetraccion' => $TiposDetraccion,
       'Motivos' => $Motivos,
       'TipoCambio' => $TipoCambio,
       'MostrarCampos' => $MostrarCampos,
@@ -401,6 +405,7 @@ class sComprobanteVenta extends MY_Service {
     $Monedas = $this->sMoneda->ListarMonedas();
     $TiposTarjeta = $this->sTipoTarjeta->ListarTiposTarjeta();
     $Sedes = $this->sSede->ListarSedesTipoAlmacen();
+    $TiposDetraccion = $this->sTiposDetraccion->ListarTiposDetraccion();
 
     $hoy = $this->Base->ObtenerFechaServidor("d/m/Y");
     $data["FechaCambio"] = $hoy;
@@ -413,7 +418,8 @@ class sComprobanteVenta extends MY_Service {
       'Monedas' => $Monedas,
       'TiposTarjeta' => $TiposTarjeta,
       'TipoCambio' => $TipoCambio,
-      'Sedes' => $Sedes
+      'Sedes' => $Sedes,
+      'TiposDetraccion' => $TiposDetraccion
     );
 
     return $resultado;
