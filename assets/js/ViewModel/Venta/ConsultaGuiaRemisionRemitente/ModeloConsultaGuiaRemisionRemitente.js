@@ -24,7 +24,7 @@ ModeloConsultaGuiaRemisionRemitente = function (data) {
     if (event) {
       self.ConsultarGuiasRemisionRemitentePorPagina(data, event, function ($data, $event) {
         self.data.GuiasRemisionRemitente([]);
-        self.PushGuiaRemisionRemitente($data, $event);        
+        self.PushGuiaRemisionRemitente({ resultado: $data }, $event);        
         callback(data, event);
       });
     }
@@ -60,7 +60,7 @@ ModeloConsultaGuiaRemisionRemitente = function (data) {
         dataType: 'json',
         data: datajs,
         cache: false,
-        url: SITE_URL + '/Venta/GuiaRemisionRemitente/cConsultaGuiaRemisionRemitente/ConsultarGuiasRemisionRemitentePorPagina',
+        url: SITE_URL + '/Venta/cConsultaGuiaRemisionRemitente/ConsultarGuiasRemisionRemitentePorPagina',
         success: function (data) {
           $("#loader").hide();
           callback(data, event);
