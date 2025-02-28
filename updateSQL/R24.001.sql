@@ -31,10 +31,10 @@ DELIMITER ;
 DELIMITER $$
 
 CREATE TRIGGER trg_actualizar_sumcuota_update
-AFTER UPDATE ON cuotapagoclientecomprobanteventa
+AFTER INSERT ON cuotapagoclientecomprobanteventa
 FOR EACH ROW
 BEGIN
-    -- Actualizar la suma después de un UPDATE
+    -- Actualizar la suma después de un INSERT
     UPDATE comprobanteventa AS cv
     SET cv.SumCuotaPagoClienteComprobanteVenta = (
         SELECT SUM(cpcv.MontoCuota)

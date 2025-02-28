@@ -1,9 +1,10 @@
 -- R25.008
 
-INSERT INTO `parametrosistema` (`IdParametroSistema`, `NombreParametroSistema`, `ValorParametroSistema`, `IdEntidadSistema`, `IndicadorEstado`, `UsuarioRegistro`, `FechaRegistro`, `FechaModificacion`) VALUES ('397', 'ParametroHoraConsultaVenta', '0', '7', 'A', 'SISEM', '2023-05-20 11:47:00', '2023-05-20 11:47:00');
+INSERT INTO `parametrosistema` (`IdParametroSistema`, `NombreParametroSistema`, `ValorParametroSistema`, `IdEntidadSistema`, `IndicadorEstado`, `UsuarioRegistro`, `FechaRegistro`, `FechaModificacion`) VALUES ('397', 'ParametroHoraConsultaVenta', '1', '7', 'A', 'SISEM', '2023-05-20 11:47:00', '2023-05-20 11:47:00');
 
 -- R25.009
-UPDATE motivonotacredito SET IndicadorVenta = '1', AfectacionVenta = '1', IndicadorEstado = 'A' WHERE CodigoMotivoNotaCredito = '02' and CodigoMotivoNotaCredito = '03';
+UPDATE motivonotacredito SET IndicadorVenta = '1', AfectacionVenta = '1', IndicadorEstado = 'A' WHERE CodigoMotivoNotaCredito = '02';
+UPDATE motivonotacredito SET IndicadorVenta = '1', AfectacionVenta = '1', IndicadorEstado = 'A' WHERE CodigoMotivoNotaCredito = '03';
 
 -- R25.011
 ALTER TABLE `comprobantecompra` MODIFY COLUMN `Observacion` VARCHAR(900);
@@ -72,3 +73,14 @@ INSERT INTO `tipodetraccion` (`IdTipoDetraccion`, `DescripcionTipoDetraccion`, `
 	('039', 'Minerales no metálicos', 'A', 10.00),
 	('040', 'Bien inmueble gravado con IGV', 'A', 4.00),
 	('041', 'Plomo', 'A', 15.00);
+
+-- actualizar la cantidad de caracteres en la dirección de partida y llegada en guía de remision electrónica
+
+ALTER TABLE guiaremisionremitente MODIFY COLUMN DireccionPuntoPartida VARCHAR(550);
+ALTER TABLE guiaremisionremitente MODIFY COLUMN DireccionPuntoLlegada VARCHAR(550);
+
+-- 
+
+UPDATE parametrosistema
+SET ValorParametroSistema='R25.017.1'
+WHERE IdParametroSistema=274;
