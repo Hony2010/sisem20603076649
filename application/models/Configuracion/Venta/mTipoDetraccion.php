@@ -18,7 +18,7 @@ class mTipoDetraccion extends CI_Model {
 
         function ListarTiposDetraccion()
         {
-          $this->db->select("*")
+          $this->db->select("*, concat(IdTipoDetraccion, ' - ', DescripcionTipoDetraccion) AS FullDescripcionTipoDetraccion")
           ->from('TipoDetraccion')
           ->where('IndicadorEstado', ESTADO_ACTIVO)
           ->order_by('IdTipoDetraccion');

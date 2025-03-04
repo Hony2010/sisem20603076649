@@ -1417,9 +1417,18 @@ VistaModeloComprobanteVenta = function (data, options) {
 			const cuotas = self.CuotasPagoClienteComprobanteVenta()
 			if (self.ParametroDetraccion() == '1' && self.IdFormaPago() == ID_FORMA_PAGO_CREDITO && cuotas.length > 0) {
 				const totalPagar = self.CalculoMontoAPagar()
-				const sumaCuotas = cuotas.reduce((suma, cuota) => suma + parseFloat(cuota.MontoCuota()), 0);
 
-				if (parseFloat(totalPagar) != sumaCuotas) {
+				const sumaCuotas = cuotas.reduce((suma, cuota) => {
+					let monto = cuota.MontoCuota()
+
+					if (monto) {
+						monto = monto.replaceAll(',', '')
+					}
+
+					return suma + parseFloat(monto)
+				}, 0);
+
+				if (parseFloat(totalPagar.replaceAll(',', '')) != sumaCuotas) {
 					alertify.alert("Validación", `La suma de las cuotas debe ser igual ${totalPagar}`);
 					return false;
 				}
@@ -4811,9 +4820,10 @@ VistaModeloComprobanteVenta = function (data, options) {
 		if (self.EstadoDetraccion()) {
 			porcentajeDetraccion = self.PorcentajeDetraccion();
 		}
+		
 		var total = parseFloat(self.Total());
-		var resultado = accounting.formatNumber(porcentajeDetraccion*total/100, 0);
-		self.MontoDetraccion(parseFloat(resultado).toFixed(2));
+		var resultado = (porcentajeDetraccion*total) / 100;
+		self.MontoDetraccion(accounting.formatNumber(resultado, 0));
 		return resultado;
 	}, this);
 

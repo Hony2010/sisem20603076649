@@ -508,7 +508,7 @@
 															value : CodigoBienProductoDetraccionSUNAT,
 															options : TiposDetraccion,
 															optionsValue : 'IdTipoDetraccion' ,
-															optionsText : 'DescripcionTipoDetraccion' ,
+															optionsText : 'FullDescripcionTipoDetraccion' ,
 															attr : { disabled : !EstadoDetraccion() },
 															event : { focus : OnFocus , change : (data,event) => OnChangeTipoDetraccion(data,event,$parent) , keydown : OnKeyEnter }"
 															data-validation="required"
@@ -1007,7 +1007,7 @@
 							</div>
 						</div>
 						
-						<!-- ko if:(MontoDetraccion() > 0) -->
+						<!-- ko if:(EstadoDetraccion() == 1) -->
 						<div class="col-md-2">
 							<div class="form-group">
 								<div class="addon-top">Detracción (<span data-bind="text: PorcentajeDetraccion"></span>%) </div>
