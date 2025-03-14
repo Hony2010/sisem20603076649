@@ -183,6 +183,24 @@
     </cac:Party>
   </cac:AccountingCustomerParty>
 
+  <#if tipOperacion == "1001">
+  <!-- Inicio de detracciones -->
+  <cac:PaymentMeans>
+    <cbc:ID>Detraccion</cbc:ID>
+    <cbc:PaymentMeansCode>${codMedioPagoDetraccion}</cbc:PaymentMeansCode>
+    <cac:PayeeFinancialAccount>
+      <cbc:ID>${ctaBancoNacionDetraccion}</cbc:ID>
+    </cac:PayeeFinancialAccount>
+  </cac:PaymentMeans>
+  <cac:PaymentTerms>
+    <cbc:ID>Detraccion</cbc:ID>
+    <cbc:PaymentMeansID>${codBienDetraccion}</cbc:PaymentMeansID>
+    <cbc:PaymentPercent>${porDetraccion}</cbc:PaymentPercent>
+    <cbc:Amount currencyID="${moneda}">${mtoDetraccion}</cbc:Amount>
+  </cac:PaymentTerms>
+  <!-- Fin de detracciones -->
+  </#if>
+
   <#if idFormaPago?? && idFormaPago == '1'>
 	<cac:PaymentTerms>
 	  <cbc:ID>${nomIdFormaPago}</cbc:ID>
@@ -226,23 +244,6 @@
 	<!-- Fin Dato de Entrega -->
   </cac:DeliveryTerms>
   </#if></#if>
-  <#if tipOperacion == "1001">
-  <!-- Inicio de detracciones -->
-  <cac:PaymentMeans>
-  <cbc:ID>Detraccion</cbc:ID>
-	<cbc:PaymentMeansCode>${codMedioPagoDetraccion}</cbc:PaymentMeansCode>
-	  <cac:PayeeFinancialAccount>
-      <cbc:ID>${ctaBancoNacionDetraccion}</cbc:ID>
-    </cac:PayeeFinancialAccount>
-  </cac:PaymentMeans>
-  <cac:PaymentTerms>
-  <cbc:ID>Detraccion</cbc:ID>
-	  <cbc:PaymentMeansID>${codBienDetraccion}</cbc:PaymentMeansID>
-    <cbc:PaymentPercent>${porDetraccion}</cbc:PaymentPercent>
-    <cbc:Amount currencyID="${moneda}">${mtoDetraccion}</cbc:Amount>
-  </cac:PaymentTerms>
-  <!-- Fin de detracciones -->
-   </#if>
 <#if sumTotalAnticipos??>
 <#list listaRelacionado as relacion>
   <#if relacion.indDocRelacionado = "2">
