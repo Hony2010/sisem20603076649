@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FacturaElectronicaModelo01" language="groovy" pageWidth="595" pageHeight="796" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="34c97518-d028-46ef-89a8-923e3f985dce">
-	<property name="ireport.zoom" value="2.357947691000071"/>
-	<property name="ireport.x" value="115"/>
-	<property name="ireport.y" value="646"/>
+	<property name="ireport.zoom" value="1.6105100000000483"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="IdComprobanteVenta" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -14,11 +14,11 @@
 	</parameter>
 	<queryString>
 		<![CDATA[select CV.IdComprobanteVenta, CV.SerieDocumento,concat(CV.NumeroDocumento) as NumeroDocumento, concat(CV.SerieDocumento,'-', CV.NumeroDocumento) as Documento,
-		 PER.RazonSocial, PER.NumeroDocumentoIdentidad, CV.Direccion, CV.AliasUsuarioVenta, CV.FechaEmision,date_format(CV.FechaRegistro, '%H:%i:%s') as Hora, CV.FechaVencimiento, MON.NombreMoneda,MON.SimboloMoneda,
-		 FP.NombreFormaPago, CV.GuiaRemision, CV.OrdenCompra, CV.Observacion,if(CV.IdTipoDocumento='8', MNC.NombreMotivoNotaCredito, if(CV.IdTipoDocumento='9',MND.NombreMotivoNotaDebito,'')) as MotivoNota,
+		 PER.RazonSocial, PER.NumeroDocumentoIdentidad, PER.Direccion, CV.AliasUsuarioVenta, date_format(CV.FechaEmision, '%d/%m/%Y') as FechaEmision,  date_format(CV.FechaRegistro, '%H:%i:%s') as Hora, CV.FechaVencimiento, MON.NombreMoneda,MON.SimboloMoneda, CV.IdTipoVenta,
+		 FP.NombreFormaPago, FP.IdFormaPago, CV.GuiaRemision, CV.OrdenCompra, CV.Observacion,if(CV.IdTipoDocumento='8', MNC.NombreMotivoNotaCredito, if(CV.IdTipoDocumento='9',MND.NombreMotivoNotaDebito,'')) as MotivoNota, CV.IdTipodocumento,
 
 		 (select group_concat(DRE.NombreAbreviadoDocumentoReferencia ," ",DRE.SerieDocumentoReferencia ,"-",DRE.NumeroDocumentoReferencia separator ", ")
-		 from ComprobanteVenta as CVE inner join DocumentoReferencia DRE on DRE.IdComprobanteNota=CVE.IdComprobanteVenta where DRE.IdComprobanteNota=CV.IdComprobanteVenta) as 'DocumentoReferencia',
+		 from ComprobanteVenta as CVE inner join DocumentoReferencia DRE on DRE.IdComprobanteNota=CVE.IdComprobanteVenta where DRE.IdComprobanteNota=CV.IdComprobanteVenta and DRE.IndicadorEstado = 'A') as 'DocumentoReferencia',
 
 		 CV.ValorVentaGravado, CV.ValorVentaNoGravado, CV.ValorVentaInafecto, CV.DescuentoGlobal,
 		 CV.IGV, CV.Total,CV.MontoLetra, DCV.NumeroItem, DCV.NombreProducto,
@@ -36,7 +36,8 @@
 		 If (CV.IdTipoVenta = '1', M.CodigoMercaderia,
 		 If (CV.IdTipoVenta = '2',S.CodigoServicio,
 		 If(CV.IdTipoVenta = '3',AF.CodigoActivoFijo,
-		 If(CV.IdTipoVenta = '4',OV.CodigoOtraVenta,'')))) as CodigoProducto,FCP.URLPaginaWeb as URLPaginaWeb, FCP.RUCEmisor, FCP.Logotipo, CE.CodigoHash
+		 If(CV.IdTipoVenta = '4',OV.CodigoOtraVenta,'')))) as CodigoProducto,FCP.URLPaginaWeb as URLPaginaWeb, FCP.RUCEmisor, FCP.Logotipo,
+		 CE.CodigoHash
 from comprobanteventa as CV
 left join comprobanteelectronico as CE on CE.IdComprobanteVenta = CV.IdComprobanteVenta
 left join cliente as CLI on CLI.IdPersona=CV.IdCliente
@@ -54,7 +55,6 @@ left join otraventa as OV on OV.IdProducto = PRO.IdProducto
 left join loteproducto as LP on LP.IdLoteProducto=DCV.IdLoteProducto
 left join motivonotacredito as MNC on MNC.IdMotivoNotaCredito=CV.IdMotivoNotaCredito
 left join motivonotadebito as MND on MND.IdMotivoNotaDebito=CV.IdMotivoNotaDebito
-left join documentoreferencia as DR on DR.IdComprobanteNota=CV.IdComprobanteVenta
 left join tipodocumento as TD on TD.IdTipoDocumento=CV.IdTipoDocumento
 Cross join formatocomprobantepago as FCP
 
@@ -85,7 +85,7 @@ group by DCV.IdDetalleComprobanteVenta]]>
 	<field name="AliasUsuarioVenta" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="FechaEmision" class="java.sql.Date">
+	<field name="FechaEmision" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="Hora" class="java.lang.String"/>
@@ -98,7 +98,13 @@ group by DCV.IdDetalleComprobanteVenta]]>
 	<field name="SimboloMoneda" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="IdTipoVenta" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="NombreFormaPago" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IdFormaPago" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="GuiaRemision" class="java.lang.String">
@@ -111,6 +117,9 @@ group by DCV.IdDetalleComprobanteVenta]]>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="MotivoNota" class="java.lang.String"/>
+	<field name="IdTipodocumento" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="DocumentoReferencia" class="java.lang.String"/>
 	<field name="ValorVentaGravado" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -273,7 +282,7 @@ group by DCV.IdDetalleComprobanteVenta]]>
 				<textFieldExpression><![CDATA[$F{Direccion}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="197" y="133" width="60" height="15" uuid="3eebaa6b-7590-4a4e-8019-b8616025da66"/>
+				<reportElement x="199" y="133" width="60" height="15" uuid="3eebaa6b-7590-4a4e-8019-b8616025da66"/>
 				<textElement verticalAlignment="Bottom">
 					<font size="9"/>
 				</textElement>
@@ -287,7 +296,7 @@ group by DCV.IdDetalleComprobanteVenta]]>
 				<text><![CDATA[Moneda]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="264" y="133" width="100" height="15" uuid="cf34dea5-4091-4221-a7d5-12b4568a7f00"/>
+				<reportElement x="266" y="133" width="100" height="15" uuid="cf34dea5-4091-4221-a7d5-12b4568a7f00"/>
 				<textElement verticalAlignment="Bottom">
 					<font size="9"/>
 				</textElement>
@@ -330,7 +339,7 @@ group by DCV.IdDetalleComprobanteVenta]]>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="257" y="133" width="7" height="15" uuid="643b1dcf-a8a5-4eed-8b7e-70677c625a41"/>
+				<reportElement x="259" y="133" width="7" height="15" uuid="643b1dcf-a8a5-4eed-8b7e-70677c625a41"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<text><![CDATA[:]]></text>
 			</staticText>
@@ -380,7 +389,7 @@ group by DCV.IdDetalleComprobanteVenta]]>
 				<textElement verticalAlignment="Bottom">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{NombreFormaPago}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{IdTipodocumento}==8?"":$F{NombreFormaPago}]]></textFieldExpression>
 			</textField>
 			<rectangle radius="2">
 				<reportElement x="15" y="199" width="535" height="39" uuid="f3085b88-175d-45e8-9ace-61497599b9bf"/>
@@ -427,21 +436,21 @@ group by DCV.IdDetalleComprobanteVenta]]>
 				<reportElement x="340" y="9" width="211" height="81" uuid="309c2d51-95dc-4ccb-b1be-33d6d8c9a481"/>
 			</rectangle>
 			<textField isBlankWhenNull="true">
-				<reportElement x="341" y="63" width="209" height="20" uuid="3d876326-772f-416f-9cea-c41d82a94457"/>
+				<reportElement x="340" y="63" width="210" height="20" uuid="3d876326-772f-416f-9cea-c41d82a94457"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Documento}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="341" y="14" width="209" height="20" uuid="427dc4da-54fd-428e-a6da-96517011602d"/>
+				<reportElement x="340" y="14" width="210" height="20" uuid="427dc4da-54fd-428e-a6da-96517011602d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["RUC "+$F{RUCEmisor}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="340" y="39" width="209" height="20" uuid="8f08b8c8-3f49-42de-b160-14ee71822051"/>
+				<reportElement x="340" y="39" width="211" height="20" uuid="8f08b8c8-3f49-42de-b160-14ee71822051"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -733,9 +742,6 @@ com.google.zxing.BarcodeFormat.QR_CODE, 300, 300))]]></imageExpression>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "CuotasPagoCredito.jasper"]]></subreportExpression>
 			</subreport>
-			<rectangle radius="3">
-				<reportElement mode="Transparent" x="16" y="18" width="109" height="99" uuid="ec1ad304-c4dc-4777-86ef-a31ae2060740"/>
-			</rectangle>
 			<subreport>
 				<reportElement x="128" y="79" width="194" height="79" uuid="8a2dd5d8-1b28-4776-9e08-18d2f005f1ad"/>
 				<subreportParameter name="IdComprobanteVenta">
