@@ -465,7 +465,10 @@ VistaModeloNotaCredito = function (data, options) {
       self.MotivosNotaCredito([]);
       ko.utils.arrayForEach(self.CopiaMotivos(), function (entry) {
         var ids = entry.AfectacionVenta();
-        var res = ids.split(",");
+        var res = [];
+        if (ids) {
+          res = ids?.split(",")
+        }
         if (res.indexOf(self.TipoVenta()) >= 0) {
           self.MotivosNotaCredito.push(entry);
         }
