@@ -169,17 +169,22 @@ class sGuiaRemisionRemitenteElectronica extends MY_Service
                        $response["CodigoRespuesta"] = "98";
                     }
                     elseif($respuesta["codRespuesta"] =="0") {
-                      $arcCdr =$respuesta["arcCdr"];
-                      $archivoCDR = base64_decode($arcCdr);
-                      file_put_contents($rutaArchivoRpta, $archivoCDR);
-                      $response["FechaRespuestaEnvio"] = $this->Base->ObtenerFechaServidor("Y-m-d H:i:s");
-                      $response["Data"] = "";                    
+                      if (array_key_exists("arcCdr", $respuesta)) {
+                        $arcCdr = $respuesta["arcCdr"];
+                        $archivoCDR = base64_decode($arcCdr);
+                        file_put_contents($rutaArchivoRpta, $archivoCDR);
+                        $response["FechaRespuestaEnvio"] = $this->Base->ObtenerFechaServidor("Y-m-d H:i:s");
+                        $response["Data"] = "";                    
+                      } else {
+                        // se añade esto porque hay error de  arcCdr es undefined
+                        $response["CodigoRespuesta"] = "98";
+                      }
                     }                
                 }
                 else {
                   if($respuesta["codRespuesta"] =="99") {
                     if($respuesta["indCdrGenerado"] == "1") {
-                      $arcCdr =$respuesta["arcCdr"];
+                      $arcCdr = $respuesta["arcCdr"];
                       $archivoCDR = base64_decode($arcCdr);
                       file_put_contents($rutaArchivoRpta, $archivoCDR);
                     }
