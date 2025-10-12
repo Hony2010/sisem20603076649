@@ -79,8 +79,133 @@ INSERT INTO `tipodetraccion` (`IdTipoDetraccion`, `DescripcionTipoDetraccion`, `
 ALTER TABLE guiaremisionremitente MODIFY COLUMN DireccionPuntoPartida VARCHAR(550);
 ALTER TABLE guiaremisionremitente MODIFY COLUMN DireccionPuntoLlegada VARCHAR(550);
 
+-- R25.017.7 -- Actualizar saldo caja
+
+DELIMITER $$
+
+-- AFTER INSERT
+CREATE TRIGGER trg_movimientocaja_after_insert
+AFTER INSERT ON movimientocaja
+FOR EACH ROW
+BEGIN
+    DECLARE v_fecha DATE;
+    SELECT FechaTurno INTO v_fecha
+      FROM comprobantecaja
+     WHERE IdComprobanteCaja = NEW.IdComprobanteCaja
+     LIMIT 1;
+
+    UPDATE saldocajaturno s
+    SET SaldoActual = (
+        SELECT IFNULL(SUM(mc.MontoIngresoEfectivo),0) - IFNULL(SUM(mc.MontoEgresoEfectivo),0)
+        FROM movimientocaja mc
+        INNER JOIN comprobantecaja cc ON cc.IdComprobanteCaja = mc.IdComprobanteCaja
+        WHERE mc.IdCaja = s.IdCaja
+          AND mc.IdTurno = s.IdTurno
+          AND mc.IdUsuario = s.IdUsuario
+          AND cc.FechaTurno = s.FechaCaja
+          AND mc.IndicadorEstado = 'A'
+          AND cc.IndicadorEstado = 'A'
+    )
+    WHERE s.IdCaja = NEW.IdCaja
+      AND s.IdTurno = NEW.IdTurno
+      AND s.IdUsuario = NEW.IdUsuario
+      AND s.FechaCaja = v_fecha
+      AND s.IndicadorEstado = 'A';
+END$$
+
+
+-- AFTER UPDATE
+CREATE TRIGGER trg_movimientocaja_after_update
+AFTER UPDATE ON movimientocaja
+FOR EACH ROW
+BEGIN
+    DECLARE v_fecha_old DATE;
+    DECLARE v_fecha_new DATE;
+
+    -- Recalcular para la clave antigua (por si cambió caja/turno/usuario/comprobante)
+    SELECT FechaTurno INTO v_fecha_old
+      FROM comprobantecaja
+     WHERE IdComprobanteCaja = OLD.IdComprobanteCaja
+     LIMIT 1;
+
+    UPDATE saldocajaturno s
+    SET SaldoActual = (
+        SELECT IFNULL(SUM(mc.MontoIngresoEfectivo),0) - IFNULL(SUM(mc.MontoEgresoEfectivo),0)
+        FROM movimientocaja mc
+        INNER JOIN comprobantecaja cc ON cc.IdComprobanteCaja = mc.IdComprobanteCaja
+        WHERE mc.IdCaja = s.IdCaja
+          AND mc.IdTurno = s.IdTurno
+          AND mc.IdUsuario = s.IdUsuario
+          AND cc.FechaTurno = s.FechaCaja
+          AND mc.IndicadorEstado = 'A'
+          AND cc.IndicadorEstado = 'A'
+    )
+    WHERE s.IdCaja = OLD.IdCaja
+      AND s.IdTurno = OLD.IdTurno
+      AND s.IdUsuario = OLD.IdUsuario
+      AND s.FechaCaja = v_fecha_old
+      AND s.IndicadorEstado = 'A';
+
+    -- Recalcular para la clave nueva
+    SELECT FechaTurno INTO v_fecha_new
+      FROM comprobantecaja
+     WHERE IdComprobanteCaja = NEW.IdComprobanteCaja
+     LIMIT 1;
+
+    UPDATE saldocajaturno s
+    SET SaldoActual = (
+        SELECT IFNULL(SUM(mc.MontoIngresoEfectivo),0) - IFNULL(SUM(mc.MontoEgresoEfectivo),0)
+        FROM movimientocaja mc
+        INNER JOIN comprobantecaja cc ON cc.IdComprobanteCaja = mc.IdComprobanteCaja
+        WHERE mc.IdCaja = s.IdCaja
+          AND mc.IdTurno = s.IdTurno
+          AND mc.IdUsuario = s.IdUsuario
+          AND cc.FechaTurno = s.FechaCaja
+          AND mc.IndicadorEstado = 'A'
+          AND cc.IndicadorEstado = 'A'
+    )
+    WHERE s.IdCaja = NEW.IdCaja
+      AND s.IdTurno = NEW.IdTurno
+      AND s.IdUsuario = NEW.IdUsuario
+      AND s.FechaCaja = v_fecha_new
+      AND s.IndicadorEstado = 'A';
+END$$
+
+
+-- AFTER DELETE
+CREATE TRIGGER trg_movimientocaja_after_delete
+AFTER DELETE ON movimientocaja
+FOR EACH ROW
+BEGIN
+    DECLARE v_fecha DATE;
+    SELECT FechaTurno INTO v_fecha
+      FROM comprobantecaja
+     WHERE IdComprobanteCaja = OLD.IdComprobanteCaja
+     LIMIT 1;
+
+    UPDATE saldocajaturno s
+    SET SaldoActual = (
+        SELECT IFNULL(SUM(mc.MontoIngresoEfectivo),0) - IFNULL(SUM(mc.MontoEgresoEfectivo),0)
+        FROM movimientocaja mc
+        INNER JOIN comprobantecaja cc ON cc.IdComprobanteCaja = mc.IdComprobanteCaja
+        WHERE mc.IdCaja = s.IdCaja
+          AND mc.IdTurno = s.IdTurno
+          AND mc.IdUsuario = s.IdUsuario
+          AND cc.FechaTurno = s.FechaCaja
+          AND mc.IndicadorEstado = 'A'
+          AND cc.IndicadorEstado = 'A'
+    )
+    WHERE s.IdCaja = OLD.IdCaja
+      AND s.IdTurno = OLD.IdTurno
+      AND s.IdUsuario = OLD.IdUsuario
+      AND s.FechaCaja = v_fecha
+      AND s.IndicadorEstado = 'A';
+END$$
+
+DELIMITER ;
+
 -- 
 
 UPDATE parametrosistema
-SET ValorParametroSistema='R25.017.1'
+SET ValorParametroSistema='R25.017.7'
 WHERE IdParametroSistema=274;

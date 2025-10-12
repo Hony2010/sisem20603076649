@@ -14,7 +14,7 @@ class sDocumentoIngreso extends sComprobanteCaja {
     $this->load->service('Caja/sMovimientoCaja');
     $this->load->service('Caja/sSaldoCajaTurno');
     $this->load->service('Caja/sPendienteCobranzaCliente');
-    $this->load->service('Configuracion/General/sMedioPago');
+    // $this->load->service('Configuracion/General/sMedioPago');
   }
 
   function Cargar() {
@@ -34,9 +34,9 @@ class sDocumentoIngreso extends sComprobanteCaja {
     $resultado["CopiaSeries"] = $resultado["SeriesDocumento"];
 
     //PARA OBTENER TIPO CAMBIO
-    $TipoCambioActual = $this->tipocambiosunat->ConsultarTipoCambioCompra();
-    $ValorTipoCambio = ($TipoCambioActual == "") ? "" : $TipoCambioActual;
-    $resultado["ValorTipoCambio"] = $ValorTipoCambio;
+    // $TipoCambioActual = $this->tipocambiosunat->ConsultarTipoCambioCompra();
+    // $ValorTipoCambio = ($TipoCambioActual == "") ? "" : $TipoCambioActual;
+    // $resultado["ValorTipoCambio"] = $ValorTipoCambio;
 
     $resultado["NuevoDocumentoIngreso"] = $resultado;
 
