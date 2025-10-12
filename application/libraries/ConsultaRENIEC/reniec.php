@@ -219,8 +219,10 @@
 			if( strlen( $dni )==8 && $dni!="" )
 			{
 				//$result =$this->searchReniecCloud($dni); //$this->searchReniec($dni);
-				$result =$this->searchReniecAteneaPeru($dni); //$this->searchReniec($dni);
-				
+				//$result =$this->searchReniecAteneaPeru($dni); //$this->searchReniec($dni);
+
+				$result =$this->searchByDecolecta($dni);
+
 				if( $result!=false )
 				{
 					$rtn = (object)array(
@@ -232,11 +234,55 @@
 			}
 			$rtn = (object)array(
 				"success" 	=> false,
-				"message" 	=> "El número de documento ingresado no existe o no se puede acceder a la página de ATENEA PERU.",
+				"message" 	=> "El número de documento ingresado no existe o no se puede acceder al servicio de busqueda.",
 				"error" 	=> $this->list_error
 			);
 			return ($inJSON==true) ? json_encode($rtn,JSON_PRETTY_PRINT) : $rtn;
 		}
 		
+		function searchByDecolecta($number)
+		{
+			$key = 'sk_10165.9kwiIC2qoBUWKBfBROh8nyIzMht2n39x';
+			$base_url = 'https://api.decolecta.com/v1/reniec/dni';
+			$curl = curl_init();
+			curl_setopt_array($curl, array(
+				CURLOPT_URL => "$base_url?numero=$number",
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_ENCODING => '',
+				CURLOPT_MAXREDIRS => 10,
+				CURLOPT_TIMEOUT => 0,
+				CURLOPT_FOLLOWLOCATION => true,
+				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+				CURLOPT_CUSTOMREQUEST => 'GET',
+				CURLOPT_HTTPHEADER => array(
+					"Authorization: Bearer $key"
+				),
+			));
+
+			$response = curl_exec($curl);
+
+			curl_close($curl);
+
+			$result = json_decode($response, true);
+			
+			if(!array_key_exists('document_number', $result)) {
+				return false;
+			}
+
+			$rtn = array(
+				"DNI" 				=> $result['document_number'],
+				"CodVerificacion" 	=> "",
+				"NombreCompleto" 	=> $result['first_name'],
+				"ApellidoCompleto" 	=> $result['first_last_name'] . ' ' . $result['second_last_name'],
+				"gvotacion" 		=> "",
+				"Distrito" 			=> "",
+				"Provincia" 		=> "",
+				"Departamento" 		=> "",
+				"Direccion"			=> "",
+				"RazonSocial"		=> $result['full_name']
+			);
+
+			return $rtn;
+		}
 	}
 ?>
