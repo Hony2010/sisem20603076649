@@ -242,7 +242,7 @@
 		
 		function searchByDecolecta($number)
 		{
-			$key = 'sk_10165.9kwiIC2qoBUWKBfBROh8nyIzMht2n39x';
+			$key = 'sk_10165.y3VrYzDB69hD7lpyGl7zp0LOHygHJTiW';
 			$base_url = 'https://api.decolecta.com/v1/reniec/dni';
 			$curl = curl_init();
 			curl_setopt_array($curl, array(
