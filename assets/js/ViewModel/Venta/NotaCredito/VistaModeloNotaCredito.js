@@ -930,6 +930,17 @@ self.AgregarComprobantesVentaPorCliente = function (data, event) {
         data_item.IdReferenciaDCV = data_item.IdDetalleComprobanteVenta;
         data_item.IdDetalleReferencia = data_item.IdDetalleComprobanteVenta;
 
+        if(self.IdMotivoNotaCredito() === '3') {
+          data_item.PrecioUnitario = '0.00'
+          data_item.ValorUnitario = '0.00'
+          data_item.ValorVentaItem = '0.00'
+          data_item.IGVItem = '0.00'
+          data_item.SubTotal = '0.00'
+          data_item.PrecioUnitarioNeto = '0.00'
+          data_item.ValorUnitarioNeto = '0.00'
+          data_item.ValorVentaNetoItem = '0.00'
+        }
+
         if (window.Motivo.Reglas.IniciarCampoDetalle.length > 0) {
           window.Motivo.Reglas.IniciarCampoDetalle.forEach(function (elemento) {
             var nombre_elemento = elemento.Id;
@@ -941,6 +952,8 @@ self.AgregarComprobantesVentaPorCliente = function (data, event) {
 
         var _objeto = self.DetallesNotaCredito.AgregarDetalleNotaCredito(data_item, event);
         _objeto.InicializarVistaModelo(event, self.PostBusquedaProducto);
+        _objeto.ValidarCodigoMercaderia(_objeto, event)
+
       });
       i++;
     });

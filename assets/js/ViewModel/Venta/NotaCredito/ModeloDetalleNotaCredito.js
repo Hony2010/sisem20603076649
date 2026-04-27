@@ -1,7 +1,6 @@
 ModeloDetalleNotaCredito = function (data) {
     var self = this;
     var base = data;
-
     self.InicializarModelo =function(event,callback,callback2) {
       if(event) {
         if(callback)
@@ -16,7 +15,7 @@ self.Reemplazar = function(data) {
         // Validar y asignar valores iniciales
         data.PrecioUnitario = data.PrecioUnitario === "" || data.PrecioUnitario === null ? "0.00" : data.PrecioUnitario;
 
-        var nuevodetalle = self.NuevoDetalleNotaCredito;
+        var nuevodetalle = {} //base.NuevoDetalleNotaCredito;
 
         // Obtener solo las propiedades incluidas
         var includesList = Object.keys(ko.mapping.toJS(nuevodetalle, { ignore: ["Cantidad", "PrecioUnitario", "SubTotal", "SaldoPendienteNotaCredito"] }));
